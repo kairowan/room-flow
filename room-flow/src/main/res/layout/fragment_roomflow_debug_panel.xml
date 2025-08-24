@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:cardCornerRadius="16dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="RoomFlow 调试面板（View）"
+                    android:textStyle="bold"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/tvSubtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="展示 busy 重试、事务耗时、checkpoint 次数与最近 SQL（采样）"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 三行统计卡片（include 复用同一布局） -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <include layout="@layout/view_roomflow_stat_row"/>
+            <include layout="@layout/view_roomflow_stat_row"/>
+            <include layout="@layout/view_roomflow_stat_row"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvRecentSqlTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="最近 SQL（采样）"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:textSize="16sp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvRecentSql"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:overScrollMode="ifContentScrolls"
+            android:layout_marginTop="8dp"/>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
