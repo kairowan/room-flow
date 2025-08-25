@@ -79,7 +79,7 @@ roomflow/                      // 核心库
    ├─ security/                // CipherSupport
    └─ migration/               // MigrationAssistant
 
-roomflow-debugpanel-view/      // 可选：调试面板(View)
+room-flow-view/      // 可选：调试面板(View)
 ```
 
 ---
