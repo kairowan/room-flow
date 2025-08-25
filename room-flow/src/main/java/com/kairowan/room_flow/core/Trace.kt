@@ -1,6 +1,4 @@
-package com.kairowan.room_flow
-
-import android.util.Log
+package com.kairowan.room_flow.core
 
 /**
  * @author 浩楠

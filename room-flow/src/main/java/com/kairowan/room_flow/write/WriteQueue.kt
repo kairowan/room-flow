@@ -1,9 +1,13 @@
-package com.kairowan.room_flow
+package com.kairowan.room_flow.write
 
 import androidx.room.RoomDatabase
+import com.kairowan.room_flow.core.RoomFlowConfig
+import com.kairowan.room_flow.core.Trace
+import com.kairowan.room_flow.core.withBusyRetry
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.Channel.Factory.UNLIMITED
+import kotlin.collections.iterator
 
 
 /**
@@ -86,7 +90,9 @@ class WriteQueue(
         return d
     }
 
-    /** 同 key 合并：先缓存，flush 时每个 key 一次事务。 */
+    /**
+     * 同 key 合并：先缓存，flush 时每个 key 一次事务
+     */
     fun coalesce(key: Any, task: suspend () -> Unit) {
         synchronized(coalesceMap) { coalesceMap.getOrPut(key) { mutableListOf() } += task }
     }
@@ -124,7 +130,9 @@ class WriteQueue(
     }
 }
 
-/** 重试策略接口；默认 BusyRetry = withBusyRetry。 */
+/**
+ * 重试策略接口；默认 BusyRetry = withBusyRetry
+ * */
 interface RetryPolicy {
     suspend fun <T> run(block: suspend () -> T): T
     class BusyRetry(

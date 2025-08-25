@@ -1,4 +1,4 @@
-package com.kairowan.room_flow
+package com.kairowan.room_flow.sql.update
 
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SimpleSQLiteQuery
@@ -13,7 +13,7 @@ import androidx.sqlite.db.SimpleSQLiteQuery
  *    / _ \ | '_ \ / _` | '__/ _ \| |/ _` | \___ \| __| | | |/ _` | |/ _ \
  *   / ___ \| | | | (_| | | | (_) | | (_| |  ___) | |_| |_| | (_| | | (_) |
  *  /_/   \_\_| |_|\__,_|_|  \___/|_|\__,_| |____/ \__|\__,_|\__,_|_|\___/
- * @Description: TODO 安全地构建并执行部分字段更新（UPDATE ... SET ... WHERE ...）。
+ * @Description: TODO 安全地构建并执行部分字段更新（UPDATE ... SET ... WHERE ...）
  */
 class UpdateBuilder internal constructor(private val table: String) {
     private val sets = mutableListOf<Pair<String, Any?>>()

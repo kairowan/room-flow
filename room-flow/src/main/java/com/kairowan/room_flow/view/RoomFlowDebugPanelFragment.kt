@@ -12,7 +12,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kairowan.room_flow.R
-import com.kairowan.room_flow.RoomFlowMetrics
+import com.kairowan.room_flow.metrics.RoomFlowMetrics
 import com.kairowan.room_flow.adapter.RecentSqlAdapter
 import kotlinx.coroutines.launch
 

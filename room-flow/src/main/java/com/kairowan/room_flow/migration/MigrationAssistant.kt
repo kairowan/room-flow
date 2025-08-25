@@ -1,4 +1,4 @@
-package com.kairowan.room_flow
+package com.kairowan.room_flow.migration
 
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SimpleSQLiteQuery
@@ -6,6 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import java.io.File
+import kotlin.collections.iterator
 
 /**
  * @author 浩楠
@@ -122,7 +123,9 @@ object MigrationAssistant {
         else -> ""
     }
 
-    /** 备份与回滚（需要调用方提供 dbPath）。 */
+    /**
+     * 备份与回滚（需要调用方提供 dbPath）
+     */
     fun backupDb(dbPath: File): File {
         val bak = File(dbPath.parentFile, dbPath.name + ".bak"); dbPath.copyTo(
             bak,

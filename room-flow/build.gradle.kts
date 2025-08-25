@@ -35,6 +35,9 @@ android {
             withSourcesJar()
         }
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {

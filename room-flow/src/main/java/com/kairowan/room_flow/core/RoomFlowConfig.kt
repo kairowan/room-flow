@@ -1,8 +1,9 @@
-package com.kairowan.room_flow
+package com.kairowan.room_flow.core
 
 import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 
 /**
  * @author 浩楠
@@ -71,7 +72,7 @@ suspend inline fun <T> withBusyRetry(
                 break
             }
             Trace.w("RoomFlow", "数据库繁忙，准备重试 #$attempt，延时 ${delayMs}ms", t)
-            kotlinx.coroutines.delay(delayMs)
+            delay(delayMs)
             delayMs = (delayMs * 2).coerceAtMost(maxDelayMs)
             attempt++
             last = t

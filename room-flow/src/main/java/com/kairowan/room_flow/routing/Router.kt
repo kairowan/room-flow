@@ -1,4 +1,4 @@
-package com.kairowan.room_flow
+package com.kairowan.room_flow.routing
 
 import androidx.room.InvalidationTracker
 import androidx.room.RoomDatabase
@@ -20,7 +20,10 @@ import java.util.concurrent.ConcurrentHashMap
  *  /_/   \_\_| |_|\__,_|_|  \___/|_|\__,_| |____/ \__|\__,_|\__,_|_|\___/
  * @Description: TODO 多数据库/分库路由 & 失效聚合
  */
-/** 路由上下文：按用户/读写等维度路由。 */
+
+/**
+ * 路由上下文：按用户/读写等维度路由
+ */
 data class RouteContext(
     val userId: String? = null,
     val role: Role = Role.READ,
@@ -34,7 +37,9 @@ interface DbRouter {
     fun writable(ctx: RouteContext = RouteContext()): RoomDatabase
 }
 
-/** 简单分库实现（默认库 + 按 userId 分库）。 */
+/**
+ * 简单分库实现（默认库 + 按 userId 分库）
+ */
 class SimpleDbRouter(private val defaultDb: RoomDatabase) : DbRouter {
     private val dbByUser = ConcurrentHashMap<String, RoomDatabase>()
     fun registerUserDb(userId: String, db: RoomDatabase) {
@@ -48,7 +53,9 @@ class SimpleDbRouter(private val defaultDb: RoomDatabase) : DbRouter {
         ctx.userId?.let { dbByUser[it] } ?: defaultDb
 }
 
-/** 将多个数据库的 Invalidation 事件聚合为一个 Flow<Unit>。 */
+/**
+ * 将多个数据库的 Invalidation 事件聚合为一个 Flow<Unit>
+ */
 fun aggregateInvalidations(dbs: Collection<RoomDatabase>, vararg tables: String): Flow<Unit> =
     channelFlow {
         val observers = mutableListOf<Pair<RoomDatabase, InvalidationTracker.Observer>>()

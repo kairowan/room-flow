@@ -1,8 +1,9 @@
-package com.kairowan.room_flow
+package com.kairowan.room_flow.security
 
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.db.SupportSQLiteOpenHelper
+import com.kairowan.room_flow.core.Trace
 
 /**
  * @author 浩楠
@@ -17,13 +18,15 @@ import androidx.sqlite.db.SupportSQLiteOpenHelper
  * @Description: TODO SQLCipher 适配
  */
 object CipherSupport {
-    fun <T: RoomDatabase> applyFactory(
+    fun <T : RoomDatabase> applyFactory(
         builder: RoomDatabase.Builder<T>,
         factory: SupportSQLiteOpenHelper.Factory
     ): RoomDatabase.Builder<T> = builder.openHelperFactory(factory)
 
     fun rekey(db: SupportSQLiteDatabase, newKey: String) {
-        try { db.execSQL("PRAGMA rekey = '$newKey';") } catch (t: Throwable) {
+        try {
+            db.execSQL("PRAGMA rekey = '$newKey';")
+        } catch (t: Throwable) {
             Trace.e("RoomFlow", "SQLCipher rekey 失败", t)
         }
     }

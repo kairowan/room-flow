@@ -1,4 +1,4 @@
-package com.kairowan.room_flow
+package com.kairowan.room_flow.sql.mapper
 
 import android.database.Cursor
 
@@ -39,7 +39,9 @@ class CursorRow(val cursor: Cursor, private val indexOf: Map<String, Int>) {
     }
 }
 
-/** Cursor 的行包装与遍历助手。 */
+/**
+ * Cursor 的行包装与遍历助手
+ * */
 class CursorRows(private val cursor: Cursor) : Iterable<CursorRow>, AutoCloseable {
     private val indexMap: Map<String, Int> = buildMap {
         for (i in 0 until cursor.columnCount) put(cursor.getColumnName(i).lowercase(), i)
@@ -55,6 +57,8 @@ class CursorRows(private val cursor: Cursor) : Iterable<CursorRow>, AutoCloseabl
     }
 }
 
-/** 便捷扩展：将 Cursor 映射为列表。 */
+/**
+ * 便捷扩展：将 Cursor 映射为列表
+ */
 inline fun <R> Cursor.mapRows(block: (CursorRow) -> R): List<R> =
     CursorRows(this).use { rows -> rows.map(block) }

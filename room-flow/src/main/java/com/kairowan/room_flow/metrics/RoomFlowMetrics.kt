@@ -1,4 +1,4 @@
-package com.kairowan.room_flow
+package com.kairowan.room_flow.metrics
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.asStateFlow
  *    / _ \ | '_ \ / _` | '__/ _ \| |/ _` | \___ \| __| | | |/ _` | |/ _ \
  *   / ___ \| | | | (_| | | | (_) | | (_| |  ___) | |_| |_| | (_| | | (_) |
  *  /_/   \_\_| |_|\__,_|_|  \___/|_|\__,_| |____/ \__|\__,_|\__,_|_|\___/
- * @Description: TODO 指标：busy 重试、事务计数/平均耗时、checkpoint 次数、最近 SQL 采样（开发用途）。
+ * @Description: TODO 指标：busy 重试、事务计数/平均耗时、checkpoint 次数、最近 SQL 采样
  */
 object RoomFlowMetrics {
     private val _busyRetryCount = MutableStateFlow(0L)
@@ -31,13 +31,20 @@ object RoomFlowMetrics {
 
     private const val SAMPLE_MAX = 50
 
-    fun recordBusyRetry() { _busyRetryCount.value = _busyRetryCount.value + 1 }
+    fun recordBusyRetry() {
+        _busyRetryCount.value = _busyRetryCount.value + 1
+    }
+
     fun recordTx(ms: Double) {
         val n = _txCount.value + 1
         _txCount.value = n
         _txAvgMs.value = ((_txAvgMs.value * (n - 1)) + ms) / n
     }
-    fun recordCheckpoint() { _checkpointCount.value = _checkpointCount.value + 1 }
+
+    fun recordCheckpoint() {
+        _checkpointCount.value = _checkpointCount.value + 1
+    }
+
     fun sampleSql(sql: String) {
         synchronized(_recentSql) {
             _recentSql.addLast(sql)

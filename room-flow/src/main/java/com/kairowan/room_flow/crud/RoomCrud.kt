@@ -1,6 +1,8 @@
-package com.kairowan.room_flow
+package com.kairowan.room_flow.crud
 
 import androidx.room.RoomDatabase
+import com.kairowan.room_flow.core.RoomFlowConfig
+import com.kairowan.room_flow.core.withBusyRetry
 import kotlinx.coroutines.withContext
 
 /**
@@ -35,13 +37,17 @@ suspend inline fun <T> RoomDatabase.withTransactionRetry(
     }
 }
 
-/** 读查询（IO 线程 + 繁忙重试）。 */
+/**
+ * 读查询（IO 线程 + 繁忙重试）
+ */
 suspend inline fun <T> RoomDatabase.readQuery(crossinline block: () -> T): T =
     withContext(RoomFlowConfig.ioDispatcher) {
         withBusyRetry { block() }
     }
 
-/** 非事务写（IO 线程 + 繁忙重试）。更推荐使用 [withTransactionRetry]。 */
+/**
+ * 非事务写（IO 线程 + 繁忙重试）
+ */
 suspend inline fun <T> RoomDatabase.write(crossinline block: () -> T): T =
     withContext(RoomFlowConfig.ioDispatcher) {
         withBusyRetry { block() }

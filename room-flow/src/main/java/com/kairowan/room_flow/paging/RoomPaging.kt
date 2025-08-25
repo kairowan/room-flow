@@ -1,5 +1,6 @@
-package com.kairowan.room_flow
+package com.kairowan.room_flow.paging
 
+import android.database.Cursor
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import androidx.paging.Pager
@@ -7,6 +8,8 @@ import androidx.paging.PagingConfig
 import androidx.room.InvalidationTracker
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SimpleSQLiteQuery
+import com.kairowan.room_flow.core.RoomFlowConfig
+import com.kairowan.room_flow.core.withBusyRetry
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
@@ -22,24 +25,29 @@ import kotlinx.coroutines.withContext
  *  /_/   \_\_| |_|\__,_|_|  \___/|_|\__,_| |____/ \__|\__,_|\__,_|_|\___/
  * @Description: TODO 基于原生 SQL + Room 失效机制的 Paging3 辅助
  */
-fun <T: Any> RoomDatabase.pagerFromRaw(
+fun <T : Any> RoomDatabase.pagerFromRaw(
     pageSize: Int,
     vararg tables: String,
     dispatcher: CoroutineDispatcher = RoomFlowConfig.ioDispatcher,
     countQuery: String? = null,
     queryProvider: (limit: Int, offset: Int) -> SimpleSQLiteQuery,
-    mapper: (android.database.Cursor) -> T
+    mapper: (Cursor) -> T
 ): Pager<Int, T> {
     val dbRef = this
     return Pager(PagingConfig(pageSize = pageSize, enablePlaceholders = countQuery != null)) {
         object : PagingSource<Int, T>() {
-            /** 监听表失效，触发数据源失效。 */
             private val observer = object : InvalidationTracker.Observer(tables) {
                 override fun onInvalidated(tables: Set<String>) {
                     invalidate()
                 }
             }
-            init { dbRef.invalidationTracker.addObserver(observer) }
+
+            init {
+                dbRef.invalidationTracker.addObserver(observer)
+                registerInvalidatedCallback {
+                    dbRef.invalidationTracker.removeObserver(observer)
+                }
+            }
 
             override fun getRefreshKey(state: PagingState<Int, T>): Int? = null
 
@@ -67,12 +75,6 @@ fun <T: Any> RoomDatabase.pagerFromRaw(
             }
 
             override val jumpingSupported: Boolean get() = false
-
-
-            override fun invalidate() {
-                super.invalidate()
-                dbRef.invalidationTracker.removeObserver(observer)
-            }
         }
     }
 }

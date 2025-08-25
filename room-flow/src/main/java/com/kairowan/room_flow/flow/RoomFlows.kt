@@ -1,7 +1,9 @@
-package com.kairowan.room_flow
+package com.kairowan.room_flow.flow
 
 import androidx.room.InvalidationTracker
 import androidx.room.RoomDatabase
+import com.kairowan.room_flow.core.RoomFlowConfig
+import com.kairowan.room_flow.core.withBusyRetry
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -21,7 +23,10 @@ import kotlinx.coroutines.launch
  *  /_/   \_\_| |_|\__,_|_|  \___/|_|\__,_| |____/ \__|\__,_|\__,_|_|\___/
  * @Description: TODO 基于 Room InvalidationTracker 的 Flow 工具：
  */
-/** 监听一个或多个表的“失效”事件，每次变更时发射 Unit。 */
+
+/**
+ * 监听一个或多个表的“失效”事件，每次变更时发射 Unit
+ */
 fun RoomDatabase.observeTables(vararg tables: String): Flow<Unit> = channelFlow {
     val observer = object : InvalidationTracker.Observer(tables) {
         override fun onInvalidated(tables: Set<String>) {
@@ -29,7 +34,6 @@ fun RoomDatabase.observeTables(vararg tables: String): Flow<Unit> = channelFlow 
         }
     }
     invalidationTracker.addObserver(observer)
-    // 初始发射一次，方便收集端立即拉取数据
     trySend(Unit)
     awaitClose { invalidationTracker.removeObserver(observer) }
 }.conflate()
@@ -54,7 +58,6 @@ fun <T> RoomDatabase.flowQuery(
         }
     }
     invalidationTracker.addObserver(obs)
-    // 初始发射一次
     launch(dispatcher) {
         val initial = withBusyRetry { query() }
         trySend(initial)
