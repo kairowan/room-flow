@@ -38,11 +38,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":room-flow"))
-
-    // ★ Room 运行时（必须在包含 AppDatabase 的模块里声明）
-//    implementation("androidx.room:room-runtime:2.6.1")
-//    implementation("androidx.room:room-ktx:2.6.1")
+    implementation("com.github.kairowan:room-flow:0.1.0")
     ksp("androidx.room:room-compiler:2.6.1")
 
     implementation(libs.androidx.core.ktx)
