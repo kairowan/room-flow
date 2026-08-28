@@ -6,7 +6,7 @@ Android / Kotlin · Room 2 · OpenHelper · minSdk 24
 
 room-flow 是 Room 的扩展 SDK，不是新的数据库引擎。保留你的 Entity、DAO、RoomDatabase 和 Migration，按需使用查询构造、写队列、分页、维护及诊断能力；不要求替换已有数据层。
 
-> 当前发布目标为 `0.2.0-rc.1` 预发布版，使用 JitPack 多模块坐标。Tag/制品发布不等于商用验收完成；远端构建状态见 [JitPack](https://jitpack.io/#kairowan/room-flow/0.2.0-rc.1)，支持范围与未关闭门槛见 [版本与验证](#verification) 及 [发布清单](docs/RELEASE-CHECKLIST.md)。
+> 已发布 [0.2.0-rc.1 预发布版](https://github.com/kairowan/room-flow/releases/tag/0.2.0-rc.1)，使用 JitPack 多模块坐标，Release 另附 Maven ZIP。Tag/制品发布不等于商用验收完成；远端构建状态见 [JitPack](https://jitpack.io/#kairowan/room-flow/0.2.0-rc.1)，支持范围与未关闭门槛见 [版本与验证](#verification) 及 [发布清单](docs/RELEASE-CHECKLIST.md)。
 
 [功能总览](#features) · [快速接入](#setup) · [类型安全 CRUD](#typed) · [SQL / Flow / 分页](#queries) · [事务与队列](#writes) · [备份与迁移](#safety) · [维护与诊断](#operations) · [二次封装](#extension)
 

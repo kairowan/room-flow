@@ -1,6 +1,6 @@
 jdk:
   - openjdk17
-before_install:
-  - sdkmanager "platforms;android-36" "build-tools;35.0.0"
+# JitPack 已预置 SDK licenses；由 AGP 安装缺失的平台和 Build Tools。
+# 不调用镜像中的旧 sdkmanager，它不兼容 JDK 17。
 install:
   - ./gradlew :room-flow:publishToMavenLocal :room-flow-debug:publishToMavenLocal :room-flow-compiler:publishToMavenLocal -PreleaseVersion="$VERSION" -ProomVersion=2.6.1 --no-daemon --max-workers=2

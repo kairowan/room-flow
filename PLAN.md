@@ -8,14 +8,17 @@
 本轮目标：Room 2.6.1 与 2.8.4 的 Android OpenHelper 模式。中间版本不等于逐版本实测。
 SQLiteDriver 模式与 Room 3 是不同接口体系，本轮明确不宣称支持，不静默混入破坏性升级。
 
-## 2026-08-28 0.2.0-rc.1 预发布准备（当前状态）
+## 2026-08-28 0.2.0-rc.1 预发布（当前状态）
 
 - 用户明确要求新 tag 和便捷依赖引入；沿用 JitPack，三个模块使用 `com.github.kairowan.room-flow:<module>:0.2.0-rc.1`。仅预发布，不关闭商用/许可证/生产签名门槛。
 - `releaseVersion` 显式切换版本化发布，默认验收坐标保留；同一份 Room 2.6.1 基线制品供两个宿主 Room 版本消费，Debug 正确传递依赖同版本核心，编译器另发 JAR/sources。
 - 本地 8 组合（Room 2.6.1/2.8.4 × 核心/Debug × GMM/POM-only）消费通过；默认验收路径 Room 2.6.1 的 4 组合回归通过。最终脚本兼容 macOS Bash 3 的空参数数组；首次运行中编辑脚本导致尾部读取异常，原日志保留，最终版本已另行完整重跑。
 - JitPack 使用的三个 `publishToMavenLocal` 任务已在临时 Maven 目录通过；类型规则、模块边界、JVM API、POM/GMM 坐标、源码 JAR 和 ZIP 完整性检查通过。未向个人 `~/.m2` 写入。
-- 上次远端 CI `33150542456` 两边界的构建/制品检查完成，编译拒绝步骤因 runner 没有 rg 失败；将单处日志 ERE 匹配改为系统 grep，不跳过非法用法检查、不新增运行时依赖。新 CI 需另行验证。
-- 本地发布检查日志与 Maven ZIP：`/tmp/roomflow-tag.N2CtyJ`；预发布 tag、Release 与远端下载结果在发布后记录。不恢复测试目录、不操作设备、不改 SDK 业务实现。
+- 上次远端 CI `33150542456` 两边界的构建/制品检查完成，编译拒绝步骤因 runner 没有 rg 失败；将单处日志 ERE 匹配改为系统 grep，不跳过非法用法检查、不新增运行时依赖。新 tag 的 [CI 33151205433](https://github.com/kairowan/room-flow/actions/runs/33151205433) 已通过两边界的构建与本地制品步骤，记录时仍在执行编译拒绝检查，未标记全组通过。
+- 注释 tag `0.2.0-rc.1` 与提交 `01e3fda154018ec0a0f047d5225751a570ac443e` 已推送；[GitHub 预发布](https://github.com/kairowan/room-flow/releases/tag/0.2.0-rc.1) 已附三个模块的 Maven ZIP 和 SHA-256。重新从 GitHub 下载后，摘要和 ZIP 完整性检查通过。
+- JitPack 首次请求 404，随后实际构建成功（exit 0），发布三个独立模块；API 返回 status=ok、isTag=true、对应上述提交。镜像旧 sdkmanager 报缺 JAXB，但 AGP 使用预置 licenses 自动安装 SDK 36 / Build Tools 35 后完成构建；后续 master 删除多余的 sdkmanager 前置调用，不移动已发布 tag。
+- 指定 `RELEASE_REPOSITORY=https://jitpack.io` 后，独立消费者 8 组合全部通过（脚本 exit 0，含正常 Gradle 构建缓存）；实际解析远端依赖并验收生成/编译输出、Debug 传递依赖及运行时边界，不重新发布或引用本地 Maven 仓库。远端 Debug POM 另行下载确认依赖同版本核心。这是制品接入验证，不是设备运行回归。
+- 本地/远端消费检查、JitPack 日志与 Maven ZIP：`/tmp/roomflow-tag.N2CtyJ`。不恢复测试目录、不操作设备、不改 SDK 业务实现。
 
 ## 2026-08-28 README 功能重写与动画
 

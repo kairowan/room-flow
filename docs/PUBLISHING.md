@@ -1,6 +1,6 @@
 # 预发布与依赖引入
 
-当前预发布目标为 `0.2.0-rc.1`，沿用现有无 `v` 前缀的 tag 命名。不是稳定商用版本，不修改既有 `0.1.0` tag，不补签生产 APK，也不替所有者选择开源许可证。
+已发布 [0.2.0-rc.1](https://github.com/kairowan/room-flow/releases/tag/0.2.0-rc.1)，沿用现有无 `v` 前缀的 tag 命名。不是稳定商用版本，不修改既有 tag，不补签生产 APK，也不替所有者选择开源许可证。
 
 ## 三个独立坐标
 
@@ -14,6 +14,8 @@
 
 版本均与 tag 一致。不要使用包含所有模块的聚合依赖，不要将 compiler 放到 implementation。
 完整 Gradle 接入代码见 [README](../README.md#setup)。
+
+`0.2.0-rc.1` 已通过 JitPack 构建和远端独立制品消费检查，验证记录见 [PLAN](../PLAN.md)。GitHub 附件重新下载后的摘要与 ZIP 完整性检查也已通过；这些检查不替代宿主运行时验收。
 
 ## 构建与验收
 
@@ -39,7 +41,7 @@ JitPack 首次请求可能需要构建。只有 tag 存在、HTTP 返回成功�
 
 ## 本地 Maven 包备用接入
 
-若 Release 附带 `room-flow-0.2.0-rc.1-maven.zip`，解压到宿主项目的 `vendor/room-flow-maven`，该目录下应直接看到 `com/github/...`。不要只复制 AAR：那会丢失传递依赖和编译器信息。
+从 [Release 附件](https://github.com/kairowan/room-flow/releases/tag/0.2.0-rc.1) 下载 `room-flow-0.2.0-rc.1-maven.zip` 和 `SHA256SUMS.txt`，核对摘要后解压到宿主项目的 `vendor/room-flow-maven`，该目录下应直接看到 `com/github/...`。不要只复制 AAR：那会丢失传递依赖和编译器信息。
 
 ```kotlin
 // settings.gradle.kts，用它替代 JitPack 仓库；依赖坐标不变。
