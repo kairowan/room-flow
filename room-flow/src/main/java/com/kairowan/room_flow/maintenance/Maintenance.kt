@@ -2,6 +2,7 @@ package com.kairowan.room_flow.maintenance
 
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SimpleSQLiteQuery
+import android.database.sqlite.SQLiteDatabaseLockedException
 import com.kairowan.room_flow.core.RoomFlowConfig
 import com.kairowan.room_flow.core.withBusyRetry
 import kotlinx.coroutines.withContext
@@ -27,7 +28,11 @@ suspend fun RoomDatabase.walCheckpointTruncate(): Int = withContext(RoomFlowConf
         val c =
             openHelper.writableDatabase.query(SimpleSQLiteQuery("PRAGMA wal_checkpoint(TRUNCATE)"))
         c.use {
-            if (it.moveToFirst()) it.getInt(2) else 0
+            check(it.moveToFirst()) { "checkpoint 未返回结果" }
+            if (it.getInt(0) != 0) throw SQLiteDatabaseLockedException("WAL checkpoint busy")
+            val pages = it.getInt(2)
+            check(pages >= 0) { "数据库未启用 WAL" }
+            pages
         }
     }
 }
@@ -38,7 +43,7 @@ suspend fun RoomDatabase.walCheckpointTruncate(): Int = withContext(RoomFlowConf
 suspend fun RoomDatabase.integrityCheck(): Boolean = withContext(RoomFlowConfig.ioDispatcher) {
     withBusyRetry {
         openHelper.readableDatabase.query(SimpleSQLiteQuery("PRAGMA integrity_check")).use {
-            var ok = true
+            var ok = it.count > 0
             while (it.moveToNext()) {
                 val s = it.getString(0)
                 if (!s.equals("ok", ignoreCase = true)) ok = false

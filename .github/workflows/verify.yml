@@ -1,0 +1,39 @@
+name: Room compatibility
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        room: [2.6.1, 2.8.4]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+      - run: sdkmanager 'platforms;android-36' 'build-tools;35.0.0'
+      - run: bash gradlew checkKotlinTypes checkModuleBoundaries checkJvmApi :room-flow:assembleRelease :room-flow-debug:assembleRelease :app:assembleRelease :app:assembleDebug -ProomVersion=${{ matrix.room }} --no-daemon --max-workers=2
+      - name: Verify locally published artifact
+        env:
+          ROOM_VERSION: ${{ matrix.room }}
+          TMPDIR: ${{ runner.temp }}
+        run: bash scripts/check-artifact-consumer.sh --no-daemon --max-workers=2
+      - name: Reject invalid typed entity queries
+        env:
+          ROOM_VERSION: ${{ matrix.room }}
+          TMPDIR: ${{ runner.temp }}
+        run: bash scripts/check-typed-compilation.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: results-room-${{ matrix.room }}
+          path: |
+            **/build/reports/**
+            ${{ runner.temp }}/roomflow-consumer.*/repository/**
+            ${{ runner.temp }}/roomflow-typed-negative.*/*.log

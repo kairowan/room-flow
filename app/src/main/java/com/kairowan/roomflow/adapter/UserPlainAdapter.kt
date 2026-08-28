@@ -7,16 +7,6 @@ import com.kairowan.roomflow.data.User
 import com.kairowan.roomflow.databinding.ItemUserBinding
 
 
-/**
- * @author 浩楠
- * @date 2025/8/25
- *      _              _           _     _   ____  _             _ _
- *     / \   _ __   __| |_ __ ___ (_) __| | / ___|| |_ _   _  __| (_) ___
- *    / _ \ | '_ \ / _` | '__/ _ \| |/ _` | \___ \| __| | | |/ _` | |/ _ \
- *   / ___ \| | | | (_| | | | (_) | | (_| |  ___) | |_| |_| | (_| | | (_) |
- *  /_/   \_\_| |_|\__,_|_|  \___/|_|\__,_| |____/ \__|\__,_|\__,_|_|\___/
- *  描述: TODO
- */
 class UserPlainAdapter : RecyclerView.Adapter<UserPlainVH>() {
     private val items = mutableListOf<User>()
 
@@ -47,11 +37,4 @@ class UserPlainAdapter : RecyclerView.Adapter<UserPlainVH>() {
     }
 
     override fun getItemCount(): Int = items.size
-}
-
-class UserPlainVH(private val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(u: User) {
-        binding.tvTitle.text = "#${u.id}  ${u.name}"
-        binding.tvSub.text  = "age=${u.age ?: "-"}  lastActive=${u.lastActive}"
-    }
 }

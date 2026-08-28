@@ -1,0 +1,10 @@
+// Explicit, per-invocation output isolation; does not modify user Gradle configuration.
+gradle.settingsEvaluated {
+    def outputRoot = gradle.startParameter.projectProperties['verificationBuildRoot']
+    if (!outputRoot) throw new GradleException('Set -PverificationBuildRoot to an isolated output directory')
+    gradle.beforeProject { project ->
+        project.gradle.startParameter.buildCacheEnabled = false
+        project.layout.buildDirectory.set(new File(outputRoot,
+            project.path == ':' ? 'root' : project.path.substring(1).replace(':', '/')))
+    }
+}

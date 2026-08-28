@@ -13,7 +13,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.sqlite.db.SimpleSQLiteQuery
+import com.kairowan.roomflow.data.queryUserPage
 import com.kairowan.room_flow.crud.withTransactionRetry
 import com.kairowan.room_flow.flow.flowQuery
 import com.kairowan.room_flow.flow.observeTables
@@ -24,23 +24,26 @@ import com.kairowan.room_flow.maintenance.integrityCheck
 import com.kairowan.room_flow.maintenance.vacuum
 import com.kairowan.room_flow.maintenance.walCheckpointTruncate
 import com.kairowan.room_flow.migration.MigrationAssistant
-import com.kairowan.room_flow.multiprocess.CrossProcessInvalidation
 import com.kairowan.room_flow.routing.RouteContext
 import com.kairowan.room_flow.routing.SimpleDbRouter
 import com.kairowan.room_flow.sql.mapper.mapRows
 import com.kairowan.room_flow.sql.rawQuery
-import com.kairowan.room_flow.sql.update.update
+import com.kairowan.room_flow.typed.update
 import com.kairowan.room_flow.write.WriteQueue
 import com.kairowan.roomflow.adapter.ControlsAdapter
-import com.kairowan.roomflow.adapter.ControlsAdapter.Control
-import com.kairowan.roomflow.adapter.ControlsAdapter.ControlRow
+import com.kairowan.roomflow.adapter.Control
+import com.kairowan.roomflow.adapter.ControlRow
 import com.kairowan.roomflow.adapter.StatusAdapter
 import com.kairowan.roomflow.adapter.UserPlainAdapter
 import com.kairowan.roomflow.data.AppDatabase
 import com.kairowan.roomflow.data.User
 import com.kairowan.roomflow.data.UserDao
+import com.kairowan.roomflow.data.UserQueries
+import com.kairowan.roomflow.data.UserTable
 import com.kairowan.roomflow.databinding.FragmentRoomflowBinding
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -65,12 +68,16 @@ class RoomFlowDemoFragment : Fragment() {
     private lateinit var writeQueue: WriteQueue
     private var walScheduler: WalCheckpointScheduler? = null
     private var pagingJob: Job? = null
+    private var observationJob: Job? = null
+    private var ready = false
+    private var pagingGeneration = 0
 
     private val statusAdapter = StatusAdapter()
     private val userAdapter = UserPlainAdapter()
     private var isLoading = false                  // 是否在加载中
     private var endReached = false                 // 是否到最后一页
     private var page = 0                           // 当前页，从 0 开始
+    private var nextPageBeforeId: Long? = null
     private val pageSize = 20                      // 每页条数
     private var scrollListenerAdded = false
 
@@ -92,18 +99,18 @@ class RoomFlowDemoFragment : Fragment() {
     }
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        db = AppDatabase.get(requireContext())
-        dao = db.userDao()
-        writeQueue = WriteQueue(db)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        writeQueue.close()
+    override fun onDestroyView() {
+        ready = false
+        if (::writeQueue.isInitialized) writeQueue.close()
         walScheduler?.stop()
         pagingJob?.cancel()
+        observationJob?.cancel()
+        pagingGeneration++
+        isLoading = false
+        scrollListenerAdded = false
+        binding.rvMain.adapter = null
+        _binding = null
+        super.onDestroyView()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -112,6 +119,15 @@ class RoomFlowDemoFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val context = requireContext().applicationContext
+        launchUi {
+            db = withContext(Dispatchers.IO) { AppDatabase.get(context) }
+            dao = db.userDao()
+            writeQueue = WriteQueue(db, onWriteCommitted = { walScheduler?.onWriteCommitted() })
+            ready = true
+            statusAdapter.updateStatus("数据库已就绪")
+        }
         // 1) 控件区按钮配置（每行两个按钮）
         val rows = listOf(
             ControlRow(Control(A_INSERT_BATCH, "批量写入(WriteQueue)"), Control(A_PARTIAL_UPDATE, "Partial Update")),
@@ -137,9 +153,9 @@ class RoomFlowDemoFragment : Fragment() {
                     if (dy <= 0) return
                     val lm = rv.layoutManager as? LinearLayoutManager ?: return
                     val last = lm.findLastVisibleItemPosition()
-                    val total = userAdapter.itemCount()
+                    val total = concat.itemCount
                     val threshold = 5 // 距底部 5 个 item 触发
-                    if (!isLoading && !endReached && last >= total - threshold) {
+                    if (ready && !isLoading && !endReached && last >= total - threshold) {
                         loadNextPage()
                     }
                 }
@@ -148,6 +164,10 @@ class RoomFlowDemoFragment : Fragment() {
     }
 
     private fun onAction(id: String) {
+        if (!ready) {
+            toast("数据库尚未就绪，请检查错误提示")
+            return
+        }
         when (id) {
             A_INSERT_BATCH   -> actionInsertBatch()
             A_PARTIAL_UPDATE -> actionPartialUpdate()
@@ -168,7 +188,7 @@ class RoomFlowDemoFragment : Fragment() {
 
     /** 1) WriteQueue 批量写入 */
     private fun actionInsertBatch() {
-        viewLifecycleOwner.lifecycleScope.launch {
+        launchUi {
             val list = (1..30).map { i -> User(name = "User-$i", age = (18..35).random(), sex = "男") }
             writeQueue.submitAll(list, keySelector = { it.name.first() }) { group ->
                 dao.upsertList(group)
@@ -181,17 +201,27 @@ class RoomFlowDemoFragment : Fragment() {
 
     /** 2) Partial Update（把最大 id 的用户改名） */
     private fun actionPartialUpdate() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            val id = db.rawQuery("SELECT MAX(id) FROM users").use { c -> if (c.moveToFirst()) c.getLong(0) else 0L }
-            if (id == 0L) { toast("没有可更新的数据"); return@launch }
-            db.update("users") { set("name" to "Renamed-$id"); where("id = ?", id) }
+        launchUi {
+            val id = dao.maxId()
+            if (id == null) {
+                toast("没有可更新的数据")
+                return@launchUi
+            }
+            withContext(Dispatchers.IO) {
+                db.update(UserTable)
+                    .set(UserTable.name, "Renamed-$id")
+                    .where(UserTable.id.eq(id))
+                    .execute()
+            }
+            walScheduler?.onWriteCommitted()
             statusAdapter.updateStatus("已更新用户 $id 的 name")
         }
     }
 
     /** 3) 表失效 Flow：收到变更自动刷新第一页；另起一个 flowQuery 实时展示计数 */
     private fun actionFlowQuery() {
-        viewLifecycleOwner.lifecycleScope.launch {
+        observationJob?.cancel()
+        observationJob = launchUi {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 // 表变则刷新第一页
                 launch {
@@ -212,18 +242,21 @@ class RoomFlowDemoFragment : Fragment() {
 
     /** 4) 原生 SQL + RowMapper 映射 */
     private fun actionRawMapper() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            val users = db.rawQuery("SELECT id, name, age, lastActive FROM users")
-                .use { c -> c.mapRows { row ->
-                    User(
-                        id = row.get("id"),
-                        name = row.get("name"),
-                        age = row.getOrNull("age"),
-                        sex = "男",
-                        lastActive = row.get("lastActive")
-                    )
-                } }
-            statusAdapter.updateStatus("Raw + RowMapper：读取 ${users.size} 条，前1条=${users.firstOrNull()}")
+        launchUi {
+            val users = withContext(Dispatchers.IO) {
+                db.rawQuery(UserQueries.page(null, 100)).use { cursor ->
+                    cursor.mapRows { row ->
+                        User(
+                            id = row.get("id"),
+                            name = row.get("name"),
+                            age = row.getOrNull("age"),
+                            sex = row.get("sex"),
+                            lastActive = row.get("lastActive")
+                        )
+                    }
+                }
+            }
+            statusAdapter.updateStatus("Raw + RowMapper（最多100条）：读取 ${users.size} 条，前1条=${users.firstOrNull()}")
         }
     }
 
@@ -234,7 +267,7 @@ class RoomFlowDemoFragment : Fragment() {
 
     /** 6) 维护工具 */
     private fun actionMaintenance() {
-        viewLifecycleOwner.lifecycleScope.launch {
+        launchUi {
             val ok = db.integrityCheck()
             db.analyze()
             val before = db.estimatedDbSizeBytes()
@@ -263,7 +296,7 @@ class RoomFlowDemoFragment : Fragment() {
     private fun actionRouter() {
         val router = SimpleDbRouter(db).apply { registerUserDb("u1", db) }
         val rdb = router.readable(RouteContext(userId = "u1"))
-        viewLifecycleOwner.lifecycleScope.launch {
+        launchUi {
             val cnt = rdb.withTransactionRetry { dao.countAll() }
             statusAdapter.updateStatus("Router：u1 可读库计数=$cnt（示例使用同一库）")
         }
@@ -271,42 +304,33 @@ class RoomFlowDemoFragment : Fragment() {
 
     /** 9) 跨进程通知（authority 改成你 App 的 Provider） */
     private fun actionCrossProcess() {
-        val hub = CrossProcessInvalidation(requireContext(), "com.example.roomflow.provider")
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                launch {
-                    hub.changes("users").collect {
-                        statusAdapter.updateStatus("跨进程：收到 users 变更通知")
-                    }
-                }
-            }
-        }
-        hub.notifyChanged("users") // 模拟一次通知
-        toast("已 notifyChanged(users)")
+        toast("此示例未配置 ContentProvider。接入真实 Provider 后才能演示跨进程通知。")
     }
 
     /** 10) 迁移助手 */
     private fun actionMigration() {
-        viewLifecycleOwner.lifecycleScope.launch {
+        launchUi {
             val schemaJson = """
-                [
                   {
+                    "formatVersion": 1,
                     "database": {
                       "version": 1,
                       "entities": [
                         {
                           "tableName": "users",
+                          "createSql": "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT NOT NULL, age INTEGER, sex TEXT NOT NULL, lastActive INTEGER NOT NULL)",
+                          "primaryKey": {"columnNames": ["id"], "autoGenerate": true},
                           "fields": [
-                            {"fieldPath":"id","affinity":"INTEGER","notNull":true},
-                            {"fieldPath":"name","affinity":"TEXT","notNull":true},
-                            {"fieldPath":"age","affinity":"INTEGER","notNull":false},
-                            {"fieldPath":"lastActive","affinity":"INTEGER","notNull":true}
+                            {"columnName":"id","affinity":"INTEGER","notNull":true},
+                            {"columnName":"name","affinity":"TEXT","notNull":true},
+                            {"columnName":"age","affinity":"INTEGER","notNull":false},
+                            {"columnName":"sex","affinity":"TEXT","notNull":true},
+                            {"columnName":"lastActive","affinity":"INTEGER","notNull":true}
                           ]
                         }
                       ]
                     }
                   }
-                ]
             """.trimIndent()
             val diff = MigrationAssistant.compareSchema(db, schemaJson)
             val plan = MigrationAssistant.planMigration(diff)
@@ -316,63 +340,75 @@ class RoomFlowDemoFragment : Fragment() {
 
     /** 11) 打开 View 版调试面板 */
     private fun actionDebugPanel() {
+        if (!BuildConfig.DEBUG) {
+            toast("Release 不包含调试模块")
+            return
+        }
         try {
             val intent = Intent().setClassName(requireContext(),
                 "com.kairowan.room_flow.view.RoomFlowDebugPanelActivity")
             startActivity(intent)
         } catch (t: Throwable) {
-            toast("未引入 roomflow-debugpanel-view 模块")
+            toast("调试面板启动失败：${t.message}")
         }
     }
 
 
     /** 重新加载第一页（首次/刷新/表失效） */
     private fun reloadFirstPage() {
+        if (!ready) return
+        pagingJob?.cancel()
+        val generation = ++pagingGeneration
         isLoading = true
         endReached = false
         page = 0
-        viewLifecycleOwner.lifecycleScope.launch {
-            val first = queryPage(page, pageSize)
-            userAdapter.reset(first)
-            statusAdapter.updateStatus("已加载第 1 页：${first.size} 条")
-            isLoading = false
-            if (first.size < pageSize) endReached = true else page++
+        nextPageBeforeId = null
+        pagingJob = launchUi {
+            try {
+                val first = db.queryUserPage(null, pageSize)
+                if (generation != pagingGeneration) return@launchUi
+                userAdapter.reset(first)
+                nextPageBeforeId = first.lastOrNull()?.id
+                statusAdapter.updateStatus("已加载第 1 页：${first.size} 条")
+                endReached = first.size < pageSize
+                page = 1
+            } finally {
+                if (generation == pagingGeneration) isLoading = false
+            }
         }
     }
 
     /** 加载下一页并追加 */
     private fun loadNextPage() {
-        if (isLoading || endReached) return
+        if (!ready || isLoading || endReached) return
         isLoading = true
-        viewLifecycleOwner.lifecycleScope.launch {
-            val more = queryPage(page, pageSize)
-            userAdapter.append(more)
-            statusAdapter.updateStatus("追加第 ${page + 1} 页：${more.size} 条，累计=${userAdapter.itemCount()}")
-            isLoading = false
-            if (more.size < pageSize) endReached = true else page++
-        }
-    }
-
-    /** 实际的分页查询（原生 SQL + LIMIT/OFFSET + RowMapper） */
-    private suspend fun queryPage(page: Int, size: Int): List<User> = withContext(Dispatchers.IO) {
-        db.rawQuery(
-            SimpleSQLiteQuery(
-                "SELECT id, name, age, lastActive FROM users ORDER BY id DESC LIMIT ? OFFSET ?",
-                arrayOf(size, page * size)
-            )
-        ).use { c ->
-            c.mapRows { row ->
-                User(
-                    id = row.get("id"),
-                    name = row.get("name"),
-                    age = row.getOrNull("age"),
-                    sex = "男",
-                    lastActive = row.get("lastActive")
-                )
+        val generation = pagingGeneration
+        pagingJob = launchUi {
+            try {
+                val more = db.queryUserPage(nextPageBeforeId, pageSize)
+                if (generation != pagingGeneration) return@launchUi
+                userAdapter.append(more)
+                nextPageBeforeId = more.lastOrNull()?.id ?: nextPageBeforeId
+                statusAdapter.updateStatus("追加第 ${page + 1} 页：${more.size} 条，累计=${userAdapter.itemCount()}")
+                if (more.size < pageSize) endReached = true else page++
+            } finally {
+                if (generation == pagingGeneration) isLoading = false
             }
         }
     }
 
     private fun toast(msg: String) = Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+
+    private fun launchUi(block: suspend CoroutineScope.() -> Unit): Job =
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                block()
+            } catch (cancelled: CancellationException) {
+                throw cancelled
+            } catch (failure: Exception) {
+                statusAdapter.updateStatus("操作失败：${failure.message}")
+                toast("操作失败，请查看状态栏")
+            }
+        }
 
 }

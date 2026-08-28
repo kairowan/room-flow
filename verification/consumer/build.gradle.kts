@@ -1,0 +1,51 @@
+@file:OptIn(com.google.devtools.ksp.KspExperimental::class)
+
+plugins {
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
+}
+
+providers.gradleProperty("consumerBuildDir").orNull?.let { layout.buildDirectory.set(file(it)) }
+val withDebugArtifact = providers.gradleProperty("withDebugArtifact").orNull == "true"
+
+android {
+    namespace = "com.kairowan.roomflow.verification"
+    compileSdk = 36
+    defaultConfig { minSdk = 24 }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlinOptions { jvmTarget = "17" }
+    if (withDebugArtifact) sourceSets.getByName("main").java.srcDir("src/debugArtifact/java")
+}
+
+dependencies {
+    val room = providers.gradleProperty("roomVersion").getOrElse(libs.versions.room.get())
+    val artifact = if (withDebugArtifact) "room-flow-debug" else "room-flow"
+    implementation("com.kairowan.verification:$artifact:0.0.0-room$room-LOCAL") { isChanging = true }
+    ksp("com.kairowan.verification:room-flow-compiler:0.0.0-LOCAL") { isChanging = true }
+}
+ksp {
+    useKsp2.set(providers.gradleProperty("roomVersion").getOrElse("2.6.1") != "2.6.1")
+}
+configurations.configureEach { resolutionStrategy.cacheChangingModulesFor(0, "seconds") }
+
+tasks.register("checkConsumerDependencies") {
+    dependsOn("assembleRelease")
+    doLast {
+        val modules = configurations.getByName("releaseRuntimeClasspath").incoming.resolutionResult.allComponents
+            .mapNotNull { it.moduleVersion }
+        val sqlite = modules.single { it.group == "androidx.sqlite" && it.name == "sqlite-framework" }
+        val version = sqlite.version.substringBefore('-').split('.').map(String::toInt)
+        check(version[0] > 2 || version[0] == 2 && version[1] >= 5) { "SQLite Framework 安全底线丢失: $sqlite" }
+        val hasUi = modules.any { it.group in setOf("androidx.appcompat", "androidx.recyclerview", "com.google.android.material") }
+        check(hasUi == withDebugArtifact)
+        check(modules.none { it.group == "com.google.devtools.ksp" || it.name.contains("compiler") || it.name == "kotlin-reflect" })
+        check(modules.any { it.group == "com.kairowan.verification" && it.name == "room-flow" })
+        val expectedRoom = providers.gradleProperty("roomVersion").getOrElse(libs.versions.room.get())
+        check(modules.any { it.group == "androidx.room" && it.name.startsWith("room-runtime") && it.version == expectedRoom })
+        println("Artifact consumer: Room $expectedRoom, SQLite ${sqlite.version}, debug=$withDebugArtifact; POM-only=${providers.gradleProperty("pomOnly").orNull == "true"}")
+    }
+}

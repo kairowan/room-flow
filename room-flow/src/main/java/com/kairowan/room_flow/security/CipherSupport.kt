@@ -3,7 +3,6 @@ package com.kairowan.room_flow.security
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.db.SupportSQLiteOpenHelper
-import com.kairowan.room_flow.core.Trace
 
 /**
  * @author 浩楠
@@ -24,10 +23,12 @@ object CipherSupport {
     ): RoomDatabase.Builder<T> = builder.openHelperFactory(factory)
 
     fun rekey(db: SupportSQLiteDatabase, newKey: String) {
-        try {
-            db.execSQL("PRAGMA rekey = '$newKey';")
-        } catch (t: Throwable) {
-            Trace.e("RoomFlow", "SQLCipher rekey 失败", t)
+        require(newKey.isNotEmpty() && '\u0000' !in newKey) { "密钥不能为空或含 NUL" }
+        check(!db.inTransaction()) { "密钥轮换不能在事务内执行" }
+        db.query("PRAGMA cipher_version").use { cursor ->
+            check(cursor.moveToFirst() && !cursor.getString(0).isNullOrBlank()) { "数据库不是 SQLCipher" }
         }
+        // PRAGMA 不支持普通值占位符；仅做 SQLite 字符串字面量转义，绝不记录密钥。
+        db.execSQL("PRAGMA rekey = '" + newKey.replace("'", "''") + "'")
     }
 }

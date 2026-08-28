@@ -1,7 +1,9 @@
+@file:OptIn(com.google.devtools.ksp.KspExperimental::class)
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("com.google.devtools.ksp")
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -9,17 +11,20 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.kairowan.roomflow"
+        val verificationId = providers.gradleProperty("verificationApplicationId").orNull
+        require(verificationId == null || verificationId.matches(Regex("com\\.kairowan\\.roomflow\\.verification(\\.[a-z][a-z0-9]*)?"))) {
+            "真机验证必须使用独立的 verification applicationId"
+        }
+        applicationId = verificationId ?: "com.kairowan.roomflow"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -34,25 +39,32 @@ android {
     }
     kotlinOptions { jvmTarget = "17" }
 
-    buildFeatures { viewBinding = true }
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
+    }
 }
 
 dependencies {
-    implementation("com.github.kairowan:room-flow:0.1.0")
-    ksp("androidx.room:room-compiler:2.6.1")
+    val roomVersion = providers.gradleProperty("roomVersion").getOrElse(libs.versions.room.get())
+    implementation(project(":room-flow"))
+    debugImplementation(project(":room-flow-debug"))
+    implementation("androidx.paging:paging-runtime-ktx:3.3.2")
+    ksp("androidx.room:room-compiler:$roomVersion")
+    ksp(project(":room-flow-compiler"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 }
 
 // ★ 如果你想导出 schema，请确保目录存在；否则先注释掉这块或把 exportSchema=false
 ksp {
+    // Room 2.6 的处理器不兼容 KSP2；2.7+ 使用 KSP2 隔离 schema 序列化依赖。
+    useKsp2.set(providers.gradleProperty("roomVersion").getOrElse(libs.versions.room.get())
+        .substringBefore('-').split('.').let { it[0].toInt() > 2 || it[1].toInt() >= 7 })
     arg("room.schemaLocation", "$projectDir/schemas")
     arg("room.incremental", "true")
     arg("room.generateKotlin", "true")

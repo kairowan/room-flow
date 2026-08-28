@@ -1,0 +1,58 @@
+public final class com.kairowan.room_flow.adapter.RecentSqlAdapter extends androidx.recyclerview.widget.RecyclerView$Adapter<com.kairowan.room_flow.adapter.RecentSqlViewHolder> {
+  public com.kairowan.room_flow.adapter.RecentSqlAdapter();
+    descriptor: ()V
+
+  public final void submit(java.util.List<java.lang.String>);
+    descriptor: (Ljava/util/List;)V
+
+  public com.kairowan.room_flow.adapter.RecentSqlViewHolder onCreateViewHolder(android.view.ViewGroup, int);
+    descriptor: (Landroid/view/ViewGroup;I)Lcom/kairowan/room_flow/adapter/RecentSqlViewHolder;
+
+  public void onBindViewHolder(com.kairowan.room_flow.adapter.RecentSqlViewHolder, int);
+    descriptor: (Lcom/kairowan/room_flow/adapter/RecentSqlViewHolder;I)V
+
+  public int getItemCount();
+    descriptor: ()I
+
+  public androidx.recyclerview.widget.RecyclerView$ViewHolder onCreateViewHolder(android.view.ViewGroup, int);
+    descriptor: (Landroid/view/ViewGroup;I)Landroidx/recyclerview/widget/RecyclerView$ViewHolder;
+
+  public void onBindViewHolder(androidx.recyclerview.widget.RecyclerView$ViewHolder, int);
+    descriptor: (Landroidx/recyclerview/widget/RecyclerView$ViewHolder;I)V
+}
+public final class com.kairowan.room_flow.adapter.RecentSqlViewHolder extends androidx.recyclerview.widget.RecyclerView$ViewHolder {
+  public com.kairowan.room_flow.adapter.RecentSqlViewHolder(android.view.View);
+    descriptor: (Landroid/view/View;)V
+
+  public final android.widget.TextView getTv();
+    descriptor: ()Landroid/widget/TextView;
+}
+public final class com.kairowan.room_flow.view.RoomFlowDebugPanelActivity extends androidx.appcompat.app.AppCompatActivity {
+  public com.kairowan.room_flow.view.RoomFlowDebugPanelActivity();
+    descriptor: ()V
+
+  protected void onCreate(android.os.Bundle);
+    descriptor: (Landroid/os/Bundle;)V
+}
+public final class com.kairowan.room_flow.view.RoomFlowDebugPanelFragment extends androidx.fragment.app.Fragment {
+  public com.kairowan.room_flow.view.RoomFlowDebugPanelFragment();
+    descriptor: ()V
+
+  public android.view.View onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle);
+    descriptor: (Landroid/view/LayoutInflater;Landroid/view/ViewGroup;Landroid/os/Bundle;)Landroid/view/View;
+
+  public void onViewCreated(android.view.View, android.os.Bundle);
+    descriptor: (Landroid/view/View;Landroid/os/Bundle;)V
+
+  public void onDestroyView();
+    descriptor: ()V
+
+  public static final java.util.List access$getStatRows$p(com.kairowan.room_flow.view.RoomFlowDebugPanelFragment);
+    descriptor: (Lcom/kairowan/room_flow/view/RoomFlowDebugPanelFragment;)Ljava/util/List;
+
+  public static final com.kairowan.room_flow.adapter.RecentSqlAdapter access$getAdapter$p(com.kairowan.room_flow.view.RoomFlowDebugPanelFragment);
+    descriptor: (Lcom/kairowan/room_flow/view/RoomFlowDebugPanelFragment;)Lcom/kairowan/room_flow/adapter/RecentSqlAdapter;
+
+  public static final androidx.recyclerview.widget.RecyclerView access$getRv$p(com.kairowan.room_flow.view.RoomFlowDebugPanelFragment);
+    descriptor: (Lcom/kairowan/room_flow/view/RoomFlowDebugPanelFragment;)Landroidx/recyclerview/widget/RecyclerView;
+}

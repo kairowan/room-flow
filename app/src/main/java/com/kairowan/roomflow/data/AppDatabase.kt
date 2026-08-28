@@ -2,12 +2,9 @@ package com.kairowan.roomflow.data
 
 import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.kairowan.room_flow.SelfHealingRoom
-import com.kairowan.room_flow.core.tunePragmas
 
 
 /**
@@ -45,12 +42,7 @@ abstract class AppDatabase : RoomDatabase() {
                     name = "app.db"
                 ) { builder ->
                     builder
-                        .addMigrations(*MIGRATIONS) // 升级数据库想保存数据就用这个，如果不想保存数据直接注视这行代码就好了
-                        .fallbackToDestructiveMigration()
-                        .fallbackToDestructiveMigrationOnDowngrade()
-                        .addCallback(object : Callback() {
-                            override fun onOpen(db: SupportSQLiteDatabase) = tunePragmas(db)
-                        })
+                        .addMigrations(*MIGRATIONS) // 结构变更必须升版本并提供 Migration/AutoMigration。
                 }.also { INSTANCE = it }
             }
     }

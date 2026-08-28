@@ -1,0 +1,1960 @@
+public final class com.kairowan.room_flow.SelfHealingRoom {
+  public static final com.kairowan.room_flow.SelfHealingRoom INSTANCE;
+    descriptor: Lcom/kairowan/room_flow/SelfHealingRoom;
+  public final <T extends androidx.room.RoomDatabase> T build(android.content.Context, java.lang.Class<T>, java.lang.String, kotlin.jvm.functions.Function1<? super androidx.room.RoomDatabase$Builder<T>, ? extends androidx.room.RoomDatabase$Builder<T>>);
+    descriptor: (Landroid/content/Context;Ljava/lang/Class;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Landroidx/room/RoomDatabase;
+
+  public static androidx.room.RoomDatabase build$default(com.kairowan.room_flow.SelfHealingRoom, android.content.Context, java.lang.Class, java.lang.String, kotlin.jvm.functions.Function1, int, java.lang.Object);
+    descriptor: (Lcom/kairowan/room_flow/SelfHealingRoom;Landroid/content/Context;Ljava/lang/Class;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Landroidx/room/RoomDatabase;
+}
+public final class com.kairowan.room_flow.backup.AtomicCopyKt {
+  public static final void atomicCopy(java.io.File, java.io.File, kotlin.jvm.functions.Function0<kotlin.Unit>, kotlin.jvm.functions.Function2<? super java.io.InputStream, ? super java.io.OutputStream, kotlin.Unit>);
+    descriptor: (Ljava/io/File;Ljava/io/File;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function2;)V
+
+  public static void atomicCopy$default(java.io.File, java.io.File, kotlin.jvm.functions.Function0, kotlin.jvm.functions.Function2, int, java.lang.Object);
+    descriptor: (Ljava/io/File;Ljava/io/File;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)V
+}
+public final class com.kairowan.room_flow.backup.BackupIdentity {
+  public com.kairowan.room_flow.backup.BackupIdentity(java.lang.String, int, java.lang.String);
+    descriptor: (Ljava/lang/String;ILjava/lang/String;)V
+
+  public final java.lang.String getDatabaseId();
+    descriptor: ()Ljava/lang/String;
+
+  public final int getVersion();
+    descriptor: ()I
+
+  public final java.lang.String getRoomIdentityHash();
+    descriptor: ()Ljava/lang/String;
+
+  public final java.lang.String component1();
+    descriptor: ()Ljava/lang/String;
+
+  public final int component2();
+    descriptor: ()I
+
+  public final java.lang.String component3();
+    descriptor: ()Ljava/lang/String;
+
+  public final com.kairowan.room_flow.backup.BackupIdentity copy(java.lang.String, int, java.lang.String);
+    descriptor: (Ljava/lang/String;ILjava/lang/String;)Lcom/kairowan/room_flow/backup/BackupIdentity;
+
+  public static com.kairowan.room_flow.backup.BackupIdentity copy$default(com.kairowan.room_flow.backup.BackupIdentity, java.lang.String, int, java.lang.String, int, java.lang.Object);
+    descriptor: (Lcom/kairowan/room_flow/backup/BackupIdentity;Ljava/lang/String;ILjava/lang/String;ILjava/lang/Object;)Lcom/kairowan/room_flow/backup/BackupIdentity;
+
+  public java.lang.String toString();
+    descriptor: ()Ljava/lang/String;
+
+  public int hashCode();
+    descriptor: ()I
+
+  public boolean equals(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Z
+}
+public final class com.kairowan.room_flow.backup.ColdJournalKt {
+  public static final void checkColdJournal(java.io.File);
+    descriptor: (Ljava/io/File;)V
+}
+public final class com.kairowan.room_flow.backup.CopyProgressKt {
+  public static final void copyWithProgress(java.io.InputStream, java.io.OutputStream, long, kotlin.jvm.functions.Function0<kotlin.Unit>, kotlin.jvm.functions.Function2<? super java.lang.Long, ? super java.lang.Long, kotlin.Unit>);
+    descriptor: (Ljava/io/InputStream;Ljava/io/OutputStream;JLkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function2;)V
+
+  public static void copyWithProgress$default(java.io.InputStream, java.io.OutputStream, long, kotlin.jvm.functions.Function0, kotlin.jvm.functions.Function2, int, java.lang.Object);
+    descriptor: (Ljava/io/InputStream;Ljava/io/OutputStream;JLkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)V
+
+  public static final long requiredBackupBytes(long);
+    descriptor: (J)J
+}
+public final class com.kairowan.room_flow.backup.RestorePreview {
+  public com.kairowan.room_flow.backup.RestorePreview(com.kairowan.room_flow.backup.BackupIdentity, long, java.io.File);
+    descriptor: (Lcom/kairowan/room_flow/backup/BackupIdentity;JLjava/io/File;)V
+
+  public final com.kairowan.room_flow.backup.BackupIdentity getIdentity();
+    descriptor: ()Lcom/kairowan/room_flow/backup/BackupIdentity;
+
+  public final long getBytes();
+    descriptor: ()J
+
+  public final java.io.File getRecoveryFile();
+    descriptor: ()Ljava/io/File;
+
+  public final com.kairowan.room_flow.backup.BackupIdentity component1();
+    descriptor: ()Lcom/kairowan/room_flow/backup/BackupIdentity;
+
+  public final long component2();
+    descriptor: ()J
+
+  public final java.io.File component3();
+    descriptor: ()Ljava/io/File;
+
+  public final com.kairowan.room_flow.backup.RestorePreview copy(com.kairowan.room_flow.backup.BackupIdentity, long, java.io.File);
+    descriptor: (Lcom/kairowan/room_flow/backup/BackupIdentity;JLjava/io/File;)Lcom/kairowan/room_flow/backup/RestorePreview;
+
+  public static com.kairowan.room_flow.backup.RestorePreview copy$default(com.kairowan.room_flow.backup.RestorePreview, com.kairowan.room_flow.backup.BackupIdentity, long, java.io.File, int, java.lang.Object);
+    descriptor: (Lcom/kairowan/room_flow/backup/RestorePreview;Lcom/kairowan/room_flow/backup/BackupIdentity;JLjava/io/File;ILjava/lang/Object;)Lcom/kairowan/room_flow/backup/RestorePreview;
+
+  public java.lang.String toString();
+    descriptor: ()Ljava/lang/String;
+
+  public int hashCode();
+    descriptor: ()I
+
+  public boolean equals(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Z
+}
+public final class com.kairowan.room_flow.core.Logger$DefaultImpls {
+  public static void d(com.kairowan.room_flow.core.Logger, java.lang.String, java.lang.String);
+    descriptor: (Lcom/kairowan/room_flow/core/Logger;Ljava/lang/String;Ljava/lang/String;)V
+
+  public static void w(com.kairowan.room_flow.core.Logger, java.lang.String, java.lang.String, java.lang.Throwable);
+    descriptor: (Lcom/kairowan/room_flow/core/Logger;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V
+
+  public static void w$default(com.kairowan.room_flow.core.Logger, java.lang.String, java.lang.String, java.lang.Throwable, int, java.lang.Object);
+    descriptor: (Lcom/kairowan/room_flow/core/Logger;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;ILjava/lang/Object;)V
+
+  public static void e(com.kairowan.room_flow.core.Logger, java.lang.String, java.lang.String, java.lang.Throwable);
+    descriptor: (Lcom/kairowan/room_flow/core/Logger;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V
+
+  public static void e$default(com.kairowan.room_flow.core.Logger, java.lang.String, java.lang.String, java.lang.Throwable, int, java.lang.Object);
+    descriptor: (Lcom/kairowan/room_flow/core/Logger;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;ILjava/lang/Object;)V
+}
+public interface com.kairowan.room_flow.core.Logger {
+  public abstract void d(java.lang.String, java.lang.String);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;)V
+
+  public abstract void w(java.lang.String, java.lang.String, java.lang.Throwable);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V
+
+  public abstract void e(java.lang.String, java.lang.String, java.lang.Throwable);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V
+}
+public final class com.kairowan.room_flow.core.RoomFlowConfig {
+  public static final com.kairowan.room_flow.core.RoomFlowConfig INSTANCE;
+    descriptor: Lcom/kairowan/room_flow/core/RoomFlowConfig;
+  public final kotlinx.coroutines.CoroutineDispatcher getIoDispatcher();
+    descriptor: ()Lkotlinx/coroutines/CoroutineDispatcher;
+
+  public final void setIoDispatcher(kotlinx.coroutines.CoroutineDispatcher);
+    descriptor: (Lkotlinx/coroutines/CoroutineDispatcher;)V
+
+  public final int getBusyRetries();
+    descriptor: ()I
+
+  public final void setBusyRetries(int);
+    descriptor: (I)V
+
+  public final long getBusyInitialDelayMs();
+    descriptor: ()J
+
+  public final void setBusyInitialDelayMs(long);
+    descriptor: (J)V
+
+  public final long getBusyMaxDelayMs();
+    descriptor: ()J
+
+  public final void setBusyMaxDelayMs(long);
+    descriptor: (J)V
+
+  public final boolean getVerboseMaintenanceLog();
+    descriptor: ()Z
+
+  public final void setVerboseMaintenanceLog(boolean);
+    descriptor: (Z)V
+
+  public final boolean getAllowPragmaTuning();
+    descriptor: ()Z
+
+  public final void setAllowPragmaTuning(boolean);
+    descriptor: (Z)V
+
+  public final boolean getLogExceptionDetails();
+    descriptor: ()Z
+
+  public final void setLogExceptionDetails(boolean);
+    descriptor: (Z)V
+
+  public final kotlin.jvm.functions.Function1<com.kairowan.room_flow.metrics.QueryObservation, kotlin.Unit> getOnQueryObserved();
+    descriptor: ()Lkotlin/jvm/functions/Function1;
+
+  public final void setOnQueryObserved(kotlin.jvm.functions.Function1<? super com.kairowan.room_flow.metrics.QueryObservation, kotlin.Unit>);
+    descriptor: (Lkotlin/jvm/functions/Function1;)V
+
+  public final void setLogger(com.kairowan.room_flow.core.Logger);
+    descriptor: (Lcom/kairowan/room_flow/core/Logger;)V
+}
+public final class com.kairowan.room_flow.core.RoomFlowConfigKt {
+  public static final <T> java.lang.Object withBusyRetry(int, long, long, kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super T>, ? extends java.lang.Object>, kotlin.coroutines.Continuation<? super T>);
+    descriptor: (IJJLkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public static java.lang.Object withBusyRetry$default(int, long, long, kotlin.jvm.functions.Function1, kotlin.coroutines.Continuation, int, java.lang.Object);
+    descriptor: (IJJLkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+
+  public static final void tunePragmas(androidx.sqlite.db.SupportSQLiteDatabase);
+    descriptor: (Landroidx/sqlite/db/SupportSQLiteDatabase;)V
+}
+public final class com.kairowan.room_flow.core.Trace$logger$1 implements com.kairowan.room_flow.core.Logger {
+  public void d(java.lang.String, java.lang.String);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;)V
+
+  public void w(java.lang.String, java.lang.String, java.lang.Throwable);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V
+
+  public void e(java.lang.String, java.lang.String, java.lang.Throwable);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V
+}
+public final class com.kairowan.room_flow.core.Trace {
+  public static final com.kairowan.room_flow.core.Trace INSTANCE;
+    descriptor: Lcom/kairowan/room_flow/core/Trace;
+  public final void setLogger$room_flow_release(com.kairowan.room_flow.core.Logger);
+    descriptor: (Lcom/kairowan/room_flow/core/Logger;)V
+
+  public final void d(java.lang.String, java.lang.String);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;)V
+
+  public final void w(java.lang.String, java.lang.String, java.lang.Throwable);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V
+
+  public static void w$default(com.kairowan.room_flow.core.Trace, java.lang.String, java.lang.String, java.lang.Throwable, int, java.lang.Object);
+    descriptor: (Lcom/kairowan/room_flow/core/Trace;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;ILjava/lang/Object;)V
+
+  public final void e(java.lang.String, java.lang.String, java.lang.Throwable);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V
+
+  public static void e$default(com.kairowan.room_flow.core.Trace, java.lang.String, java.lang.String, java.lang.Throwable, int, java.lang.Object);
+    descriptor: (Lcom/kairowan/room_flow/core/Trace;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;ILjava/lang/Object;)V
+
+  public final <T> T measure(java.lang.String, java.lang.String, kotlin.jvm.functions.Function0<? extends T>);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.crud.RoomCrudKt$readQuery$2 extends kotlin.coroutines.jvm.internal.SuspendLambda implements kotlin.jvm.functions.Function2<kotlinx.coroutines.CoroutineScope, kotlin.coroutines.Continuation<? super T>, java.lang.Object> {
+  public com.kairowan.room_flow.crud.RoomCrudKt$readQuery$2(kotlin.jvm.functions.Function0<? extends T>, kotlin.coroutines.Continuation<? super com.kairowan.room_flow.crud.RoomCrudKt$readQuery$2>);
+    descriptor: (Lkotlin/jvm/functions/Function0;Lkotlin/coroutines/Continuation;)V
+
+  public final java.lang.Object invokeSuspend(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Ljava/lang/Object;
+
+  public final java.lang.Object invokeSuspend$$forInline(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Ljava/lang/Object;
+
+  public final kotlin.coroutines.Continuation<kotlin.Unit> create(java.lang.Object, kotlin.coroutines.Continuation<?>);
+    descriptor: (Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Lkotlin/coroutines/Continuation;
+
+  public final java.lang.Object invoke(kotlinx.coroutines.CoroutineScope, kotlin.coroutines.Continuation<? super T>);
+    descriptor: (Lkotlinx/coroutines/CoroutineScope;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public java.lang.Object invoke(java.lang.Object, java.lang.Object);
+    descriptor: (Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.crud.RoomCrudKt$withTransactionRetry$2 extends kotlin.coroutines.jvm.internal.SuspendLambda implements kotlin.jvm.functions.Function1<kotlin.coroutines.Continuation<? super T>, java.lang.Object> {
+  public com.kairowan.room_flow.crud.RoomCrudKt$withTransactionRetry$2(kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super T>, ? extends java.lang.Object>, kotlin.coroutines.Continuation<? super com.kairowan.room_flow.crud.RoomCrudKt$withTransactionRetry$2>);
+    descriptor: (Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)V
+
+  public final java.lang.Object invokeSuspend(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Ljava/lang/Object;
+
+  public final java.lang.Object invokeSuspend$$forInline(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Ljava/lang/Object;
+
+  public final kotlin.coroutines.Continuation<kotlin.Unit> create(kotlin.coroutines.Continuation<?>);
+    descriptor: (Lkotlin/coroutines/Continuation;)Lkotlin/coroutines/Continuation;
+
+  public final java.lang.Object invoke(kotlin.coroutines.Continuation<? super T>);
+    descriptor: (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public java.lang.Object invoke(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.crud.RoomCrudKt$write$$inlined$withTransactionRetry$1 extends kotlin.coroutines.jvm.internal.SuspendLambda implements kotlin.jvm.functions.Function1<kotlin.coroutines.Continuation<? super T>, java.lang.Object> {
+  public com.kairowan.room_flow.crud.RoomCrudKt$write$$inlined$withTransactionRetry$1(kotlin.coroutines.Continuation, kotlin.jvm.functions.Function0);
+    descriptor: (Lkotlin/coroutines/Continuation;Lkotlin/jvm/functions/Function0;)V
+
+  public final java.lang.Object invokeSuspend(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Ljava/lang/Object;
+
+  public final java.lang.Object invokeSuspend$$forInline(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Ljava/lang/Object;
+
+  public final kotlin.coroutines.Continuation<kotlin.Unit> create(kotlin.coroutines.Continuation<?>);
+    descriptor: (Lkotlin/coroutines/Continuation;)Lkotlin/coroutines/Continuation;
+
+  public final java.lang.Object invoke(kotlin.coroutines.Continuation<? super T>);
+    descriptor: (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public java.lang.Object invoke(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.crud.RoomCrudKt {
+  public static final <T> java.lang.Object withTransactionRetry(androidx.room.RoomDatabase, kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super T>, ? extends java.lang.Object>, kotlin.coroutines.Continuation<? super T>);
+    descriptor: (Landroidx/room/RoomDatabase;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public static final <T> java.lang.Object readQuery(androidx.room.RoomDatabase, kotlin.jvm.functions.Function0<? extends T>, kotlin.coroutines.Continuation<? super T>);
+    descriptor: (Landroidx/room/RoomDatabase;Lkotlin/jvm/functions/Function0;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public static final boolean inOpenTransaction(androidx.room.RoomDatabase);
+    descriptor: (Landroidx/room/RoomDatabase;)Z
+
+  public static final <T> java.lang.Object write(androidx.room.RoomDatabase, kotlin.jvm.functions.Function0<? extends T>, kotlin.coroutines.Continuation<? super T>);
+    descriptor: (Landroidx/room/RoomDatabase;Lkotlin/jvm/functions/Function0;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.flow.RoomFlowsKt$flowQuery$$inlined$map$1$2$1 extends kotlin.coroutines.jvm.internal.ContinuationImpl {
+  public com.kairowan.room_flow.flow.RoomFlowsKt$flowQuery$$inlined$map$1$2$1(com.kairowan.room_flow.flow.RoomFlowsKt$flowQuery$$inlined$map$1$2, kotlin.coroutines.Continuation);
+    descriptor: (Lcom/kairowan/room_flow/flow/RoomFlowsKt$flowQuery$$inlined$map$1$2;Lkotlin/coroutines/Continuation;)V
+
+  public final java.lang.Object invokeSuspend(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.flow.RoomFlowsKt$flowQuery$$inlined$map$1$2<T> implements kotlinx.coroutines.flow.FlowCollector {
+  public com.kairowan.room_flow.flow.RoomFlowsKt$flowQuery$$inlined$map$1$2(kotlinx.coroutines.flow.FlowCollector, kotlinx.coroutines.CoroutineDispatcher, kotlin.jvm.functions.Function1, androidx.room.RoomDatabase);
+    descriptor: (Lkotlinx/coroutines/flow/FlowCollector;Lkotlinx/coroutines/CoroutineDispatcher;Lkotlin/jvm/functions/Function1;Landroidx/room/RoomDatabase;)V
+
+  public final java.lang.Object emit(java.lang.Object, kotlin.coroutines.Continuation);
+    descriptor: (Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.flow.RoomFlowsKt$flowQuery$$inlined$map$1 implements kotlinx.coroutines.flow.Flow<T> {
+  public com.kairowan.room_flow.flow.RoomFlowsKt$flowQuery$$inlined$map$1(kotlinx.coroutines.flow.Flow, kotlinx.coroutines.CoroutineDispatcher, kotlin.jvm.functions.Function1, androidx.room.RoomDatabase);
+    descriptor: (Lkotlinx/coroutines/flow/Flow;Lkotlinx/coroutines/CoroutineDispatcher;Lkotlin/jvm/functions/Function1;Landroidx/room/RoomDatabase;)V
+
+  public java.lang.Object collect(kotlinx.coroutines.flow.FlowCollector, kotlin.coroutines.Continuation);
+    descriptor: (Lkotlinx/coroutines/flow/FlowCollector;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.flow.RoomFlowsKt$observeTables$3$observer$1 extends androidx.room.InvalidationTracker$Observer {
+  public void onInvalidated(java.util.Set<java.lang.String>);
+    descriptor: (Ljava/util/Set;)V
+}
+public final class com.kairowan.room_flow.flow.RoomFlowsKt {
+  public static final kotlinx.coroutines.flow.Flow<kotlin.Unit> observeTables(androidx.room.RoomDatabase, java.lang.String...);
+    descriptor: (Landroidx/room/RoomDatabase;[Ljava/lang/String;)Lkotlinx/coroutines/flow/Flow;
+
+  public static final <T> kotlinx.coroutines.flow.Flow<T> flowQuery(androidx.room.RoomDatabase, java.lang.String[], kotlinx.coroutines.CoroutineDispatcher, kotlin.jvm.functions.Function1<? super androidx.room.RoomDatabase, ? extends T>);
+    descriptor: (Landroidx/room/RoomDatabase;[Ljava/lang/String;Lkotlinx/coroutines/CoroutineDispatcher;Lkotlin/jvm/functions/Function1;)Lkotlinx/coroutines/flow/Flow;
+
+  public static kotlinx.coroutines.flow.Flow flowQuery$default(androidx.room.RoomDatabase, java.lang.String[], kotlinx.coroutines.CoroutineDispatcher, kotlin.jvm.functions.Function1, int, java.lang.Object);
+    descriptor: (Landroidx/room/RoomDatabase;[Ljava/lang/String;Lkotlinx/coroutines/CoroutineDispatcher;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+}
+public final class com.kairowan.room_flow.maintenance.MaintenanceKt {
+  public static final java.lang.Object walCheckpointTruncate(androidx.room.RoomDatabase, kotlin.coroutines.Continuation<? super java.lang.Integer>);
+    descriptor: (Landroidx/room/RoomDatabase;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public static final java.lang.Object integrityCheck(androidx.room.RoomDatabase, kotlin.coroutines.Continuation<? super java.lang.Boolean>);
+    descriptor: (Landroidx/room/RoomDatabase;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public static final java.lang.Object analyze(androidx.room.RoomDatabase, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    descriptor: (Landroidx/room/RoomDatabase;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public static final java.lang.Object vacuum(androidx.room.RoomDatabase, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    descriptor: (Landroidx/room/RoomDatabase;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public static final java.lang.Object estimatedDbSizeBytes(androidx.room.RoomDatabase, kotlin.coroutines.Continuation<? super java.lang.Long>);
+    descriptor: (Landroidx/room/RoomDatabase;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.maintenance.checkpoint.WalCheckpointScheduler {
+  public com.kairowan.room_flow.maintenance.checkpoint.WalCheckpointScheduler(androidx.room.RoomDatabase, kotlinx.coroutines.CoroutineScope, long, long, long, int);
+    descriptor: (Landroidx/room/RoomDatabase;Lkotlinx/coroutines/CoroutineScope;JJJI)V
+
+  public com.kairowan.room_flow.maintenance.checkpoint.WalCheckpointScheduler(androidx.room.RoomDatabase, kotlinx.coroutines.CoroutineScope, long, long, long, int, int, kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Landroidx/room/RoomDatabase;Lkotlinx/coroutines/CoroutineScope;JJJIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+
+  public final kotlinx.coroutines.flow.StateFlow<java.lang.Integer> getWalPages();
+    descriptor: ()Lkotlinx/coroutines/flow/StateFlow;
+
+  public final kotlinx.coroutines.flow.StateFlow<java.lang.Long> getLastCheckpointAt();
+    descriptor: ()Lkotlinx/coroutines/flow/StateFlow;
+
+  public final kotlinx.coroutines.flow.StateFlow<java.lang.Long> getCheckpointCount();
+    descriptor: ()Lkotlinx/coroutines/flow/StateFlow;
+
+  public final void onWriteCommitted();
+    descriptor: ()V
+
+  public final synchronized void start();
+    descriptor: ()V
+
+  public final synchronized void stop();
+    descriptor: ()V
+
+  public final java.lang.Object stopAndJoin(kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    descriptor: (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public static final int access$estimatedWalPages(com.kairowan.room_flow.maintenance.checkpoint.WalCheckpointScheduler);
+    descriptor: (Lcom/kairowan/room_flow/maintenance/checkpoint/WalCheckpointScheduler;)I
+
+  public static final kotlinx.coroutines.flow.MutableStateFlow access$get_walPages$p(com.kairowan.room_flow.maintenance.checkpoint.WalCheckpointScheduler);
+    descriptor: (Lcom/kairowan/room_flow/maintenance/checkpoint/WalCheckpointScheduler;)Lkotlinx/coroutines/flow/MutableStateFlow;
+
+  public static final int access$getWalPagesThreshold$p(com.kairowan.room_flow.maintenance.checkpoint.WalCheckpointScheduler);
+    descriptor: (Lcom/kairowan/room_flow/maintenance/checkpoint/WalCheckpointScheduler;)I
+
+  public static final kotlinx.coroutines.flow.MutableStateFlow access$get_lastWriteAt$p(com.kairowan.room_flow.maintenance.checkpoint.WalCheckpointScheduler);
+    descriptor: (Lcom/kairowan/room_flow/maintenance/checkpoint/WalCheckpointScheduler;)Lkotlinx/coroutines/flow/MutableStateFlow;
+
+  public static final long access$getMinIdleMs$p(com.kairowan.room_flow.maintenance.checkpoint.WalCheckpointScheduler);
+    descriptor: (Lcom/kairowan/room_flow/maintenance/checkpoint/WalCheckpointScheduler;)J
+
+  public static final long access$getLastCheckpointElapsed$p(com.kairowan.room_flow.maintenance.checkpoint.WalCheckpointScheduler);
+    descriptor: (Lcom/kairowan/room_flow/maintenance/checkpoint/WalCheckpointScheduler;)J
+
+  public static final long access$getMinIntervalMs$p(com.kairowan.room_flow.maintenance.checkpoint.WalCheckpointScheduler);
+    descriptor: (Lcom/kairowan/room_flow/maintenance/checkpoint/WalCheckpointScheduler;)J
+
+  public static final androidx.room.RoomDatabase access$getDb$p(com.kairowan.room_flow.maintenance.checkpoint.WalCheckpointScheduler);
+    descriptor: (Lcom/kairowan/room_flow/maintenance/checkpoint/WalCheckpointScheduler;)Landroidx/room/RoomDatabase;
+
+  public static final void access$setLastCheckpointElapsed$p(com.kairowan.room_flow.maintenance.checkpoint.WalCheckpointScheduler, long);
+    descriptor: (Lcom/kairowan/room_flow/maintenance/checkpoint/WalCheckpointScheduler;J)V
+
+  public static final kotlinx.coroutines.flow.MutableStateFlow access$get_lastCheckpointAt$p(com.kairowan.room_flow.maintenance.checkpoint.WalCheckpointScheduler);
+    descriptor: (Lcom/kairowan/room_flow/maintenance/checkpoint/WalCheckpointScheduler;)Lkotlinx/coroutines/flow/MutableStateFlow;
+
+  public static final kotlinx.coroutines.flow.MutableStateFlow access$get_checkpointCount$p(com.kairowan.room_flow.maintenance.checkpoint.WalCheckpointScheduler);
+    descriptor: (Lcom/kairowan/room_flow/maintenance/checkpoint/WalCheckpointScheduler;)Lkotlinx/coroutines/flow/MutableStateFlow;
+
+  public static final long access$getPollIntervalMs$p(com.kairowan.room_flow.maintenance.checkpoint.WalCheckpointScheduler);
+    descriptor: (Lcom/kairowan/room_flow/maintenance/checkpoint/WalCheckpointScheduler;)J
+}
+public final class com.kairowan.room_flow.metrics.DatabaseMetrics {
+  public com.kairowan.room_flow.metrics.DatabaseMetrics();
+    descriptor: ()V
+
+  public final kotlinx.coroutines.flow.StateFlow<com.kairowan.room_flow.metrics.MetricsSnapshot> getSnapshot();
+    descriptor: ()Lkotlinx/coroutines/flow/StateFlow;
+
+  public final void update$room_flow_release(kotlin.jvm.functions.Function1<? super com.kairowan.room_flow.metrics.MetricsSnapshot, com.kairowan.room_flow.metrics.MetricsSnapshot>);
+    descriptor: (Lkotlin/jvm/functions/Function1;)V
+}
+public final class com.kairowan.room_flow.metrics.MeasuredTransactionKt {
+  public static final <T> java.lang.Object runMeasuredTransaction(androidx.room.RoomDatabase, com.kairowan.room_flow.write.RetryPolicy, kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super T>, ? extends java.lang.Object>, kotlin.coroutines.Continuation<? super T>);
+    descriptor: (Landroidx/room/RoomDatabase;Lcom/kairowan/room_flow/write/RetryPolicy;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.metrics.MetricsSnapshot {
+  public com.kairowan.room_flow.metrics.MetricsSnapshot(int, int, long, long, long, long, long, double, double, long, double, double, long, long, long, long, long, double, double, double);
+    descriptor: (IIJJJJJDDJDDJJJJJDDD)V
+
+  public com.kairowan.room_flow.metrics.MetricsSnapshot(int, int, long, long, long, long, long, double, double, long, double, double, long, long, long, long, long, double, double, double, int, kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (IIJJJJJDDJDDJJJJJDDDILkotlin/jvm/internal/DefaultConstructorMarker;)V
+
+  public final int getPending();
+    descriptor: ()I
+
+  public final int getRunning();
+    descriptor: ()I
+
+  public final long getCompleted();
+    descriptor: ()J
+
+  public final long getFailed();
+    descriptor: ()J
+
+  public final long getCancelled();
+    descriptor: ()J
+
+  public final long getRejected();
+    descriptor: ()J
+
+  public final long getStarted();
+    descriptor: ()J
+
+  public final double getTotalWaitMs();
+    descriptor: ()D
+
+  public final double getMaxWaitMs();
+    descriptor: ()D
+
+  public final long getTransactions();
+    descriptor: ()J
+
+  public final double getTotalTransactionMs();
+    descriptor: ()D
+
+  public final double getMaxTransactionMs();
+    descriptor: ()D
+
+  public final long getSlowTransactions();
+    descriptor: ()J
+
+  public final long getFailedTransactions();
+    descriptor: ()J
+
+  public final long getCancelledTransactions();
+    descriptor: ()J
+
+  public final long getTransactionAttempts();
+    descriptor: ()J
+
+  public final long getTransactionRetries();
+    descriptor: ()J
+
+  public final double getTotalOperationMs();
+    descriptor: ()D
+
+  public final double getMaxOperationMs();
+    descriptor: ()D
+
+  public final double getTotalBlockMs();
+    descriptor: ()D
+
+  public final int component1();
+    descriptor: ()I
+
+  public final int component2();
+    descriptor: ()I
+
+  public final long component3();
+    descriptor: ()J
+
+  public final long component4();
+    descriptor: ()J
+
+  public final long component5();
+    descriptor: ()J
+
+  public final long component6();
+    descriptor: ()J
+
+  public final long component7();
+    descriptor: ()J
+
+  public final double component8();
+    descriptor: ()D
+
+  public final double component9();
+    descriptor: ()D
+
+  public final long component10();
+    descriptor: ()J
+
+  public final double component11();
+    descriptor: ()D
+
+  public final double component12();
+    descriptor: ()D
+
+  public final long component13();
+    descriptor: ()J
+
+  public final long component14();
+    descriptor: ()J
+
+  public final long component15();
+    descriptor: ()J
+
+  public final long component16();
+    descriptor: ()J
+
+  public final long component17();
+    descriptor: ()J
+
+  public final double component18();
+    descriptor: ()D
+
+  public final double component19();
+    descriptor: ()D
+
+  public final double component20();
+    descriptor: ()D
+
+  public final com.kairowan.room_flow.metrics.MetricsSnapshot copy(int, int, long, long, long, long, long, double, double, long, double, double, long, long, long, long, long, double, double, double);
+    descriptor: (IIJJJJJDDJDDJJJJJDDD)Lcom/kairowan/room_flow/metrics/MetricsSnapshot;
+
+  public static com.kairowan.room_flow.metrics.MetricsSnapshot copy$default(com.kairowan.room_flow.metrics.MetricsSnapshot, int, int, long, long, long, long, long, double, double, long, double, double, long, long, long, long, long, double, double, double, int, java.lang.Object);
+    descriptor: (Lcom/kairowan/room_flow/metrics/MetricsSnapshot;IIJJJJJDDJDDJJJJJDDDILjava/lang/Object;)Lcom/kairowan/room_flow/metrics/MetricsSnapshot;
+
+  public java.lang.String toString();
+    descriptor: ()Ljava/lang/String;
+
+  public int hashCode();
+    descriptor: ()I
+
+  public boolean equals(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Z
+
+  public com.kairowan.room_flow.metrics.MetricsSnapshot();
+    descriptor: ()V
+}
+public final class com.kairowan.room_flow.metrics.QueryObservation {
+  public com.kairowan.room_flow.metrics.QueryObservation(double, long, boolean, boolean, java.lang.String);
+    descriptor: (DJZZLjava/lang/String;)V
+
+  public final double getElapsedMs();
+    descriptor: ()D
+
+  public final long getRowsConsumed();
+    descriptor: ()J
+
+  public final boolean getSucceeded();
+    descriptor: ()Z
+
+  public final boolean getCancelled();
+    descriptor: ()Z
+
+  public final java.lang.String getFailureCategory();
+    descriptor: ()Ljava/lang/String;
+
+  public final double component1();
+    descriptor: ()D
+
+  public final long component2();
+    descriptor: ()J
+
+  public final boolean component3();
+    descriptor: ()Z
+
+  public final boolean component4();
+    descriptor: ()Z
+
+  public final java.lang.String component5();
+    descriptor: ()Ljava/lang/String;
+
+  public final com.kairowan.room_flow.metrics.QueryObservation copy(double, long, boolean, boolean, java.lang.String);
+    descriptor: (DJZZLjava/lang/String;)Lcom/kairowan/room_flow/metrics/QueryObservation;
+
+  public static com.kairowan.room_flow.metrics.QueryObservation copy$default(com.kairowan.room_flow.metrics.QueryObservation, double, long, boolean, boolean, java.lang.String, int, java.lang.Object);
+    descriptor: (Lcom/kairowan/room_flow/metrics/QueryObservation;DJZZLjava/lang/String;ILjava/lang/Object;)Lcom/kairowan/room_flow/metrics/QueryObservation;
+
+  public java.lang.String toString();
+    descriptor: ()Ljava/lang/String;
+
+  public int hashCode();
+    descriptor: ()I
+
+  public boolean equals(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Z
+}
+public final class com.kairowan.room_flow.metrics.RoomFlowMetrics {
+  public static final com.kairowan.room_flow.metrics.RoomFlowMetrics INSTANCE;
+    descriptor: Lcom/kairowan/room_flow/metrics/RoomFlowMetrics;
+  public final com.kairowan.room_flow.metrics.DatabaseMetrics getOverview();
+    descriptor: ()Lcom/kairowan/room_flow/metrics/DatabaseMetrics;
+
+  public final synchronized com.kairowan.room_flow.metrics.DatabaseMetrics forDatabase(androidx.room.RoomDatabase);
+    descriptor: (Landroidx/room/RoomDatabase;)Lcom/kairowan/room_flow/metrics/DatabaseMetrics;
+
+  public final void queuePending$room_flow_release(androidx.room.RoomDatabase, int);
+    descriptor: (Landroidx/room/RoomDatabase;I)V
+
+  public final void queueRunning$room_flow_release(androidx.room.RoomDatabase, int);
+    descriptor: (Landroidx/room/RoomDatabase;I)V
+
+  public final void queueRejected$room_flow_release(androidx.room.RoomDatabase);
+    descriptor: (Landroidx/room/RoomDatabase;)V
+
+  public final void queueStarted$room_flow_release(androidx.room.RoomDatabase, double);
+    descriptor: (Landroidx/room/RoomDatabase;D)V
+
+  public final void queueFinished$room_flow_release(androidx.room.RoomDatabase, java.lang.Throwable);
+    descriptor: (Landroidx/room/RoomDatabase;Ljava/lang/Throwable;)V
+
+  public final void recordTx(androidx.room.RoomDatabase, double);
+    descriptor: (Landroidx/room/RoomDatabase;D)V
+
+  public final void recordOperation$room_flow_release(androidx.room.RoomDatabase, double, double, long, java.lang.Throwable);
+    descriptor: (Landroidx/room/RoomDatabase;DDJLjava/lang/Throwable;)V
+
+  public final kotlinx.coroutines.flow.StateFlow<java.lang.Long> getBusyRetryCount();
+    descriptor: ()Lkotlinx/coroutines/flow/StateFlow;
+
+  public final kotlinx.coroutines.flow.StateFlow<java.lang.Long> getTxCount();
+    descriptor: ()Lkotlinx/coroutines/flow/StateFlow;
+
+  public final kotlinx.coroutines.flow.StateFlow<java.lang.Double> getTxAvgMs();
+    descriptor: ()Lkotlinx/coroutines/flow/StateFlow;
+
+  public final kotlinx.coroutines.flow.StateFlow<java.lang.Long> getCheckpointCount();
+    descriptor: ()Lkotlinx/coroutines/flow/StateFlow;
+
+  public final kotlinx.coroutines.flow.StateFlow<java.util.List<java.lang.String>> getRecentSql();
+    descriptor: ()Lkotlinx/coroutines/flow/StateFlow;
+
+  public final void recordBusyRetry();
+    descriptor: ()V
+
+  public final synchronized void recordTx(double);
+    descriptor: (D)V
+
+  public final void recordCheckpoint();
+    descriptor: ()V
+
+  public final void sampleSql(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+}
+public final class com.kairowan.room_flow.metrics.TransactionMetricsContext$Key implements kotlin.coroutines.CoroutineContext$Key<com.kairowan.room_flow.metrics.TransactionMetricsContext> {
+  public com.kairowan.room_flow.metrics.TransactionMetricsContext$Key(kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+public final class com.kairowan.room_flow.metrics.TransactionMetricsContext extends kotlin.coroutines.AbstractCoroutineContextElement {
+  public static final com.kairowan.room_flow.metrics.TransactionMetricsContext$Key Key;
+    descriptor: Lcom/kairowan/room_flow/metrics/TransactionMetricsContext$Key;
+  public com.kairowan.room_flow.metrics.TransactionMetricsContext(java.util.Set<? extends androidx.room.RoomDatabase>);
+    descriptor: (Ljava/util/Set;)V
+
+  public final java.util.Set<androidx.room.RoomDatabase> getDatabases();
+    descriptor: ()Ljava/util/Set;
+}
+public final class com.kairowan.room_flow.migration.Column {
+  public com.kairowan.room_flow.migration.Column(java.lang.String, java.lang.String, boolean, java.lang.String, int);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;I)V
+
+  public com.kairowan.room_flow.migration.Column(java.lang.String, java.lang.String, boolean, java.lang.String, int, int, kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+
+  public final java.lang.String getName();
+    descriptor: ()Ljava/lang/String;
+
+  public final java.lang.String getType();
+    descriptor: ()Ljava/lang/String;
+
+  public final boolean getNotNull();
+    descriptor: ()Z
+
+  public final java.lang.String getDefaultValue();
+    descriptor: ()Ljava/lang/String;
+
+  public final int getPrimaryKeyPosition();
+    descriptor: ()I
+
+  public final java.lang.String component1();
+    descriptor: ()Ljava/lang/String;
+
+  public final java.lang.String component2();
+    descriptor: ()Ljava/lang/String;
+
+  public final boolean component3();
+    descriptor: ()Z
+
+  public final java.lang.String component4();
+    descriptor: ()Ljava/lang/String;
+
+  public final int component5();
+    descriptor: ()I
+
+  public final com.kairowan.room_flow.migration.Column copy(java.lang.String, java.lang.String, boolean, java.lang.String, int);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;I)Lcom/kairowan/room_flow/migration/Column;
+
+  public static com.kairowan.room_flow.migration.Column copy$default(com.kairowan.room_flow.migration.Column, java.lang.String, java.lang.String, boolean, java.lang.String, int, int, java.lang.Object);
+    descriptor: (Lcom/kairowan/room_flow/migration/Column;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;IILjava/lang/Object;)Lcom/kairowan/room_flow/migration/Column;
+
+  public java.lang.String toString();
+    descriptor: ()Ljava/lang/String;
+
+  public int hashCode();
+    descriptor: ()I
+
+  public boolean equals(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Z
+}
+public final class com.kairowan.room_flow.migration.Diff {
+  public com.kairowan.room_flow.migration.Diff(java.util.List<com.kairowan.room_flow.migration.Table>, java.util.Map<java.lang.String, ? extends java.util.List<com.kairowan.room_flow.migration.Column>>, java.util.List<java.lang.String>, java.util.List<java.lang.String>);
+    descriptor: (Ljava/util/List;Ljava/util/Map;Ljava/util/List;Ljava/util/List;)V
+
+  public com.kairowan.room_flow.migration.Diff(java.util.List, java.util.Map, java.util.List, java.util.List, int, kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Ljava/util/List;Ljava/util/Map;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+
+  public final java.util.List<com.kairowan.room_flow.migration.Table> getMissingTables();
+    descriptor: ()Ljava/util/List;
+
+  public final java.util.Map<java.lang.String, java.util.List<com.kairowan.room_flow.migration.Column>> getMissingColumns();
+    descriptor: ()Ljava/util/Map;
+
+  public final java.util.List<java.lang.String> getUnsupportedChanges();
+    descriptor: ()Ljava/util/List;
+
+  public final java.util.List<java.lang.String> getUncheckedFeatures();
+    descriptor: ()Ljava/util/List;
+
+  public final java.util.List<com.kairowan.room_flow.migration.Table> component1();
+    descriptor: ()Ljava/util/List;
+
+  public final java.util.Map<java.lang.String, java.util.List<com.kairowan.room_flow.migration.Column>> component2();
+    descriptor: ()Ljava/util/Map;
+
+  public final java.util.List<java.lang.String> component3();
+    descriptor: ()Ljava/util/List;
+
+  public final java.util.List<java.lang.String> component4();
+    descriptor: ()Ljava/util/List;
+
+  public final com.kairowan.room_flow.migration.Diff copy(java.util.List<com.kairowan.room_flow.migration.Table>, java.util.Map<java.lang.String, ? extends java.util.List<com.kairowan.room_flow.migration.Column>>, java.util.List<java.lang.String>, java.util.List<java.lang.String>);
+    descriptor: (Ljava/util/List;Ljava/util/Map;Ljava/util/List;Ljava/util/List;)Lcom/kairowan/room_flow/migration/Diff;
+
+  public static com.kairowan.room_flow.migration.Diff copy$default(com.kairowan.room_flow.migration.Diff, java.util.List, java.util.Map, java.util.List, java.util.List, int, java.lang.Object);
+    descriptor: (Lcom/kairowan/room_flow/migration/Diff;Ljava/util/List;Ljava/util/Map;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lcom/kairowan/room_flow/migration/Diff;
+
+  public java.lang.String toString();
+    descriptor: ()Ljava/lang/String;
+
+  public int hashCode();
+    descriptor: ()I
+
+  public boolean equals(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Z
+}
+public final class com.kairowan.room_flow.migration.ForeignKey {
+  public com.kairowan.room_flow.migration.ForeignKey(java.lang.String, java.lang.String, java.lang.String, java.util.List<java.lang.String>, java.util.List<java.lang.String>);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;)V
+
+  public final java.lang.String getTable();
+    descriptor: ()Ljava/lang/String;
+
+  public final java.lang.String getOnDelete();
+    descriptor: ()Ljava/lang/String;
+
+  public final java.lang.String getOnUpdate();
+    descriptor: ()Ljava/lang/String;
+
+  public final java.util.List<java.lang.String> getColumns();
+    descriptor: ()Ljava/util/List;
+
+  public final java.util.List<java.lang.String> getReferencedColumns();
+    descriptor: ()Ljava/util/List;
+
+  public final java.lang.String component1();
+    descriptor: ()Ljava/lang/String;
+
+  public final java.lang.String component2();
+    descriptor: ()Ljava/lang/String;
+
+  public final java.lang.String component3();
+    descriptor: ()Ljava/lang/String;
+
+  public final java.util.List<java.lang.String> component4();
+    descriptor: ()Ljava/util/List;
+
+  public final java.util.List<java.lang.String> component5();
+    descriptor: ()Ljava/util/List;
+
+  public final com.kairowan.room_flow.migration.ForeignKey copy(java.lang.String, java.lang.String, java.lang.String, java.util.List<java.lang.String>, java.util.List<java.lang.String>);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;)Lcom/kairowan/room_flow/migration/ForeignKey;
+
+  public static com.kairowan.room_flow.migration.ForeignKey copy$default(com.kairowan.room_flow.migration.ForeignKey, java.lang.String, java.lang.String, java.lang.String, java.util.List, java.util.List, int, java.lang.Object);
+    descriptor: (Lcom/kairowan/room_flow/migration/ForeignKey;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lcom/kairowan/room_flow/migration/ForeignKey;
+
+  public java.lang.String toString();
+    descriptor: ()Ljava/lang/String;
+
+  public int hashCode();
+    descriptor: ()I
+
+  public boolean equals(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Z
+}
+public final class com.kairowan.room_flow.migration.Index {
+  public com.kairowan.room_flow.migration.Index(java.lang.String, boolean, java.util.List<java.lang.String>, java.util.List<java.lang.String>);
+    descriptor: (Ljava/lang/String;ZLjava/util/List;Ljava/util/List;)V
+
+  public final java.lang.String getName();
+    descriptor: ()Ljava/lang/String;
+
+  public final boolean getUnique();
+    descriptor: ()Z
+
+  public final java.util.List<java.lang.String> getColumns();
+    descriptor: ()Ljava/util/List;
+
+  public final java.util.List<java.lang.String> getOrders();
+    descriptor: ()Ljava/util/List;
+
+  public final java.lang.String component1();
+    descriptor: ()Ljava/lang/String;
+
+  public final boolean component2();
+    descriptor: ()Z
+
+  public final java.util.List<java.lang.String> component3();
+    descriptor: ()Ljava/util/List;
+
+  public final java.util.List<java.lang.String> component4();
+    descriptor: ()Ljava/util/List;
+
+  public final com.kairowan.room_flow.migration.Index copy(java.lang.String, boolean, java.util.List<java.lang.String>, java.util.List<java.lang.String>);
+    descriptor: (Ljava/lang/String;ZLjava/util/List;Ljava/util/List;)Lcom/kairowan/room_flow/migration/Index;
+
+  public static com.kairowan.room_flow.migration.Index copy$default(com.kairowan.room_flow.migration.Index, java.lang.String, boolean, java.util.List, java.util.List, int, java.lang.Object);
+    descriptor: (Lcom/kairowan/room_flow/migration/Index;Ljava/lang/String;ZLjava/util/List;Ljava/util/List;ILjava/lang/Object;)Lcom/kairowan/room_flow/migration/Index;
+
+  public java.lang.String toString();
+    descriptor: ()Ljava/lang/String;
+
+  public int hashCode();
+    descriptor: ()I
+
+  public boolean equals(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Z
+}
+public final class com.kairowan.room_flow.migration.MigrationAssistant {
+  public static final com.kairowan.room_flow.migration.MigrationAssistant INSTANCE;
+    descriptor: Lcom/kairowan/room_flow/migration/MigrationAssistant;
+  public final java.util.List<com.kairowan.room_flow.migration.Table> parseRoomSchemaJson(java.lang.String);
+    descriptor: (Ljava/lang/String;)Ljava/util/List;
+
+  public final java.lang.Object compareSchema(androidx.room.RoomDatabase, java.lang.String, kotlin.coroutines.Continuation<? super com.kairowan.room_flow.migration.Diff>);
+    descriptor: (Landroidx/room/RoomDatabase;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public final java.util.List<java.lang.String> planMigration(com.kairowan.room_flow.migration.Diff);
+    descriptor: (Lcom/kairowan/room_flow/migration/Diff;)Ljava/util/List;
+
+  public final synchronized java.io.File backupDb(java.io.File, com.kairowan.room_flow.backup.BackupIdentity, boolean);
+    descriptor: (Ljava/io/File;Lcom/kairowan/room_flow/backup/BackupIdentity;Z)Ljava/io/File;
+
+  public static java.io.File backupDb$default(com.kairowan.room_flow.migration.MigrationAssistant, java.io.File, com.kairowan.room_flow.backup.BackupIdentity, boolean, int, java.lang.Object);
+    descriptor: (Lcom/kairowan/room_flow/migration/MigrationAssistant;Ljava/io/File;Lcom/kairowan/room_flow/backup/BackupIdentity;ZILjava/lang/Object;)Ljava/io/File;
+
+  public final long estimateBackupSpace(java.io.File);
+    descriptor: (Ljava/io/File;)J
+
+  public final synchronized java.io.File backupDb(java.io.File, com.kairowan.room_flow.backup.BackupIdentity, boolean, android.os.CancellationSignal, kotlin.jvm.functions.Function2<? super java.lang.Long, ? super java.lang.Long, kotlin.Unit>);
+    descriptor: (Ljava/io/File;Lcom/kairowan/room_flow/backup/BackupIdentity;ZLandroid/os/CancellationSignal;Lkotlin/jvm/functions/Function2;)Ljava/io/File;
+
+  public static java.io.File backupDb$default(com.kairowan.room_flow.migration.MigrationAssistant, java.io.File, com.kairowan.room_flow.backup.BackupIdentity, boolean, android.os.CancellationSignal, kotlin.jvm.functions.Function2, int, java.lang.Object);
+    descriptor: (Lcom/kairowan/room_flow/migration/MigrationAssistant;Ljava/io/File;Lcom/kairowan/room_flow/backup/BackupIdentity;ZLandroid/os/CancellationSignal;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/io/File;
+
+  public final synchronized com.kairowan.room_flow.backup.RestorePreview previewRestore(java.io.File, java.io.File, com.kairowan.room_flow.backup.BackupIdentity, boolean);
+    descriptor: (Ljava/io/File;Ljava/io/File;Lcom/kairowan/room_flow/backup/BackupIdentity;Z)Lcom/kairowan/room_flow/backup/RestorePreview;
+
+  public static com.kairowan.room_flow.backup.RestorePreview previewRestore$default(com.kairowan.room_flow.migration.MigrationAssistant, java.io.File, java.io.File, com.kairowan.room_flow.backup.BackupIdentity, boolean, int, java.lang.Object);
+    descriptor: (Lcom/kairowan/room_flow/migration/MigrationAssistant;Ljava/io/File;Ljava/io/File;Lcom/kairowan/room_flow/backup/BackupIdentity;ZILjava/lang/Object;)Lcom/kairowan/room_flow/backup/RestorePreview;
+
+  public final synchronized java.io.File rollbackDb(java.io.File, java.io.File, com.kairowan.room_flow.backup.BackupIdentity, boolean);
+    descriptor: (Ljava/io/File;Ljava/io/File;Lcom/kairowan/room_flow/backup/BackupIdentity;Z)Ljava/io/File;
+
+  public static java.io.File rollbackDb$default(com.kairowan.room_flow.migration.MigrationAssistant, java.io.File, java.io.File, com.kairowan.room_flow.backup.BackupIdentity, boolean, int, java.lang.Object);
+    descriptor: (Lcom/kairowan/room_flow/migration/MigrationAssistant;Ljava/io/File;Ljava/io/File;Lcom/kairowan/room_flow/backup/BackupIdentity;ZILjava/lang/Object;)Ljava/io/File;
+
+  public static final java.util.List access$tableInfo(com.kairowan.room_flow.migration.MigrationAssistant, androidx.room.RoomDatabase, java.lang.String);
+    descriptor: (Lcom/kairowan/room_flow/migration/MigrationAssistant;Landroidx/room/RoomDatabase;Ljava/lang/String;)Ljava/util/List;
+
+  public static final java.util.Set access$indices(com.kairowan.room_flow.migration.MigrationAssistant, androidx.room.RoomDatabase, java.lang.String);
+    descriptor: (Lcom/kairowan/room_flow/migration/MigrationAssistant;Landroidx/room/RoomDatabase;Ljava/lang/String;)Ljava/util/Set;
+
+  public static final java.util.Set access$foreignKeys(com.kairowan.room_flow.migration.MigrationAssistant, androidx.room.RoomDatabase, java.lang.String);
+    descriptor: (Lcom/kairowan/room_flow/migration/MigrationAssistant;Landroidx/room/RoomDatabase;Ljava/lang/String;)Ljava/util/Set;
+}
+public final class com.kairowan.room_flow.migration.Table {
+  public com.kairowan.room_flow.migration.Table(java.lang.String, java.util.List<com.kairowan.room_flow.migration.Column>, java.lang.String, java.util.List<java.lang.String>, java.util.Set<com.kairowan.room_flow.migration.Index>, java.util.Set<com.kairowan.room_flow.migration.ForeignKey>);
+    descriptor: (Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/List;Ljava/util/Set;Ljava/util/Set;)V
+
+  public com.kairowan.room_flow.migration.Table(java.lang.String, java.util.List, java.lang.String, java.util.List, java.util.Set, java.util.Set, int, kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/List;Ljava/util/Set;Ljava/util/Set;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+
+  public final java.lang.String getName();
+    descriptor: ()Ljava/lang/String;
+
+  public final java.util.List<com.kairowan.room_flow.migration.Column> getColumns();
+    descriptor: ()Ljava/util/List;
+
+  public final java.lang.String getCreateSql();
+    descriptor: ()Ljava/lang/String;
+
+  public final java.util.List<java.lang.String> getIndexSql();
+    descriptor: ()Ljava/util/List;
+
+  public final java.util.Set<com.kairowan.room_flow.migration.Index> getIndices();
+    descriptor: ()Ljava/util/Set;
+
+  public final java.util.Set<com.kairowan.room_flow.migration.ForeignKey> getForeignKeys();
+    descriptor: ()Ljava/util/Set;
+
+  public final java.lang.String component1();
+    descriptor: ()Ljava/lang/String;
+
+  public final java.util.List<com.kairowan.room_flow.migration.Column> component2();
+    descriptor: ()Ljava/util/List;
+
+  public final java.lang.String component3();
+    descriptor: ()Ljava/lang/String;
+
+  public final java.util.List<java.lang.String> component4();
+    descriptor: ()Ljava/util/List;
+
+  public final java.util.Set<com.kairowan.room_flow.migration.Index> component5();
+    descriptor: ()Ljava/util/Set;
+
+  public final java.util.Set<com.kairowan.room_flow.migration.ForeignKey> component6();
+    descriptor: ()Ljava/util/Set;
+
+  public final com.kairowan.room_flow.migration.Table copy(java.lang.String, java.util.List<com.kairowan.room_flow.migration.Column>, java.lang.String, java.util.List<java.lang.String>, java.util.Set<com.kairowan.room_flow.migration.Index>, java.util.Set<com.kairowan.room_flow.migration.ForeignKey>);
+    descriptor: (Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/List;Ljava/util/Set;Ljava/util/Set;)Lcom/kairowan/room_flow/migration/Table;
+
+  public static com.kairowan.room_flow.migration.Table copy$default(com.kairowan.room_flow.migration.Table, java.lang.String, java.util.List, java.lang.String, java.util.List, java.util.Set, java.util.Set, int, java.lang.Object);
+    descriptor: (Lcom/kairowan/room_flow/migration/Table;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/List;Ljava/util/Set;Ljava/util/Set;ILjava/lang/Object;)Lcom/kairowan/room_flow/migration/Table;
+
+  public java.lang.String toString();
+    descriptor: ()Ljava/lang/String;
+
+  public int hashCode();
+    descriptor: ()I
+
+  public boolean equals(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Z
+}
+public final class com.kairowan.room_flow.multiprocess.CrossProcessInvalidation$changes$1$observer$1 extends android.database.ContentObserver {
+  public void onChange(boolean);
+    descriptor: (Z)V
+}
+public final class com.kairowan.room_flow.multiprocess.CrossProcessInvalidation {
+  public com.kairowan.room_flow.multiprocess.CrossProcessInvalidation(android.content.Context, java.lang.String);
+    descriptor: (Landroid/content/Context;Ljava/lang/String;)V
+
+  public final void notifyChanged(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+
+  public final kotlinx.coroutines.flow.Flow<kotlin.Unit> changes(java.lang.String);
+    descriptor: (Ljava/lang/String;)Lkotlinx/coroutines/flow/Flow;
+
+  public static final android.content.Context access$getContext$p(com.kairowan.room_flow.multiprocess.CrossProcessInvalidation);
+    descriptor: (Lcom/kairowan/room_flow/multiprocess/CrossProcessInvalidation;)Landroid/content/Context;
+
+  public static final android.net.Uri access$uri(com.kairowan.room_flow.multiprocess.CrossProcessInvalidation, java.lang.String);
+    descriptor: (Lcom/kairowan/room_flow/multiprocess/CrossProcessInvalidation;Ljava/lang/String;)Landroid/net/Uri;
+}
+public final class com.kairowan.room_flow.paging.RawPagingSource$load$2$1$1$nextObserver$1 extends androidx.room.InvalidationTracker$Observer {
+  public void onInvalidated(java.util.Set<java.lang.String>);
+    descriptor: (Ljava/util/Set;)V
+}
+public final class com.kairowan.room_flow.paging.RawPagingSource<T> extends androidx.paging.PagingSource<java.lang.Integer, T> {
+  public com.kairowan.room_flow.paging.RawPagingSource(androidx.room.RoomDatabase, java.lang.String[], kotlinx.coroutines.CoroutineDispatcher, kotlin.jvm.functions.Function0<? extends androidx.sqlite.db.SupportSQLiteQuery>, kotlin.jvm.functions.Function2<? super java.lang.Integer, ? super java.lang.Integer, ? extends androidx.sqlite.db.SupportSQLiteQuery>, kotlin.jvm.functions.Function1<? super android.database.Cursor, ? extends T>);
+    descriptor: (Landroidx/room/RoomDatabase;[Ljava/lang/String;Lkotlinx/coroutines/CoroutineDispatcher;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;)V
+
+  public com.kairowan.room_flow.paging.RawPagingSource(androidx.room.RoomDatabase, java.lang.String[], kotlinx.coroutines.CoroutineDispatcher, kotlin.jvm.functions.Function0, kotlin.jvm.functions.Function2, kotlin.jvm.functions.Function1, int, kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Landroidx/room/RoomDatabase;[Ljava/lang/String;Lkotlinx/coroutines/CoroutineDispatcher;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+
+  public java.lang.Integer getRefreshKey(androidx.paging.PagingState<java.lang.Integer, T>);
+    descriptor: (Landroidx/paging/PagingState;)Ljava/lang/Integer;
+
+  public java.lang.Object load(androidx.paging.PagingSource$LoadParams<java.lang.Integer>, kotlin.coroutines.Continuation<? super androidx.paging.PagingSource$LoadResult<java.lang.Integer, T>>);
+    descriptor: (Landroidx/paging/PagingSource$LoadParams;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public java.lang.Object getRefreshKey(androidx.paging.PagingState);
+    descriptor: (Landroidx/paging/PagingState;)Ljava/lang/Object;
+
+  public static final androidx.room.RoomDatabase access$getDb$p(com.kairowan.room_flow.paging.RawPagingSource);
+    descriptor: (Lcom/kairowan/room_flow/paging/RawPagingSource;)Landroidx/room/RoomDatabase;
+
+  public static final androidx.room.InvalidationTracker$Observer access$getObserver$p(com.kairowan.room_flow.paging.RawPagingSource);
+    descriptor: (Lcom/kairowan/room_flow/paging/RawPagingSource;)Landroidx/room/InvalidationTracker$Observer;
+
+  public static final java.lang.String[] access$getObservedTables$p(com.kairowan.room_flow.paging.RawPagingSource);
+    descriptor: (Lcom/kairowan/room_flow/paging/RawPagingSource;)[Ljava/lang/String;
+
+  public static final void access$setObserver$p(com.kairowan.room_flow.paging.RawPagingSource, androidx.room.InvalidationTracker$Observer);
+    descriptor: (Lcom/kairowan/room_flow/paging/RawPagingSource;Landroidx/room/InvalidationTracker$Observer;)V
+
+  public static final kotlin.jvm.functions.Function0 access$getCountQueryProvider$p(com.kairowan.room_flow.paging.RawPagingSource);
+    descriptor: (Lcom/kairowan/room_flow/paging/RawPagingSource;)Lkotlin/jvm/functions/Function0;
+
+  public static final kotlin.jvm.functions.Function2 access$getQueryProvider$p(com.kairowan.room_flow.paging.RawPagingSource);
+    descriptor: (Lcom/kairowan/room_flow/paging/RawPagingSource;)Lkotlin/jvm/functions/Function2;
+
+  public static final kotlin.jvm.functions.Function1 access$getMapper$p(com.kairowan.room_flow.paging.RawPagingSource);
+    descriptor: (Lcom/kairowan/room_flow/paging/RawPagingSource;)Lkotlin/jvm/functions/Function1;
+}
+public final class com.kairowan.room_flow.paging.RoomPagingKt {
+  public static final <T> androidx.paging.Pager<java.lang.Integer, T> pagerFromRaw(androidx.room.RoomDatabase, int, java.lang.String[], kotlinx.coroutines.CoroutineDispatcher, java.lang.String, kotlin.jvm.functions.Function0<? extends androidx.sqlite.db.SupportSQLiteQuery>, androidx.paging.PagingConfig, kotlin.jvm.functions.Function2<? super java.lang.Integer, ? super java.lang.Integer, androidx.sqlite.db.SimpleSQLiteQuery>, kotlin.jvm.functions.Function1<? super android.database.Cursor, ? extends T>);
+    descriptor: (Landroidx/room/RoomDatabase;I[Ljava/lang/String;Lkotlinx/coroutines/CoroutineDispatcher;Ljava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/paging/PagingConfig;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;)Landroidx/paging/Pager;
+
+  public static androidx.paging.Pager pagerFromRaw$default(androidx.room.RoomDatabase, int, java.lang.String[], kotlinx.coroutines.CoroutineDispatcher, java.lang.String, kotlin.jvm.functions.Function0, androidx.paging.PagingConfig, kotlin.jvm.functions.Function2, kotlin.jvm.functions.Function1, int, java.lang.Object);
+    descriptor: (Landroidx/room/RoomDatabase;I[Ljava/lang/String;Lkotlinx/coroutines/CoroutineDispatcher;Ljava/lang/String;Lkotlin/jvm/functions/Function0;Landroidx/paging/PagingConfig;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Landroidx/paging/Pager;
+}
+public final class com.kairowan.room_flow.routing.DbRouter$DefaultImpls {
+  public static androidx.room.RoomDatabase readable$default(com.kairowan.room_flow.routing.DbRouter, com.kairowan.room_flow.routing.RouteContext, int, java.lang.Object);
+    descriptor: (Lcom/kairowan/room_flow/routing/DbRouter;Lcom/kairowan/room_flow/routing/RouteContext;ILjava/lang/Object;)Landroidx/room/RoomDatabase;
+
+  public static androidx.room.RoomDatabase writable$default(com.kairowan.room_flow.routing.DbRouter, com.kairowan.room_flow.routing.RouteContext, int, java.lang.Object);
+    descriptor: (Lcom/kairowan/room_flow/routing/DbRouter;Lcom/kairowan/room_flow/routing/RouteContext;ILjava/lang/Object;)Landroidx/room/RoomDatabase;
+}
+public interface com.kairowan.room_flow.routing.DbRouter {
+  public abstract androidx.room.RoomDatabase readable(com.kairowan.room_flow.routing.RouteContext);
+    descriptor: (Lcom/kairowan/room_flow/routing/RouteContext;)Landroidx/room/RoomDatabase;
+
+  public abstract androidx.room.RoomDatabase writable(com.kairowan.room_flow.routing.RouteContext);
+    descriptor: (Lcom/kairowan/room_flow/routing/RouteContext;)Landroidx/room/RoomDatabase;
+}
+public final class com.kairowan.room_flow.routing.Role extends java.lang.Enum<com.kairowan.room_flow.routing.Role> {
+  public static final com.kairowan.room_flow.routing.Role READ;
+    descriptor: Lcom/kairowan/room_flow/routing/Role;
+  public static final com.kairowan.room_flow.routing.Role WRITE;
+    descriptor: Lcom/kairowan/room_flow/routing/Role;
+  public static com.kairowan.room_flow.routing.Role[] values();
+    descriptor: ()[Lcom/kairowan/room_flow/routing/Role;
+
+  public static com.kairowan.room_flow.routing.Role valueOf(java.lang.String);
+    descriptor: (Ljava/lang/String;)Lcom/kairowan/room_flow/routing/Role;
+
+  public static kotlin.enums.EnumEntries<com.kairowan.room_flow.routing.Role> getEntries();
+    descriptor: ()Lkotlin/enums/EnumEntries;
+}
+public final class com.kairowan.room_flow.routing.RouteContext {
+  public com.kairowan.room_flow.routing.RouteContext(java.lang.String, com.kairowan.room_flow.routing.Role, java.util.Map<java.lang.String, ? extends java.lang.Object>);
+    descriptor: (Ljava/lang/String;Lcom/kairowan/room_flow/routing/Role;Ljava/util/Map;)V
+
+  public com.kairowan.room_flow.routing.RouteContext(java.lang.String, com.kairowan.room_flow.routing.Role, java.util.Map, int, kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Ljava/lang/String;Lcom/kairowan/room_flow/routing/Role;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+
+  public final java.lang.String getUserId();
+    descriptor: ()Ljava/lang/String;
+
+  public final com.kairowan.room_flow.routing.Role getRole();
+    descriptor: ()Lcom/kairowan/room_flow/routing/Role;
+
+  public final java.util.Map<java.lang.String, java.lang.Object> getHints();
+    descriptor: ()Ljava/util/Map;
+
+  public final java.lang.String component1();
+    descriptor: ()Ljava/lang/String;
+
+  public final com.kairowan.room_flow.routing.Role component2();
+    descriptor: ()Lcom/kairowan/room_flow/routing/Role;
+
+  public final java.util.Map<java.lang.String, java.lang.Object> component3();
+    descriptor: ()Ljava/util/Map;
+
+  public final com.kairowan.room_flow.routing.RouteContext copy(java.lang.String, com.kairowan.room_flow.routing.Role, java.util.Map<java.lang.String, ? extends java.lang.Object>);
+    descriptor: (Ljava/lang/String;Lcom/kairowan/room_flow/routing/Role;Ljava/util/Map;)Lcom/kairowan/room_flow/routing/RouteContext;
+
+  public static com.kairowan.room_flow.routing.RouteContext copy$default(com.kairowan.room_flow.routing.RouteContext, java.lang.String, com.kairowan.room_flow.routing.Role, java.util.Map, int, java.lang.Object);
+    descriptor: (Lcom/kairowan/room_flow/routing/RouteContext;Ljava/lang/String;Lcom/kairowan/room_flow/routing/Role;Ljava/util/Map;ILjava/lang/Object;)Lcom/kairowan/room_flow/routing/RouteContext;
+
+  public java.lang.String toString();
+    descriptor: ()Ljava/lang/String;
+
+  public int hashCode();
+    descriptor: ()I
+
+  public boolean equals(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Z
+
+  public com.kairowan.room_flow.routing.RouteContext();
+    descriptor: ()V
+}
+public final class com.kairowan.room_flow.routing.RouterKt {
+  public static final kotlinx.coroutines.flow.Flow<kotlin.Unit> aggregateInvalidations(java.util.Collection<? extends androidx.room.RoomDatabase>, java.lang.String...);
+    descriptor: (Ljava/util/Collection;[Ljava/lang/String;)Lkotlinx/coroutines/flow/Flow;
+}
+public final class com.kairowan.room_flow.routing.SimpleDbRouter implements com.kairowan.room_flow.routing.DbRouter {
+  public com.kairowan.room_flow.routing.SimpleDbRouter(androidx.room.RoomDatabase);
+    descriptor: (Landroidx/room/RoomDatabase;)V
+
+  public final void registerUserDb(java.lang.String, androidx.room.RoomDatabase);
+    descriptor: (Ljava/lang/String;Landroidx/room/RoomDatabase;)V
+
+  public final androidx.room.RoomDatabase unregisterUserDb(java.lang.String);
+    descriptor: (Ljava/lang/String;)Landroidx/room/RoomDatabase;
+
+  public androidx.room.RoomDatabase readable(com.kairowan.room_flow.routing.RouteContext);
+    descriptor: (Lcom/kairowan/room_flow/routing/RouteContext;)Landroidx/room/RoomDatabase;
+
+  public androidx.room.RoomDatabase writable(com.kairowan.room_flow.routing.RouteContext);
+    descriptor: (Lcom/kairowan/room_flow/routing/RouteContext;)Landroidx/room/RoomDatabase;
+}
+public final class com.kairowan.room_flow.security.CipherSupport {
+  public static final com.kairowan.room_flow.security.CipherSupport INSTANCE;
+    descriptor: Lcom/kairowan/room_flow/security/CipherSupport;
+  public final <T extends androidx.room.RoomDatabase> androidx.room.RoomDatabase$Builder<T> applyFactory(androidx.room.RoomDatabase$Builder<T>, androidx.sqlite.db.SupportSQLiteOpenHelper$Factory);
+    descriptor: (Landroidx/room/RoomDatabase$Builder;Landroidx/sqlite/db/SupportSQLiteOpenHelper$Factory;)Landroidx/room/RoomDatabase$Builder;
+
+  public final void rekey(androidx.sqlite.db.SupportSQLiteDatabase, java.lang.String);
+    descriptor: (Landroidx/sqlite/db/SupportSQLiteDatabase;Ljava/lang/String;)V
+}
+public final class com.kairowan.room_flow.sql.QueryCancellationKt {
+  public static final <T> java.lang.Object withQueryCancellation(kotlin.jvm.functions.Function1<? super android.os.CancellationSignal, ? extends T>, kotlin.coroutines.Continuation<? super T>);
+    descriptor: (Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public static final <T> java.util.List<T> mapCancellable(android.database.Cursor, android.os.CancellationSignal, kotlin.jvm.functions.Function1<? super android.database.Cursor, ? extends T>);
+    descriptor: (Landroid/database/Cursor;Landroid/os/CancellationSignal;Lkotlin/jvm/functions/Function1;)Ljava/util/List;
+}
+public final class com.kairowan.room_flow.sql.RoomRawKt$rawQueryFlow$$inlined$map$1$2$1 extends kotlin.coroutines.jvm.internal.ContinuationImpl {
+  public com.kairowan.room_flow.sql.RoomRawKt$rawQueryFlow$$inlined$map$1$2$1(com.kairowan.room_flow.sql.RoomRawKt$rawQueryFlow$$inlined$map$1$2, kotlin.coroutines.Continuation);
+    descriptor: (Lcom/kairowan/room_flow/sql/RoomRawKt$rawQueryFlow$$inlined$map$1$2;Lkotlin/coroutines/Continuation;)V
+
+  public final java.lang.Object invokeSuspend(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.sql.RoomRawKt$rawQueryFlow$$inlined$map$1$2<T> implements kotlinx.coroutines.flow.FlowCollector {
+  public com.kairowan.room_flow.sql.RoomRawKt$rawQueryFlow$$inlined$map$1$2(kotlinx.coroutines.flow.FlowCollector, androidx.room.RoomDatabase, androidx.sqlite.db.SimpleSQLiteQuery, kotlin.jvm.functions.Function1);
+    descriptor: (Lkotlinx/coroutines/flow/FlowCollector;Landroidx/room/RoomDatabase;Landroidx/sqlite/db/SimpleSQLiteQuery;Lkotlin/jvm/functions/Function1;)V
+
+  public final java.lang.Object emit(java.lang.Object, kotlin.coroutines.Continuation);
+    descriptor: (Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.sql.RoomRawKt$rawQueryFlow$$inlined$map$1 implements kotlinx.coroutines.flow.Flow<java.util.List<? extends T>> {
+  public com.kairowan.room_flow.sql.RoomRawKt$rawQueryFlow$$inlined$map$1(kotlinx.coroutines.flow.Flow, androidx.room.RoomDatabase, androidx.sqlite.db.SimpleSQLiteQuery, kotlin.jvm.functions.Function1);
+    descriptor: (Lkotlinx/coroutines/flow/Flow;Landroidx/room/RoomDatabase;Landroidx/sqlite/db/SimpleSQLiteQuery;Lkotlin/jvm/functions/Function1;)V
+
+  public java.lang.Object collect(kotlinx.coroutines.flow.FlowCollector, kotlin.coroutines.Continuation);
+    descriptor: (Lkotlinx/coroutines/flow/FlowCollector;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.sql.RoomRawKt {
+  public static final void execSQL(androidx.room.RoomDatabase, java.lang.String, java.util.List<? extends java.lang.Object>);
+    descriptor: (Landroidx/room/RoomDatabase;Ljava/lang/String;Ljava/util/List;)V
+
+  public static void execSQL$default(androidx.room.RoomDatabase, java.lang.String, java.util.List, int, java.lang.Object);
+    descriptor: (Landroidx/room/RoomDatabase;Ljava/lang/String;Ljava/util/List;ILjava/lang/Object;)V
+
+  public static final android.database.Cursor rawQuery(androidx.room.RoomDatabase, androidx.sqlite.db.SupportSQLiteQuery);
+    descriptor: (Landroidx/room/RoomDatabase;Landroidx/sqlite/db/SupportSQLiteQuery;)Landroid/database/Cursor;
+
+  public static final android.database.Cursor rawQuery(androidx.room.RoomDatabase, androidx.sqlite.db.SupportSQLiteQuery, android.os.CancellationSignal);
+    descriptor: (Landroidx/room/RoomDatabase;Landroidx/sqlite/db/SupportSQLiteQuery;Landroid/os/CancellationSignal;)Landroid/database/Cursor;
+
+  public static final <T> java.lang.Object rawQueryList(androidx.room.RoomDatabase, androidx.sqlite.db.SupportSQLiteQuery, kotlin.jvm.functions.Function1<? super android.database.Cursor, ? extends T>, kotlin.coroutines.Continuation<? super java.util.List<? extends T>>);
+    descriptor: (Landroidx/room/RoomDatabase;Landroidx/sqlite/db/SupportSQLiteQuery;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public static final java.lang.Object rawQueryEach(androidx.room.RoomDatabase, androidx.sqlite.db.SupportSQLiteQuery, kotlin.jvm.functions.Function1<? super android.database.Cursor, kotlin.Unit>, kotlin.coroutines.Continuation<? super java.lang.Long>);
+    descriptor: (Landroidx/room/RoomDatabase;Landroidx/sqlite/db/SupportSQLiteQuery;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public static final <T> java.lang.Object rawQueryList(androidx.room.RoomDatabase, java.lang.String, java.util.List<? extends java.lang.Object>, kotlin.jvm.functions.Function1<? super android.database.Cursor, ? extends T>, kotlin.coroutines.Continuation<? super java.util.List<? extends T>>);
+    descriptor: (Landroidx/room/RoomDatabase;Ljava/lang/String;Ljava/util/List;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public static java.lang.Object rawQueryList$default(androidx.room.RoomDatabase, java.lang.String, java.util.List, kotlin.jvm.functions.Function1, kotlin.coroutines.Continuation, int, java.lang.Object);
+    descriptor: (Landroidx/room/RoomDatabase;Ljava/lang/String;Ljava/util/List;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+
+  public static final android.database.Cursor rawQuery(androidx.room.RoomDatabase, java.lang.String, java.util.List<? extends java.lang.Object>);
+    descriptor: (Landroidx/room/RoomDatabase;Ljava/lang/String;Ljava/util/List;)Landroid/database/Cursor;
+
+  public static android.database.Cursor rawQuery$default(androidx.room.RoomDatabase, java.lang.String, java.util.List, int, java.lang.Object);
+    descriptor: (Landroidx/room/RoomDatabase;Ljava/lang/String;Ljava/util/List;ILjava/lang/Object;)Landroid/database/Cursor;
+
+  public static final <T> java.util.List<T> mapList(android.database.Cursor, kotlin.jvm.functions.Function1<? super android.database.Cursor, ? extends T>);
+    descriptor: (Landroid/database/Cursor;Lkotlin/jvm/functions/Function1;)Ljava/util/List;
+
+  public static final <T> kotlinx.coroutines.flow.Flow<java.util.List<T>> rawQueryFlow(androidx.room.RoomDatabase, java.lang.String, java.util.List<? extends java.lang.Object>, java.lang.String[], kotlin.jvm.functions.Function1<? super android.database.Cursor, ? extends T>);
+    descriptor: (Landroidx/room/RoomDatabase;Ljava/lang/String;Ljava/util/List;[Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lkotlinx/coroutines/flow/Flow;
+
+  public static kotlinx.coroutines.flow.Flow rawQueryFlow$default(androidx.room.RoomDatabase, java.lang.String, java.util.List, java.lang.String[], kotlin.jvm.functions.Function1, int, java.lang.Object);
+    descriptor: (Landroidx/room/RoomDatabase;Ljava/lang/String;Ljava/util/List;[Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+
+  public static final java.lang.String quoteIdentifier(java.lang.String);
+    descriptor: (Ljava/lang/String;)Ljava/lang/String;
+
+  public static final java.lang.Object access$rawQueryList$read(androidx.room.RoomDatabase, androidx.sqlite.db.SupportSQLiteQuery, kotlin.jvm.functions.Function1, kotlin.coroutines.Continuation);
+    descriptor: (Landroidx/room/RoomDatabase;Landroidx/sqlite/db/SupportSQLiteQuery;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public static final java.lang.Object access$consumeRows(androidx.room.RoomDatabase, androidx.sqlite.db.SupportSQLiteQuery, kotlin.jvm.functions.Function1, kotlin.coroutines.Continuation);
+    descriptor: (Landroidx/room/RoomDatabase;Landroidx/sqlite/db/SupportSQLiteQuery;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.sql.mapper.CursorRow {
+  public com.kairowan.room_flow.sql.mapper.CursorRow(android.database.Cursor, java.util.Map<java.lang.String, java.lang.Integer>);
+    descriptor: (Landroid/database/Cursor;Ljava/util/Map;)V
+
+  public final android.database.Cursor getCursor();
+    descriptor: ()Landroid/database/Cursor;
+
+  public final int idx(java.lang.String);
+    descriptor: (Ljava/lang/String;)I
+
+  public final <T> T get(java.lang.String);
+    descriptor: (Ljava/lang/String;)Ljava/lang/Object;
+
+  public final <T> T getOrNull(java.lang.String);
+    descriptor: (Ljava/lang/String;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.sql.mapper.CursorRows$iterator$1 implements java.util.Iterator<com.kairowan.room_flow.sql.mapper.CursorRow>, kotlin.jvm.internal.markers.KMappedMarker {
+  public boolean hasNext();
+    descriptor: ()Z
+
+  public com.kairowan.room_flow.sql.mapper.CursorRow next();
+    descriptor: ()Lcom/kairowan/room_flow/sql/mapper/CursorRow;
+
+  public void remove();
+    descriptor: ()V
+
+  public java.lang.Object next();
+    descriptor: ()Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.sql.mapper.CursorRows implements java.lang.Iterable<com.kairowan.room_flow.sql.mapper.CursorRow>, java.lang.AutoCloseable, kotlin.jvm.internal.markers.KMappedMarker {
+  public com.kairowan.room_flow.sql.mapper.CursorRows(android.database.Cursor);
+    descriptor: (Landroid/database/Cursor;)V
+
+  public java.util.Iterator<com.kairowan.room_flow.sql.mapper.CursorRow> iterator();
+    descriptor: ()Ljava/util/Iterator;
+
+  public void close();
+    descriptor: ()V
+
+  public static final android.database.Cursor access$getCursor$p(com.kairowan.room_flow.sql.mapper.CursorRows);
+    descriptor: (Lcom/kairowan/room_flow/sql/mapper/CursorRows;)Landroid/database/Cursor;
+
+  public static final java.util.Map access$getIndexMap$p(com.kairowan.room_flow.sql.mapper.CursorRows);
+    descriptor: (Lcom/kairowan/room_flow/sql/mapper/CursorRows;)Ljava/util/Map;
+}
+public final class com.kairowan.room_flow.sql.mapper.RowMapperKt {
+  public static final <R> java.util.List<R> mapRows(android.database.Cursor, kotlin.jvm.functions.Function1<? super com.kairowan.room_flow.sql.mapper.CursorRow, ? extends R>);
+    descriptor: (Landroid/database/Cursor;Lkotlin/jvm/functions/Function1;)Ljava/util/List;
+}
+public final class com.kairowan.room_flow.sql.update.PartialUpdateKt {
+  public static final int update(androidx.room.RoomDatabase, java.lang.String, kotlin.jvm.functions.Function1<? super com.kairowan.room_flow.sql.update.UpdateBuilder, kotlin.Unit>);
+    descriptor: (Landroidx/room/RoomDatabase;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)I
+}
+public final class com.kairowan.room_flow.sql.update.UpdateBuilder {
+  public com.kairowan.room_flow.sql.update.UpdateBuilder(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+
+  public final com.kairowan.room_flow.sql.update.UpdateBuilder set(kotlin.Pair<java.lang.String, ? extends java.lang.Object>...);
+    descriptor: ([Lkotlin/Pair;)Lcom/kairowan/room_flow/sql/update/UpdateBuilder;
+
+  public final com.kairowan.room_flow.sql.update.UpdateBuilder set(java.util.Map<java.lang.String, ? extends java.lang.Object>);
+    descriptor: (Ljava/util/Map;)Lcom/kairowan/room_flow/sql/update/UpdateBuilder;
+
+  public final com.kairowan.room_flow.sql.update.UpdateBuilder where(java.lang.String, java.lang.Object...);
+    descriptor: (Ljava/lang/String;[Ljava/lang/Object;)Lcom/kairowan/room_flow/sql/update/UpdateBuilder;
+
+  public final com.kairowan.room_flow.sql.update.UpdateBuilder allRows();
+    descriptor: ()Lcom/kairowan/room_flow/sql/update/UpdateBuilder;
+
+  public final androidx.sqlite.db.SimpleSQLiteQuery toQuery$room_flow_release();
+    descriptor: ()Landroidx/sqlite/db/SimpleSQLiteQuery;
+}
+public final class com.kairowan.room_flow.typed.Aggregate<E, R> {
+  public com.kairowan.room_flow.typed.Aggregate(com.kairowan.room_flow.typed.EntityColumn<E, ?>, java.lang.String, kotlin.jvm.functions.Function2<? super android.database.Cursor, ? super java.lang.Integer, ? extends R>);
+    descriptor: (Lcom/kairowan/room_flow/typed/EntityColumn;Ljava/lang/String;Lkotlin/jvm/functions/Function2;)V
+
+  public final com.kairowan.room_flow.typed.EntityColumn<E, ?> getColumn$room_flow_release();
+    descriptor: ()Lcom/kairowan/room_flow/typed/EntityColumn;
+
+  public final java.lang.String getExpression$room_flow_release();
+    descriptor: ()Ljava/lang/String;
+
+  public final kotlin.jvm.functions.Function2<android.database.Cursor, java.lang.Integer, R> getRead$room_flow_release();
+    descriptor: ()Lkotlin/jvm/functions/Function2;
+}
+public final class com.kairowan.room_flow.typed.AggregateGroup<K, V> {
+  public com.kairowan.room_flow.typed.AggregateGroup(K, V);
+    descriptor: (Ljava/lang/Object;Ljava/lang/Object;)V
+
+  public final K getKey();
+    descriptor: ()Ljava/lang/Object;
+
+  public final V getValue();
+    descriptor: ()Ljava/lang/Object;
+
+  public final K component1();
+    descriptor: ()Ljava/lang/Object;
+
+  public final V component2();
+    descriptor: ()Ljava/lang/Object;
+
+  public final com.kairowan.room_flow.typed.AggregateGroup<K, V> copy(K, V);
+    descriptor: (Ljava/lang/Object;Ljava/lang/Object;)Lcom/kairowan/room_flow/typed/AggregateGroup;
+
+  public static com.kairowan.room_flow.typed.AggregateGroup copy$default(com.kairowan.room_flow.typed.AggregateGroup, java.lang.Object, java.lang.Object, int, java.lang.Object);
+    descriptor: (Lcom/kairowan/room_flow/typed/AggregateGroup;Ljava/lang/Object;Ljava/lang/Object;ILjava/lang/Object;)Lcom/kairowan/room_flow/typed/AggregateGroup;
+
+  public java.lang.String toString();
+    descriptor: ()Ljava/lang/String;
+
+  public int hashCode();
+    descriptor: ()I
+
+  public boolean equals(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Z
+}
+public final class com.kairowan.room_flow.typed.AggregateKt {
+  public static final <E, V> com.kairowan.room_flow.typed.Aggregate<E, V> minimum(com.kairowan.room_flow.typed.EntityColumn<E, V>);
+    descriptor: (Lcom/kairowan/room_flow/typed/EntityColumn;)Lcom/kairowan/room_flow/typed/Aggregate;
+
+  public static final <E, V> com.kairowan.room_flow.typed.Aggregate<E, V> maximum(com.kairowan.room_flow.typed.EntityColumn<E, V>);
+    descriptor: (Lcom/kairowan/room_flow/typed/EntityColumn;)Lcom/kairowan/room_flow/typed/Aggregate;
+
+  public static final <E, V> com.kairowan.room_flow.typed.Aggregate<E, java.lang.Long> countDistinct(com.kairowan.room_flow.typed.EntityColumn<E, V>);
+    descriptor: (Lcom/kairowan/room_flow/typed/EntityColumn;)Lcom/kairowan/room_flow/typed/Aggregate;
+
+  public static final <E, V extends java.lang.Number> com.kairowan.room_flow.typed.Aggregate<E, java.lang.Long> sumLong(com.kairowan.room_flow.typed.EntityColumn<E, V>);
+    descriptor: (Lcom/kairowan/room_flow/typed/EntityColumn;)Lcom/kairowan/room_flow/typed/Aggregate;
+
+  public static final <E, V extends java.lang.Number> com.kairowan.room_flow.typed.Aggregate<E, java.lang.Double> sumDouble(com.kairowan.room_flow.typed.EntityColumn<E, V>);
+    descriptor: (Lcom/kairowan/room_flow/typed/EntityColumn;)Lcom/kairowan/room_flow/typed/Aggregate;
+
+  public static final <E, V extends java.lang.Number> com.kairowan.room_flow.typed.Aggregate<E, java.lang.Double> average(com.kairowan.room_flow.typed.EntityColumn<E, V>);
+    descriptor: (Lcom/kairowan/room_flow/typed/EntityColumn;)Lcom/kairowan/room_flow/typed/Aggregate;
+
+  public static final java.lang.Double access$readFiniteDouble(android.database.Cursor, int);
+    descriptor: (Landroid/database/Cursor;I)Ljava/lang/Double;
+}
+public final class com.kairowan.room_flow.typed.EntityColumn<E, V> {
+  public com.kairowan.room_flow.typed.EntityColumn(com.kairowan.room_flow.typed.EntityTable<E>, java.lang.String, java.lang.String, boolean, int, boolean, kotlin.jvm.functions.Function1<? super E, ? extends V>, kotlin.jvm.functions.Function2<? super android.database.Cursor, ? super java.lang.Integer, ? extends V>);
+    descriptor: (Lcom/kairowan/room_flow/typed/EntityTable;Ljava/lang/String;Ljava/lang/String;ZIZLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)V
+
+  public final com.kairowan.room_flow.typed.EntityTable<E> getOwner$room_flow_release();
+    descriptor: ()Lcom/kairowan/room_flow/typed/EntityTable;
+
+  public final java.lang.String getSqlName();
+    descriptor: ()Ljava/lang/String;
+
+  public final java.lang.String getAffinity$room_flow_release();
+    descriptor: ()Ljava/lang/String;
+
+  public final boolean getNullable$room_flow_release();
+    descriptor: ()Z
+
+  public final int getKeyPosition$room_flow_release();
+    descriptor: ()I
+
+  public final boolean getAutoGenerate$room_flow_release();
+    descriptor: ()Z
+
+  public final kotlin.jvm.functions.Function1<E, V> getGetter$room_flow_release();
+    descriptor: ()Lkotlin/jvm/functions/Function1;
+
+  public final kotlin.jvm.functions.Function2<android.database.Cursor, java.lang.Integer, V> getReader$room_flow_release();
+    descriptor: ()Lkotlin/jvm/functions/Function2;
+
+  public final java.lang.String getQuoted$room_flow_release();
+    descriptor: ()Ljava/lang/String;
+
+  public final com.kairowan.room_flow.typed.SqlCondition<E> eq(V);
+    descriptor: (Ljava/lang/Object;)Lcom/kairowan/room_flow/typed/SqlCondition;
+
+  public final com.kairowan.room_flow.typed.SqlCondition<E> notEq(V);
+    descriptor: (Ljava/lang/Object;)Lcom/kairowan/room_flow/typed/SqlCondition;
+
+  public final com.kairowan.room_flow.typed.SqlCondition<E> greaterThan(V);
+    descriptor: (Ljava/lang/Object;)Lcom/kairowan/room_flow/typed/SqlCondition;
+
+  public final com.kairowan.room_flow.typed.SqlCondition<E> lessThan(V);
+    descriptor: (Ljava/lang/Object;)Lcom/kairowan/room_flow/typed/SqlCondition;
+
+  public final com.kairowan.room_flow.typed.SqlCondition<E> greaterThanOrEqual(V);
+    descriptor: (Ljava/lang/Object;)Lcom/kairowan/room_flow/typed/SqlCondition;
+
+  public final com.kairowan.room_flow.typed.SqlCondition<E> lessThanOrEqual(V);
+    descriptor: (Ljava/lang/Object;)Lcom/kairowan/room_flow/typed/SqlCondition;
+
+  public final com.kairowan.room_flow.typed.SqlCondition<E> between(V, V);
+    descriptor: (Ljava/lang/Object;Ljava/lang/Object;)Lcom/kairowan/room_flow/typed/SqlCondition;
+
+  public final com.kairowan.room_flow.typed.SqlCondition<E> isNull();
+    descriptor: ()Lcom/kairowan/room_flow/typed/SqlCondition;
+
+  public final com.kairowan.room_flow.typed.SqlCondition<E> isNotNull();
+    descriptor: ()Lcom/kairowan/room_flow/typed/SqlCondition;
+
+  public final com.kairowan.room_flow.typed.SqlCondition<E> isIn(java.util.Collection<? extends V>);
+    descriptor: (Ljava/util/Collection;)Lcom/kairowan/room_flow/typed/SqlCondition;
+
+  public final com.kairowan.room_flow.typed.SqlCondition<E> notIn(java.util.Collection<? extends V>);
+    descriptor: (Ljava/util/Collection;)Lcom/kairowan/room_flow/typed/SqlCondition;
+
+  public final com.kairowan.room_flow.typed.SqlOrder<E> asc();
+    descriptor: ()Lcom/kairowan/room_flow/typed/SqlOrder;
+
+  public final com.kairowan.room_flow.typed.SqlOrder<E> desc();
+    descriptor: ()Lcom/kairowan/room_flow/typed/SqlOrder;
+}
+public final class com.kairowan.room_flow.typed.EntityColumnKt {
+  public static final <E, V extends java.lang.String> com.kairowan.room_flow.typed.SqlCondition<E> contains(com.kairowan.room_flow.typed.EntityColumn<E, V>, java.lang.String);
+    descriptor: (Lcom/kairowan/room_flow/typed/EntityColumn;Ljava/lang/String;)Lcom/kairowan/room_flow/typed/SqlCondition;
+
+  public static final <E, V extends java.lang.String> com.kairowan.room_flow.typed.SqlCondition<E> startsWith(com.kairowan.room_flow.typed.EntityColumn<E, V>, java.lang.String);
+    descriptor: (Lcom/kairowan/room_flow/typed/EntityColumn;Ljava/lang/String;)Lcom/kairowan/room_flow/typed/SqlCondition;
+
+  public static final <E, V extends java.lang.String> com.kairowan.room_flow.typed.SqlCondition<E> endsWith(com.kairowan.room_flow.typed.EntityColumn<E, V>, java.lang.String);
+    descriptor: (Lcom/kairowan/room_flow/typed/EntityColumn;Ljava/lang/String;)Lcom/kairowan/room_flow/typed/SqlCondition;
+
+  public static final java.lang.Object snapshotValue(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.typed.EntityCrudKt$executeTyped$$inlined$withTransactionRetry$1 extends kotlin.coroutines.jvm.internal.SuspendLambda implements kotlin.jvm.functions.Function1<kotlin.coroutines.Continuation<? super java.lang.Long>, java.lang.Object> {
+  public com.kairowan.room_flow.typed.EntityCrudKt$executeTyped$$inlined$withTransactionRetry$1(kotlin.coroutines.Continuation, java.lang.Integer, com.kairowan.room_flow.typed.EntityTable, androidx.room.RoomDatabase, androidx.sqlite.db.SupportSQLiteQuery, boolean);
+    descriptor: (Lkotlin/coroutines/Continuation;Ljava/lang/Integer;Lcom/kairowan/room_flow/typed/EntityTable;Landroidx/room/RoomDatabase;Landroidx/sqlite/db/SupportSQLiteQuery;Z)V
+
+  public final java.lang.Object invokeSuspend(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Ljava/lang/Object;
+
+  public final kotlin.coroutines.Continuation<kotlin.Unit> create(kotlin.coroutines.Continuation<?>);
+    descriptor: (Lkotlin/coroutines/Continuation;)Lkotlin/coroutines/Continuation;
+
+  public final java.lang.Object invoke(kotlin.coroutines.Continuation<? super java.lang.Long>);
+    descriptor: (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public java.lang.Object invoke(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.typed.EntityCrudKt {
+  public static final <E> com.kairowan.room_flow.typed.EntitySelect<E> select(androidx.room.RoomDatabase, com.kairowan.room_flow.typed.EntityTable<E>);
+    descriptor: (Landroidx/room/RoomDatabase;Lcom/kairowan/room_flow/typed/EntityTable;)Lcom/kairowan/room_flow/typed/EntitySelect;
+
+  public static final <E> com.kairowan.room_flow.typed.EntitySelect<E> select(androidx.room.RoomDatabase, com.kairowan.room_flow.typed.QuerySpec<E>);
+    descriptor: (Landroidx/room/RoomDatabase;Lcom/kairowan/room_flow/typed/QuerySpec;)Lcom/kairowan/room_flow/typed/EntitySelect;
+
+  public static final <E> com.kairowan.room_flow.typed.EntityUpdate<E> update(androidx.room.RoomDatabase, com.kairowan.room_flow.typed.EntityTable<E>);
+    descriptor: (Landroidx/room/RoomDatabase;Lcom/kairowan/room_flow/typed/EntityTable;)Lcom/kairowan/room_flow/typed/EntityUpdate;
+
+  public static final <E> com.kairowan.room_flow.typed.EntityDelete<E> delete(androidx.room.RoomDatabase, com.kairowan.room_flow.typed.EntityTable<E>);
+    descriptor: (Landroidx/room/RoomDatabase;Lcom/kairowan/room_flow/typed/EntityTable;)Lcom/kairowan/room_flow/typed/EntityDelete;
+
+  public static final <E> java.lang.Object insert(androidx.room.RoomDatabase, com.kairowan.room_flow.typed.EntityTable<E>, E, kotlin.coroutines.Continuation<? super java.lang.Long>);
+    descriptor: (Landroidx/room/RoomDatabase;Lcom/kairowan/room_flow/typed/EntityTable;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public static final <E> java.lang.Object update(androidx.room.RoomDatabase, com.kairowan.room_flow.typed.EntityTable<E>, E, kotlin.coroutines.Continuation<? super java.lang.Integer>);
+    descriptor: (Landroidx/room/RoomDatabase;Lcom/kairowan/room_flow/typed/EntityTable;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public static final <E> java.lang.Object delete(androidx.room.RoomDatabase, com.kairowan.room_flow.typed.EntityTable<E>, E, kotlin.coroutines.Continuation<? super java.lang.Integer>);
+    descriptor: (Landroidx/room/RoomDatabase;Lcom/kairowan/room_flow/typed/EntityTable;Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public static final <E> java.lang.Object executeTyped(androidx.room.RoomDatabase, com.kairowan.room_flow.typed.EntityTable<E>, androidx.sqlite.db.SupportSQLiteQuery, boolean, java.lang.Integer, kotlin.coroutines.Continuation<? super java.lang.Long>);
+    descriptor: (Landroidx/room/RoomDatabase;Lcom/kairowan/room_flow/typed/EntityTable;Landroidx/sqlite/db/SupportSQLiteQuery;ZLjava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public static java.lang.Object executeTyped$default(androidx.room.RoomDatabase, com.kairowan.room_flow.typed.EntityTable, androidx.sqlite.db.SupportSQLiteQuery, boolean, java.lang.Integer, kotlin.coroutines.Continuation, int, java.lang.Object);
+    descriptor: (Landroidx/room/RoomDatabase;Lcom/kairowan/room_flow/typed/EntityTable;Landroidx/sqlite/db/SupportSQLiteQuery;ZLjava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.typed.EntityDelete<E> {
+  public com.kairowan.room_flow.typed.EntityDelete(androidx.room.RoomDatabase, com.kairowan.room_flow.typed.EntityTable<E>);
+    descriptor: (Landroidx/room/RoomDatabase;Lcom/kairowan/room_flow/typed/EntityTable;)V
+
+  public final com.kairowan.room_flow.typed.EntityDelete<E> where(com.kairowan.room_flow.typed.SqlCondition<E>);
+    descriptor: (Lcom/kairowan/room_flow/typed/SqlCondition;)Lcom/kairowan/room_flow/typed/EntityDelete;
+
+  public final com.kairowan.room_flow.typed.EntityDelete<E> allRows();
+    descriptor: ()Lcom/kairowan/room_flow/typed/EntityDelete;
+
+  public final androidx.sqlite.db.SupportSQLiteQuery build();
+    descriptor: ()Landroidx/sqlite/db/SupportSQLiteQuery;
+
+  public final java.lang.Object execute(kotlin.coroutines.Continuation<? super java.lang.Integer>);
+    descriptor: (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public final java.lang.Object execute(int, kotlin.coroutines.Continuation<? super java.lang.Integer>);
+    descriptor: (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.typed.EntitySelect$observe$$inlined$map$1$2$1 extends kotlin.coroutines.jvm.internal.ContinuationImpl {
+  public com.kairowan.room_flow.typed.EntitySelect$observe$$inlined$map$1$2$1(com.kairowan.room_flow.typed.EntitySelect$observe$$inlined$map$1$2, kotlin.coroutines.Continuation);
+    descriptor: (Lcom/kairowan/room_flow/typed/EntitySelect$observe$$inlined$map$1$2;Lkotlin/coroutines/Continuation;)V
+
+  public final java.lang.Object invokeSuspend(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.typed.EntitySelect$observe$$inlined$map$1$2<T> implements kotlinx.coroutines.flow.FlowCollector {
+  public com.kairowan.room_flow.typed.EntitySelect$observe$$inlined$map$1$2(kotlinx.coroutines.flow.FlowCollector, androidx.room.RoomDatabase, com.kairowan.room_flow.typed.QuerySpec);
+    descriptor: (Lkotlinx/coroutines/flow/FlowCollector;Landroidx/room/RoomDatabase;Lcom/kairowan/room_flow/typed/QuerySpec;)V
+
+  public final java.lang.Object emit(java.lang.Object, kotlin.coroutines.Continuation);
+    descriptor: (Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.typed.EntitySelect$observe$$inlined$map$1 implements kotlinx.coroutines.flow.Flow<java.util.List<? extends E>> {
+  public com.kairowan.room_flow.typed.EntitySelect$observe$$inlined$map$1(kotlinx.coroutines.flow.Flow, androidx.room.RoomDatabase, com.kairowan.room_flow.typed.QuerySpec);
+    descriptor: (Lkotlinx/coroutines/flow/Flow;Landroidx/room/RoomDatabase;Lcom/kairowan/room_flow/typed/QuerySpec;)V
+
+  public java.lang.Object collect(kotlinx.coroutines.flow.FlowCollector, kotlin.coroutines.Continuation);
+    descriptor: (Lkotlinx/coroutines/flow/FlowCollector;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.typed.EntitySelect$observeAggregate$$inlined$map$1$2$1 extends kotlin.coroutines.jvm.internal.ContinuationImpl {
+  public com.kairowan.room_flow.typed.EntitySelect$observeAggregate$$inlined$map$1$2$1(com.kairowan.room_flow.typed.EntitySelect$observeAggregate$$inlined$map$1$2, kotlin.coroutines.Continuation);
+    descriptor: (Lcom/kairowan/room_flow/typed/EntitySelect$observeAggregate$$inlined$map$1$2;Lkotlin/coroutines/Continuation;)V
+
+  public final java.lang.Object invokeSuspend(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.typed.EntitySelect$observeAggregate$$inlined$map$1$2<T> implements kotlinx.coroutines.flow.FlowCollector {
+  public com.kairowan.room_flow.typed.EntitySelect$observeAggregate$$inlined$map$1$2(kotlinx.coroutines.flow.FlowCollector, androidx.room.RoomDatabase, com.kairowan.room_flow.typed.QuerySpec, com.kairowan.room_flow.typed.Aggregate);
+    descriptor: (Lkotlinx/coroutines/flow/FlowCollector;Landroidx/room/RoomDatabase;Lcom/kairowan/room_flow/typed/QuerySpec;Lcom/kairowan/room_flow/typed/Aggregate;)V
+
+  public final java.lang.Object emit(java.lang.Object, kotlin.coroutines.Continuation);
+    descriptor: (Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.typed.EntitySelect$observeAggregate$$inlined$map$1 implements kotlinx.coroutines.flow.Flow<R> {
+  public com.kairowan.room_flow.typed.EntitySelect$observeAggregate$$inlined$map$1(kotlinx.coroutines.flow.Flow, androidx.room.RoomDatabase, com.kairowan.room_flow.typed.QuerySpec, com.kairowan.room_flow.typed.Aggregate);
+    descriptor: (Lkotlinx/coroutines/flow/Flow;Landroidx/room/RoomDatabase;Lcom/kairowan/room_flow/typed/QuerySpec;Lcom/kairowan/room_flow/typed/Aggregate;)V
+
+  public java.lang.Object collect(kotlinx.coroutines.flow.FlowCollector, kotlin.coroutines.Continuation);
+    descriptor: (Lkotlinx/coroutines/flow/FlowCollector;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.typed.EntitySelect<E> {
+  public com.kairowan.room_flow.typed.EntitySelect(androidx.room.RoomDatabase, com.kairowan.room_flow.typed.EntityTable<E>);
+    descriptor: (Landroidx/room/RoomDatabase;Lcom/kairowan/room_flow/typed/EntityTable;)V
+
+  public com.kairowan.room_flow.typed.EntitySelect(androidx.room.RoomDatabase, com.kairowan.room_flow.typed.QuerySpec<E>);
+    descriptor: (Landroidx/room/RoomDatabase;Lcom/kairowan/room_flow/typed/QuerySpec;)V
+
+  public final com.kairowan.room_flow.typed.EntitySelect<E> where(com.kairowan.room_flow.typed.SqlCondition<E>);
+    descriptor: (Lcom/kairowan/room_flow/typed/SqlCondition;)Lcom/kairowan/room_flow/typed/EntitySelect;
+
+  public final com.kairowan.room_flow.typed.EntitySelect<E> orderBy(com.kairowan.room_flow.typed.SqlOrder<E>...);
+    descriptor: ([Lcom/kairowan/room_flow/typed/SqlOrder;)Lcom/kairowan/room_flow/typed/EntitySelect;
+
+  public final com.kairowan.room_flow.typed.EntitySelect<E> page(int, int);
+    descriptor: (II)Lcom/kairowan/room_flow/typed/EntitySelect;
+
+  public final androidx.sqlite.db.SupportSQLiteQuery build();
+    descriptor: ()Landroidx/sqlite/db/SupportSQLiteQuery;
+
+  public final com.kairowan.room_flow.typed.QuerySpec<E> toSpec();
+    descriptor: ()Lcom/kairowan/room_flow/typed/QuerySpec;
+
+  public final <R> com.kairowan.room_flow.typed.ProjectedSelect<E, R> project(com.kairowan.room_flow.typed.Projection<E, R>);
+    descriptor: (Lcom/kairowan/room_flow/typed/Projection;)Lcom/kairowan/room_flow/typed/ProjectedSelect;
+
+  public final java.lang.Object pageResult(int, int, kotlin.coroutines.Continuation<? super com.kairowan.room_flow.typed.PageResult<E>>);
+    descriptor: (IILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public final java.lang.Object firstOrNull(kotlin.coroutines.Continuation<? super E>);
+    descriptor: (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public final java.lang.Object exists(kotlin.coroutines.Continuation<? super java.lang.Boolean>);
+    descriptor: (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public final java.lang.Object count(kotlin.coroutines.Continuation<? super java.lang.Long>);
+    descriptor: (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public final java.lang.Object totalCount(kotlin.coroutines.Continuation<? super java.lang.Long>);
+    descriptor: (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public final <R> java.lang.Object aggregate(com.kairowan.room_flow.typed.Aggregate<E, R>, kotlin.coroutines.Continuation<? super R>);
+    descriptor: (Lcom/kairowan/room_flow/typed/Aggregate;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public final <K, R> java.lang.Object groupBy(com.kairowan.room_flow.typed.EntityColumn<E, K>, com.kairowan.room_flow.typed.Aggregate<E, R>, kotlin.coroutines.Continuation<? super java.util.List<com.kairowan.room_flow.typed.AggregateGroup<K, R>>>);
+    descriptor: (Lcom/kairowan/room_flow/typed/EntityColumn;Lcom/kairowan/room_flow/typed/Aggregate;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public final <R> kotlinx.coroutines.flow.Flow<R> observeAggregate(com.kairowan.room_flow.typed.Aggregate<E, R>);
+    descriptor: (Lcom/kairowan/room_flow/typed/Aggregate;)Lkotlinx/coroutines/flow/Flow;
+
+  public final kotlinx.coroutines.flow.Flow<java.util.List<E>> observe();
+    descriptor: ()Lkotlinx/coroutines/flow/Flow;
+
+  public final java.lang.Object list(kotlin.coroutines.Continuation<? super java.util.List<? extends E>>);
+    descriptor: (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public final <V> java.lang.Object values(com.kairowan.room_flow.typed.EntityColumn<E, V>, kotlin.coroutines.Continuation<? super java.util.List<? extends V>>);
+    descriptor: (Lcom/kairowan/room_flow/typed/EntityColumn;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public final java.lang.Object each(kotlin.jvm.functions.Function1<? super E, kotlin.Unit>, kotlin.coroutines.Continuation<? super java.lang.Long>);
+    descriptor: (Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public static final java.lang.Object access$count(com.kairowan.room_flow.typed.EntitySelect, com.kairowan.room_flow.typed.QuerySpec, kotlin.coroutines.Continuation);
+    descriptor: (Lcom/kairowan/room_flow/typed/EntitySelect;Lcom/kairowan/room_flow/typed/QuerySpec;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.typed.EntitySelectKt$wrapQuery$1 implements androidx.sqlite.db.SupportSQLiteQuery {
+  public java.lang.String getSql();
+    descriptor: ()Ljava/lang/String;
+
+  public void bindTo(androidx.sqlite.db.SupportSQLiteProgram);
+    descriptor: (Landroidx/sqlite/db/SupportSQLiteProgram;)V
+
+  public int getArgCount();
+    descriptor: ()I
+}
+public final class com.kairowan.room_flow.typed.EntitySelectKt {
+  public static final androidx.sqlite.db.SupportSQLiteQuery access$wrapQuery(androidx.sqlite.db.SupportSQLiteQuery, java.lang.String);
+    descriptor: (Landroidx/sqlite/db/SupportSQLiteQuery;Ljava/lang/String;)Landroidx/sqlite/db/SupportSQLiteQuery;
+}
+public final class com.kairowan.room_flow.typed.EntityTable$special$$inlined$sortedBy$1<T> implements java.util.Comparator {
+  public com.kairowan.room_flow.typed.EntityTable$special$$inlined$sortedBy$1();
+    descriptor: ()V
+
+  public final int compare(T, T);
+    descriptor: (Ljava/lang/Object;Ljava/lang/Object;)I
+}
+public abstract class com.kairowan.room_flow.typed.EntityTable<E> {
+  public com.kairowan.room_flow.typed.EntityTable(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+
+  public final java.lang.String getSqlName();
+    descriptor: ()Ljava/lang/String;
+
+  public final java.util.List<com.kairowan.room_flow.typed.EntityColumn<E, ?>> getColumns$room_flow_release();
+    descriptor: ()Ljava/util/List;
+
+  public final java.lang.String getQuoted$room_flow_release();
+    descriptor: ()Ljava/lang/String;
+
+  public final java.util.List<com.kairowan.room_flow.typed.EntityColumn<E, ?>> getKeys$room_flow_release();
+    descriptor: ()Ljava/util/List;
+
+  protected final <V> com.kairowan.room_flow.typed.EntityColumn<E, V> column(java.lang.String, java.lang.String, boolean, int, boolean, kotlin.jvm.functions.Function1<? super E, ? extends V>, kotlin.jvm.functions.Function2<? super android.database.Cursor, ? super java.lang.Integer, ? extends V>);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;ZIZLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Lcom/kairowan/room_flow/typed/EntityColumn;
+
+  public abstract E readEntity(android.database.Cursor);
+    descriptor: (Landroid/database/Cursor;)Ljava/lang/Object;
+
+  public final void owns$room_flow_release(com.kairowan.room_flow.typed.EntityColumn<E, ?>);
+    descriptor: (Lcom/kairowan/room_flow/typed/EntityColumn;)V
+
+  public final void owns$room_flow_release(com.kairowan.room_flow.typed.SqlCondition<E>);
+    descriptor: (Lcom/kairowan/room_flow/typed/SqlCondition;)V
+
+  public final androidx.sqlite.db.SimpleSQLiteQuery query$room_flow_release(java.lang.String, java.util.List<? extends java.lang.Object>);
+    descriptor: (Ljava/lang/String;Ljava/util/List;)Landroidx/sqlite/db/SimpleSQLiteQuery;
+
+  public final java.lang.Object validate$room_flow_release(androidx.room.RoomDatabase, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    descriptor: (Landroidx/room/RoomDatabase;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.typed.EntityUpdate<E> {
+  public com.kairowan.room_flow.typed.EntityUpdate(androidx.room.RoomDatabase, com.kairowan.room_flow.typed.EntityTable<E>);
+    descriptor: (Landroidx/room/RoomDatabase;Lcom/kairowan/room_flow/typed/EntityTable;)V
+
+  public final <V> com.kairowan.room_flow.typed.EntityUpdate<E> set(com.kairowan.room_flow.typed.EntityColumn<E, V>, V);
+    descriptor: (Lcom/kairowan/room_flow/typed/EntityColumn;Ljava/lang/Object;)Lcom/kairowan/room_flow/typed/EntityUpdate;
+
+  public final com.kairowan.room_flow.typed.EntityUpdate<E> where(com.kairowan.room_flow.typed.SqlCondition<E>);
+    descriptor: (Lcom/kairowan/room_flow/typed/SqlCondition;)Lcom/kairowan/room_flow/typed/EntityUpdate;
+
+  public final com.kairowan.room_flow.typed.EntityUpdate<E> allRows();
+    descriptor: ()Lcom/kairowan/room_flow/typed/EntityUpdate;
+
+  public final androidx.sqlite.db.SupportSQLiteQuery build();
+    descriptor: ()Landroidx/sqlite/db/SupportSQLiteQuery;
+
+  public final java.lang.Object execute(kotlin.coroutines.Continuation<? super java.lang.Integer>);
+    descriptor: (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public final java.lang.Object execute(int, kotlin.coroutines.Continuation<? super java.lang.Integer>);
+    descriptor: (ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.typed.PageResult<T> {
+  public com.kairowan.room_flow.typed.PageResult(java.util.List<? extends T>, long, int, int);
+    descriptor: (Ljava/util/List;JII)V
+
+  public final java.util.List<T> getItems();
+    descriptor: ()Ljava/util/List;
+
+  public final long getTotal();
+    descriptor: ()J
+
+  public final int getPage();
+    descriptor: ()I
+
+  public final int getPageSize();
+    descriptor: ()I
+
+  public final boolean getHasNext();
+    descriptor: ()Z
+
+  public final java.util.List<T> component1();
+    descriptor: ()Ljava/util/List;
+
+  public final long component2();
+    descriptor: ()J
+
+  public final int component3();
+    descriptor: ()I
+
+  public final int component4();
+    descriptor: ()I
+
+  public final com.kairowan.room_flow.typed.PageResult<T> copy(java.util.List<? extends T>, long, int, int);
+    descriptor: (Ljava/util/List;JII)Lcom/kairowan/room_flow/typed/PageResult;
+
+  public static com.kairowan.room_flow.typed.PageResult copy$default(com.kairowan.room_flow.typed.PageResult, java.util.List, long, int, int, int, java.lang.Object);
+    descriptor: (Lcom/kairowan/room_flow/typed/PageResult;Ljava/util/List;JIIILjava/lang/Object;)Lcom/kairowan/room_flow/typed/PageResult;
+
+  public java.lang.String toString();
+    descriptor: ()Ljava/lang/String;
+
+  public int hashCode();
+    descriptor: ()I
+
+  public boolean equals(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Z
+}
+public final class com.kairowan.room_flow.typed.ProjectedSelect$observe$$inlined$map$1$2$1 extends kotlin.coroutines.jvm.internal.ContinuationImpl {
+  public com.kairowan.room_flow.typed.ProjectedSelect$observe$$inlined$map$1$2$1(com.kairowan.room_flow.typed.ProjectedSelect$observe$$inlined$map$1$2, kotlin.coroutines.Continuation);
+    descriptor: (Lcom/kairowan/room_flow/typed/ProjectedSelect$observe$$inlined$map$1$2;Lkotlin/coroutines/Continuation;)V
+
+  public final java.lang.Object invokeSuspend(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.typed.ProjectedSelect$observe$$inlined$map$1$2<T> implements kotlinx.coroutines.flow.FlowCollector {
+  public com.kairowan.room_flow.typed.ProjectedSelect$observe$$inlined$map$1$2(kotlinx.coroutines.flow.FlowCollector, com.kairowan.room_flow.typed.ProjectedSelect);
+    descriptor: (Lkotlinx/coroutines/flow/FlowCollector;Lcom/kairowan/room_flow/typed/ProjectedSelect;)V
+
+  public final java.lang.Object emit(java.lang.Object, kotlin.coroutines.Continuation);
+    descriptor: (Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.typed.ProjectedSelect$observe$$inlined$map$1 implements kotlinx.coroutines.flow.Flow<java.util.List<? extends R>> {
+  public com.kairowan.room_flow.typed.ProjectedSelect$observe$$inlined$map$1(kotlinx.coroutines.flow.Flow, com.kairowan.room_flow.typed.ProjectedSelect);
+    descriptor: (Lkotlinx/coroutines/flow/Flow;Lcom/kairowan/room_flow/typed/ProjectedSelect;)V
+
+  public java.lang.Object collect(kotlinx.coroutines.flow.FlowCollector, kotlin.coroutines.Continuation);
+    descriptor: (Lkotlinx/coroutines/flow/FlowCollector;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.typed.ProjectedSelect<E, R> {
+  public com.kairowan.room_flow.typed.ProjectedSelect(androidx.room.RoomDatabase, com.kairowan.room_flow.typed.QuerySpec<E>, com.kairowan.room_flow.typed.Projection<E, R>);
+    descriptor: (Landroidx/room/RoomDatabase;Lcom/kairowan/room_flow/typed/QuerySpec;Lcom/kairowan/room_flow/typed/Projection;)V
+
+  public final androidx.sqlite.db.SupportSQLiteQuery build();
+    descriptor: ()Landroidx/sqlite/db/SupportSQLiteQuery;
+
+  public final java.lang.Object list(kotlin.coroutines.Continuation<? super java.util.List<? extends R>>);
+    descriptor: (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public final java.lang.Object firstOrNull(kotlin.coroutines.Continuation<? super R>);
+    descriptor: (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public final java.lang.Object pageResult(int, int, kotlin.coroutines.Continuation<? super com.kairowan.room_flow.typed.PageResult<R>>);
+    descriptor: (IILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public final kotlinx.coroutines.flow.Flow<java.util.List<R>> observe();
+    descriptor: ()Lkotlinx/coroutines/flow/Flow;
+
+  public static final java.lang.Object access$read(com.kairowan.room_flow.typed.ProjectedSelect, androidx.sqlite.db.SupportSQLiteQuery, kotlin.coroutines.Continuation);
+    descriptor: (Lcom/kairowan/room_flow/typed/ProjectedSelect;Landroidx/sqlite/db/SupportSQLiteQuery;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public static final androidx.room.RoomDatabase access$getDb$p(com.kairowan.room_flow.typed.ProjectedSelect);
+    descriptor: (Lcom/kairowan/room_flow/typed/ProjectedSelect;)Landroidx/room/RoomDatabase;
+
+  public static final com.kairowan.room_flow.typed.Projection access$getProjection$p(com.kairowan.room_flow.typed.ProjectedSelect);
+    descriptor: (Lcom/kairowan/room_flow/typed/ProjectedSelect;)Lcom/kairowan/room_flow/typed/Projection;
+}
+public final class com.kairowan.room_flow.typed.Projection<E, R> {
+  public com.kairowan.room_flow.typed.Projection(com.kairowan.room_flow.typed.EntityTable<E>, java.util.List<? extends com.kairowan.room_flow.typed.EntityColumn<E, ?>>, kotlin.jvm.functions.Function2<? super android.database.Cursor, ? super java.lang.Integer, ? extends R>);
+    descriptor: (Lcom/kairowan/room_flow/typed/EntityTable;Ljava/util/List;Lkotlin/jvm/functions/Function2;)V
+
+  public final com.kairowan.room_flow.typed.EntityTable<E> getTable$room_flow_release();
+    descriptor: ()Lcom/kairowan/room_flow/typed/EntityTable;
+
+  public final java.util.List<com.kairowan.room_flow.typed.EntityColumn<E, ?>> getColumns$room_flow_release();
+    descriptor: ()Ljava/util/List;
+
+  public final kotlin.jvm.functions.Function2<android.database.Cursor, java.lang.Integer, R> getRead$room_flow_release();
+    descriptor: ()Lkotlin/jvm/functions/Function2;
+
+  public final <T> com.kairowan.room_flow.typed.Projection<E, T> map(kotlin.jvm.functions.Function1<? super R, ? extends T>);
+    descriptor: (Lkotlin/jvm/functions/Function1;)Lcom/kairowan/room_flow/typed/Projection;
+
+  public final <B, T> com.kairowan.room_flow.typed.Projection<E, T> zip(com.kairowan.room_flow.typed.Projection<E, B>, kotlin.jvm.functions.Function2<? super R, ? super B, ? extends T>);
+    descriptor: (Lcom/kairowan/room_flow/typed/Projection;Lkotlin/jvm/functions/Function2;)Lcom/kairowan/room_flow/typed/Projection;
+}
+public final class com.kairowan.room_flow.typed.ProjectionKt {
+  public static final <E, V> com.kairowan.room_flow.typed.Projection<E, V> project(com.kairowan.room_flow.typed.EntityColumn<E, V>);
+    descriptor: (Lcom/kairowan/room_flow/typed/EntityColumn;)Lcom/kairowan/room_flow/typed/Projection;
+
+  public static final <E, A, B, R> com.kairowan.room_flow.typed.Projection<E, R> projection(com.kairowan.room_flow.typed.EntityColumn<E, A>, com.kairowan.room_flow.typed.EntityColumn<E, B>, kotlin.jvm.functions.Function2<? super A, ? super B, ? extends R>);
+    descriptor: (Lcom/kairowan/room_flow/typed/EntityColumn;Lcom/kairowan/room_flow/typed/EntityColumn;Lkotlin/jvm/functions/Function2;)Lcom/kairowan/room_flow/typed/Projection;
+}
+public final class com.kairowan.room_flow.typed.QuerySpec<E> {
+  public final com.kairowan.room_flow.typed.EntityTable<E> getTable$room_flow_release();
+    descriptor: ()Lcom/kairowan/room_flow/typed/EntityTable;
+
+  public com.kairowan.room_flow.typed.QuerySpec(com.kairowan.room_flow.typed.EntityTable<E>);
+    descriptor: (Lcom/kairowan/room_flow/typed/EntityTable;)V
+
+  public final com.kairowan.room_flow.typed.QuerySpec<E> where(com.kairowan.room_flow.typed.SqlCondition<E>);
+    descriptor: (Lcom/kairowan/room_flow/typed/SqlCondition;)Lcom/kairowan/room_flow/typed/QuerySpec;
+
+  public final <V> com.kairowan.room_flow.typed.QuerySpec<E> whereIfNotNull(V, kotlin.jvm.functions.Function1<? super V, com.kairowan.room_flow.typed.SqlCondition<E>>);
+    descriptor: (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lcom/kairowan/room_flow/typed/QuerySpec;
+
+  public final com.kairowan.room_flow.typed.QuerySpec<E> orderBy(com.kairowan.room_flow.typed.SqlOrder<E>...);
+    descriptor: ([Lcom/kairowan/room_flow/typed/SqlOrder;)Lcom/kairowan/room_flow/typed/QuerySpec;
+
+  public final com.kairowan.room_flow.typed.QuerySpec<E> page(int, int);
+    descriptor: (II)Lcom/kairowan/room_flow/typed/QuerySpec;
+
+  public final com.kairowan.room_flow.typed.QuerySpec<E> unpaged();
+    descriptor: ()Lcom/kairowan/room_flow/typed/QuerySpec;
+
+  public final com.kairowan.room_flow.typed.QuerySpec<E> seekAfter(E, int);
+    descriptor: (Ljava/lang/Object;I)Lcom/kairowan/room_flow/typed/QuerySpec;
+
+  public final androidx.sqlite.db.SupportSQLiteQuery build();
+    descriptor: ()Landroidx/sqlite/db/SupportSQLiteQuery;
+
+  public final androidx.sqlite.db.SupportSQLiteQuery buildProjection$room_flow_release(java.lang.String, boolean, boolean, boolean);
+    descriptor: (Ljava/lang/String;ZZZ)Landroidx/sqlite/db/SupportSQLiteQuery;
+
+  public static androidx.sqlite.db.SupportSQLiteQuery buildProjection$room_flow_release$default(com.kairowan.room_flow.typed.QuerySpec, java.lang.String, boolean, boolean, boolean, int, java.lang.Object);
+    descriptor: (Lcom/kairowan/room_flow/typed/QuerySpec;Ljava/lang/String;ZZZILjava/lang/Object;)Landroidx/sqlite/db/SupportSQLiteQuery;
+}
+public final class com.kairowan.room_flow.typed.QuerySpecKt {
+  public static final <E> com.kairowan.room_flow.typed.QuerySpec<E> query(com.kairowan.room_flow.typed.EntityTable<E>);
+    descriptor: (Lcom/kairowan/room_flow/typed/EntityTable;)Lcom/kairowan/room_flow/typed/QuerySpec;
+}
+public interface com.kairowan.room_flow.typed.RoomFlowEntity extends java.lang.annotation.Annotation {
+}
+public final class com.kairowan.room_flow.typed.SqlCondition<E> {
+  public com.kairowan.room_flow.typed.SqlCondition(com.kairowan.room_flow.typed.EntityTable<E>, java.lang.String, java.util.List<? extends java.lang.Object>);
+    descriptor: (Lcom/kairowan/room_flow/typed/EntityTable;Ljava/lang/String;Ljava/util/List;)V
+
+  public final com.kairowan.room_flow.typed.EntityTable<E> getOwner$room_flow_release();
+    descriptor: ()Lcom/kairowan/room_flow/typed/EntityTable;
+
+  public final java.lang.String getSql$room_flow_release();
+    descriptor: ()Ljava/lang/String;
+
+  public final java.util.List<java.lang.Object> getArgs$room_flow_release();
+    descriptor: ()Ljava/util/List;
+
+  public final com.kairowan.room_flow.typed.SqlCondition<E> not();
+    descriptor: ()Lcom/kairowan/room_flow/typed/SqlCondition;
+
+  public final com.kairowan.room_flow.typed.SqlCondition<E> and(com.kairowan.room_flow.typed.SqlCondition<E>);
+    descriptor: (Lcom/kairowan/room_flow/typed/SqlCondition;)Lcom/kairowan/room_flow/typed/SqlCondition;
+
+  public final com.kairowan.room_flow.typed.SqlCondition<E> or(com.kairowan.room_flow.typed.SqlCondition<E>);
+    descriptor: (Lcom/kairowan/room_flow/typed/SqlCondition;)Lcom/kairowan/room_flow/typed/SqlCondition;
+}
+public final class com.kairowan.room_flow.typed.SqlOrder<E> {
+  public com.kairowan.room_flow.typed.SqlOrder(com.kairowan.room_flow.typed.EntityColumn<E, ?>, boolean);
+    descriptor: (Lcom/kairowan/room_flow/typed/EntityColumn;Z)V
+
+  public final com.kairowan.room_flow.typed.EntityColumn<E, ?> getColumn$room_flow_release();
+    descriptor: ()Lcom/kairowan/room_flow/typed/EntityColumn;
+
+  public final boolean getDescending$room_flow_release();
+    descriptor: ()Z
+}
+public final class com.kairowan.room_flow.write.BusyRetry implements com.kairowan.room_flow.write.RetryPolicy {
+  public com.kairowan.room_flow.write.BusyRetry(int, long, long);
+    descriptor: (IJJ)V
+
+  public com.kairowan.room_flow.write.BusyRetry(int, long, long, int, kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (IJJILkotlin/jvm/internal/DefaultConstructorMarker;)V
+
+  public <T> java.lang.Object run(kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super T>, ? extends java.lang.Object>, kotlin.coroutines.Continuation<? super T>);
+    descriptor: (Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public com.kairowan.room_flow.write.BusyRetry();
+    descriptor: ()V
+}
+public final class com.kairowan.room_flow.write.QueueClosedException extends java.lang.IllegalStateException {
+  public com.kairowan.room_flow.write.QueueClosedException();
+    descriptor: ()V
+}
+public final class com.kairowan.room_flow.write.QueueFullException extends java.lang.IllegalStateException {
+  public com.kairowan.room_flow.write.QueueFullException();
+    descriptor: ()V
+}
+public interface com.kairowan.room_flow.write.RetryPolicy {
+  public abstract <T> java.lang.Object run(kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super T>, ? extends java.lang.Object>, kotlin.coroutines.Continuation<? super T>);
+    descriptor: (Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+public final class com.kairowan.room_flow.write.WriteQueue implements java.lang.AutoCloseable {
+  public com.kairowan.room_flow.write.WriteQueue(androidx.room.RoomDatabase, int, com.kairowan.room_flow.write.RetryPolicy, kotlinx.coroutines.CoroutineDispatcher, kotlin.jvm.functions.Function0<kotlin.Unit>, int);
+    descriptor: (Landroidx/room/RoomDatabase;ILcom/kairowan/room_flow/write/RetryPolicy;Lkotlinx/coroutines/CoroutineDispatcher;Lkotlin/jvm/functions/Function0;I)V
+
+  public com.kairowan.room_flow.write.WriteQueue(androidx.room.RoomDatabase, int, com.kairowan.room_flow.write.RetryPolicy, kotlinx.coroutines.CoroutineDispatcher, kotlin.jvm.functions.Function0, int, int, kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Landroidx/room/RoomDatabase;ILcom/kairowan/room_flow/write/RetryPolicy;Lkotlinx/coroutines/CoroutineDispatcher;Lkotlin/jvm/functions/Function0;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+
+  public final <T> kotlinx.coroutines.Deferred<T> submit(kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super T>, ? extends java.lang.Object>);
+    descriptor: (Lkotlin/jvm/functions/Function1;)Lkotlinx/coroutines/Deferred;
+
+  public final <I, R> kotlinx.coroutines.Deferred<java.util.List<R>> submitAll(java.util.List<? extends I>, kotlin.jvm.functions.Function1<? super I, ? extends java.lang.Object>, kotlin.jvm.functions.Function2<? super java.util.List<? extends I>, ? super kotlin.coroutines.Continuation<? super java.util.List<? extends R>>, ? extends java.lang.Object>);
+    descriptor: (Ljava/util/List;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Lkotlinx/coroutines/Deferred;
+
+  public static kotlinx.coroutines.Deferred submitAll$default(com.kairowan.room_flow.write.WriteQueue, java.util.List, kotlin.jvm.functions.Function1, kotlin.jvm.functions.Function2, int, java.lang.Object);
+    descriptor: (Lcom/kairowan/room_flow/write/WriteQueue;Ljava/util/List;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Lkotlinx/coroutines/Deferred;
+
+  public final void coalesce(java.lang.Object, kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super kotlin.Unit>, ? extends java.lang.Object>);
+    descriptor: (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)V
+
+  public final kotlinx.coroutines.Deferred<kotlin.Unit> flushCoalesced();
+    descriptor: ()Lkotlinx/coroutines/Deferred;
+
+  public void close();
+    descriptor: ()V
+
+  public final java.lang.Object closeAndJoin(kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    descriptor: (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public final java.lang.Object drainAndJoin(kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    descriptor: (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+
+  public static final androidx.room.RoomDatabase access$getDb$p(com.kairowan.room_flow.write.WriteQueue);
+    descriptor: (Lcom/kairowan/room_flow/write/WriteQueue;)Landroidx/room/RoomDatabase;
+
+  public static final com.kairowan.room_flow.write.RetryPolicy access$getRetryPolicy$p(com.kairowan.room_flow.write.WriteQueue);
+    descriptor: (Lcom/kairowan/room_flow/write/WriteQueue;)Lcom/kairowan/room_flow/write/RetryPolicy;
+
+  public static final kotlin.jvm.functions.Function0 access$getOnWriteCommitted$p(com.kairowan.room_flow.write.WriteQueue);
+    descriptor: (Lcom/kairowan/room_flow/write/WriteQueue;)Lkotlin/jvm/functions/Function0;
+
+  public static final kotlinx.coroutines.channels.Channel access$getChannel$p(com.kairowan.room_flow.write.WriteQueue);
+    descriptor: (Lcom/kairowan/room_flow/write/WriteQueue;)Lkotlinx/coroutines/channels/Channel;
+}

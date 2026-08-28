@@ -23,10 +23,20 @@ import kotlinx.coroutines.flow.conflate
  * @Description: TODO 多进程/ContentObserver 通知
  */
 class CrossProcessInvalidation(
-    private val context: Context,
+    context: Context,
     private val authority: String
 ) {
-    private fun uri(table: String): Uri = Uri.parse("content://$authority/roomflow/$table")
+    private val context = context.applicationContext
+
+    init {
+        require(authority.isNotBlank() && '/' !in authority) { "无效的 Provider authority" }
+        require(context.packageManager.resolveContentProvider(authority, 0) != null) { "必须注册真实 ContentProvider" }
+    }
+
+    private fun uri(table: String): Uri {
+        require(table.isNotBlank()) { "表名不能为空" }
+        return Uri.Builder().scheme("content").authority(authority).appendPath("roomflow").appendPath(table).build()
+    }
     fun notifyChanged(table: String) {
         context.contentResolver.notifyChange(uri(table), null)
     }

@@ -1,9 +1,8 @@
 package com.kairowan.roomflow.data
 
 import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Upsert
 
 
 /**
@@ -18,10 +17,11 @@ import androidx.room.Query
  */
 @Dao
 interface UserDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    /** Update existing parents in place; REPLACE can cascade-delete their children. */
+    @Upsert
     suspend fun upsert(vararg users: User): List<Long>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Upsert
     suspend fun upsertList(list: List<User>): List<Long>
 
     @Query("UPDATE users SET name = :name WHERE id = :id")
@@ -29,4 +29,7 @@ interface UserDao {
 
     @Query("SELECT COUNT(*) FROM users")
     fun countAll(): Int
+
+    @Query("SELECT MAX(id) FROM users")
+    suspend fun maxId(): Long?
 }

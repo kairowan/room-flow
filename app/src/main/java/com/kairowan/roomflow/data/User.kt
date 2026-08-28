@@ -2,6 +2,7 @@ package com.kairowan.roomflow.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.kairowan.room_flow.typed.RoomFlowEntity
 
 
 /**
@@ -16,6 +17,7 @@ import androidx.room.PrimaryKey
  */
 
 @Entity(tableName = "users")
+@RoomFlowEntity
 data class User(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val name: String,

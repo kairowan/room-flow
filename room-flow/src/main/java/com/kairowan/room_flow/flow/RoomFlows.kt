@@ -7,60 +7,32 @@ import com.kairowan.room_flow.core.withBusyRetry
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.channelFlow
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.conflate
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 
-/**
- * @author 浩楠
- *
- * @date 2025/8/24
- *
- *      _              _           _     _   ____  _             _ _
- *     / \   _ __   __| |_ __ ___ (_) __| | / ___|| |_ _   _  __| (_) ___
- *    / _ \ | '_ \ / _` | '__/ _ \| |/ _` | \___ \| __| | | |/ _` | |/ _ \
- *   / ___ \| | | | (_| | | | (_) | | (_| |  ___) | |_| |_| | (_| | | (_) |
- *  /_/   \_\_| |_|\__,_|_|  \___/|_|\__,_| |____/ \__|\__,_|\__,_|_|\___/
- * @Description: TODO 基于 Room InvalidationTracker 的 Flow 工具：
- */
-
-/**
- * 监听一个或多个表的“失效”事件，每次变更时发射 Unit
- */
-fun RoomDatabase.observeTables(vararg tables: String): Flow<Unit> = channelFlow {
-    val observer = object : InvalidationTracker.Observer(tables) {
-        override fun onInvalidated(tables: Set<String>) {
-            trySend(Unit)
+/** 订阅后先发射一次，再合并表失效事件；观察者在取消时移除。 */
+fun RoomDatabase.observeTables(vararg tables: String): Flow<Unit> {
+    require(tables.isNotEmpty() && tables.all { it.isNotBlank() }) { "必须指定观察表" }
+    return callbackFlow {
+        val observer = object : InvalidationTracker.Observer(tables) {
+            override fun onInvalidated(tables: Set<String>) {
+                trySend(Unit)
+            }
         }
-    }
-    invalidationTracker.addObserver(observer)
-    trySend(Unit)
-    awaitClose { invalidationTracker.removeObserver(observer) }
-}.conflate()
+        invalidationTracker.addObserver(observer)
+        trySend(Unit)
+        awaitClose { invalidationTracker.removeObserver(observer) }
+    }.conflate().flowOn(RoomFlowConfig.ioDispatcher)
+}
 
-/**
- * 构造一个 Flow：当 [tables] 中任意表失效时，使用 [query] 函数重新查询并发射。
- * - [query] 需为阻塞式查询（内部会自动放到 dispatcher 并做繁忙重试）；
- * - 初始也会执行一次查询并发射。
- */
+/** 串行重查；通用同步 block 不支持强制中断，长 SQL 使用带 CancellationSignal 的 rawQueryFlow。 */
 fun <T> RoomDatabase.flowQuery(
     vararg tables: String,
     dispatcher: CoroutineDispatcher = RoomFlowConfig.ioDispatcher,
     query: RoomDatabase.() -> T
-): Flow<T> = channelFlow {
-    val dbRef = this@flowQuery
-    val obs = object : InvalidationTracker.Observer(tables) {
-        override fun onInvalidated(tables: Set<String>) {
-            launch(dispatcher) {
-                val result = withBusyRetry { dbRef.query() }
-                trySend(result)
-            }
-        }
-    }
-    invalidationTracker.addObserver(obs)
-    launch(dispatcher) {
-        val initial = withBusyRetry { query() }
-        trySend(initial)
-    }
-    awaitClose { invalidationTracker.removeObserver(obs) }
-}.conflate()
+): Flow<T> = observeTables(*tables).map {
+    withContext(dispatcher) { withBusyRetry { query() } }
+}

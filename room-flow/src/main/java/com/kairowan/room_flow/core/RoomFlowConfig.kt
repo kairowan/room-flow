@@ -1,5 +1,10 @@
 package com.kairowan.room_flow.core
 
+import android.database.sqlite.SQLiteDatabaseLockedException
+import android.database.sqlite.SQLiteTableLockedException
+import com.kairowan.room_flow.metrics.RoomFlowMetrics
+import com.kairowan.room_flow.metrics.QueryObservation
+import kotlinx.coroutines.CancellationException
 import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -38,17 +43,25 @@ object RoomFlowConfig {
     @Volatile
     var verboseMaintenanceLog: Boolean = false
 
-    /** 是否允许库自动设置常见 PRAGMA（如 WAL / foreign_keys 等）。 */
+    /** 是否允许显式调用 tunePragmas 时设置 synchronous=NORMAL。 */
     @Volatile
     var allowPragmaTuning: Boolean = true
 
-    /** 注入自定义日志实现。 */
-    fun setLogger(logger: Trace.Logger) = Trace.setLogger(logger)
+    /** 仅在可信诊断环境显式开启；异常消息、cause 和 suppressed 可能含敏感数据。 */
+    @Volatile
+    var logExceptionDetails: Boolean = false
+
+    /** 可选 rawQueryList/rawQueryEach 诊断；快速非阻塞回调，由宿主按生命周期设置/清空。 */
+    @Volatile
+    var onQueryObserved: ((QueryObservation) -> Unit)? = null
+
+    /** 默认无日志；注入接收器后仍默认不传原始异常，消息/标签由调用方保证不含敏感数据。 */
+    fun setLogger(logger: Logger) = Trace.setLogger(logger)
 }
 
 /**
  * 统一的“数据库繁忙”重试包装器：
- * - 只对异常信息包含 "database is locked"/"busy" 等关键字进行指数退避重试；
+ * - 只对 Android SQLite 的数据库/表锁异常进行指数退避重试；
  * - 其他异常直接抛出；
  * - 最终仍失败则抛出最后一次异常。
  */
@@ -58,46 +71,38 @@ suspend inline fun <T> withBusyRetry(
     maxDelayMs: Long = RoomFlowConfig.busyMaxDelayMs,
     crossinline block: suspend () -> T
 ): T {
+    require(retries >= 0) { "retries 必须 >= 0" }
+    require(initialDelayMs > 0 && maxDelayMs >= initialDelayMs) { "重试延迟范围无效" }
     var attempt = 0
-    var delayMs = initialDelayMs.coerceAtLeast(1)
-    var last: Throwable? = null
-    while (attempt <= retries) {
+    var delayMs = initialDelayMs
+    while (true) {
         try {
             return block()
-        } catch (t: Throwable) {
-            val msg = t.message?.lowercase() ?: ""
-            val isBusy = "database is locked" in msg || "busy" in msg || "database locked" in msg
-            if (!isBusy || attempt == retries) {
-                last = t
-                break
-            }
+        } catch (t: CancellationException) {
+            throw t
+        } catch (t: Exception) {
+            if (t !is SQLiteDatabaseLockedException && t !is SQLiteTableLockedException) throw t
+            if (attempt == retries) throw t
+            RoomFlowMetrics.recordBusyRetry()
             Trace.w("RoomFlow", "数据库繁忙，准备重试 #$attempt，延时 ${delayMs}ms", t)
             delay(delayMs)
-            delayMs = (delayMs * 2).coerceAtMost(maxDelayMs)
+            delayMs = if (delayMs > maxDelayMs / 2) maxDelayMs else delayMs * 2
             attempt++
-            last = t
         }
     }
-    throw last ?: IllegalStateException("withBusyRetry 失败但未捕获异常")
 }
 
 /**
  * 可在数据库 onOpen 时调用：设置推荐的 PRAGMA。
- * - journal_mode=WAL：更好的读写并发；
  * - synchronous=NORMAL：在移动设备上较为平衡的安全/性能；
- * - foreign_keys=ON：启用外键约束。
+ * - WAL 和外键由 Room/OpenHelper 管理。NORMAL 在断电时可能丢失最近提交，重要数据不要启用此调优。
  * 多次调用是安全的（幂等）。
  */
 fun tunePragmas(db: SupportSQLiteDatabase) {
     if (!RoomFlowConfig.allowPragmaTuning) return
-    try {
-        db.execSQL("PRAGMA journal_mode=WAL;")
-        db.execSQL("PRAGMA synchronous=NORMAL;")
-        db.execSQL("PRAGMA foreign_keys=ON;")
-        if (RoomFlowConfig.verboseMaintenanceLog) {
-            Trace.d("RoomFlow", "已应用 PRAGMA: WAL/NORMAL/foreign_keys=ON")
-        }
-    } catch (t: Throwable) {
-        Trace.w("RoomFlow", "应用 PRAGMA 失败", t)
+    // ponytail: journal mode 和外键由 Room/OpenHelper 管理，不修改连接池级别配置。
+    db.execSQL("PRAGMA synchronous=NORMAL")
+    if (RoomFlowConfig.verboseMaintenanceLog) {
+        Trace.d("RoomFlow", "已应用 PRAGMA synchronous=NORMAL")
     }
 }

@@ -1,28 +1,37 @@
 package com.kairowan.room_flow.core
 
-/**
- * @author 浩楠
- *
- * @date 2025/8/24
- *
- *      _              _           _     _   ____  _             _ _
- *     / \   _ __   __| |_ __ ___ (_) __| | / ___|| |_ _   _  __| (_) ___
- *    / _ \ | '_ \ / _` | '__/ _ \| |/ _` | \___ \| __| | | |/ _` | |/ _ \
- *   / ___ \| | | | (_| | | | (_) | | (_| |  ___) | |_| |_| | (_| | | (_) |
- *  /_/   \_\_| |_|\__,_|_|  \___/|_|\__,_| |____/ \__|\__,_|\__,_|_|\___/
- * @Description: TODO  轻量级日志/耗时统计桥接类；库内统一走这里打印
- */
+/** 默认不输出日志。消息/标签必须由调用方脱敏；异常详情需显式开启。 */
 object Trace {
-    interface Logger {
-        fun d(tag: String, msg: String) {}
-        fun w(tag: String, msg: String, tr: Throwable? = null) {}
-        fun e(tag: String, msg: String, tr: Throwable? = null) {}
+    @Volatile
+    private var logger: Logger = object : Logger {}
+
+    internal fun setLogger(logger: Logger) { this.logger = logger }
+
+    private inline fun log(block: (Logger) -> Unit) {
+        try {
+            block(logger)
+        } catch (_: Exception) {
+            // ponytail: 日志接收器故障不能让已提交事务被上层重试。
+        }
     }
-    internal fun setLogger(l: Logger) { }
 
-    fun d(tag: String, msg: String) {  }
-    fun w(tag: String, msg: String, tr: Throwable? = null) {  }
-    fun e(tag: String, msg: String, tr: Throwable? = null) { }
+    fun d(tag: String, msg: String) = log { it.d(tag, msg) }
+    fun w(tag: String, msg: String, tr: Throwable? = null) = log {
+        it.w(tag, safeMessage(msg, tr), tr.takeIf { RoomFlowConfig.logExceptionDetails })
+    }
+    fun e(tag: String, msg: String, tr: Throwable? = null) = log {
+        it.e(tag, safeMessage(msg, tr), tr.takeIf { RoomFlowConfig.logExceptionDetails })
+    }
 
-    inline fun <T> measure(tag: String, what: String, block: () -> T): T = block()
+    private fun safeMessage(msg: String, tr: Throwable?): String =
+        if (tr == null) msg else "$msg [${tr.javaClass.simpleName}]"
+
+    inline fun <T> measure(tag: String, what: String, block: () -> T): T {
+        val started = System.nanoTime()
+        try {
+            return block()
+        } finally {
+            d(tag, "$what: ${(System.nanoTime() - started) / 1_000_000.0} ms")
+        }
+    }
 }

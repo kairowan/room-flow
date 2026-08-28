@@ -1,16 +1,35 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    `maven-publish`
+}
+
+// 仅用于本地产物验收，不配置远端仓库、发布凭据或正式版本。
+publishing {
+    publications {
+        register<MavenPublication>("verification") {
+            groupId = "com.kairowan.verification"
+            artifactId = "room-flow"
+            version = "0.0.0-room${providers.gradleProperty("roomVersion").getOrElse(libs.versions.room.get())}-LOCAL"
+            afterEvaluate { from(components["release"]) }
+        }
+    }
+    repositories {
+        maven {
+            name = "verification"
+            url = uri(providers.gradleProperty("verificationRepository").orNull?.let(::file)
+                ?: rootProject.layout.buildDirectory.dir("verification-repository").get().asFile)
+        }
+    }
 }
 
 android {
     namespace = "com.kairowan.room_flow"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 24
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -24,33 +43,29 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
     publishing {
         singleVariant("release") {
             withSourcesJar()
         }
     }
-    buildFeatures {
-        viewBinding = true
-    }
 }
 
 dependencies {
-    api ("androidx.room:room-runtime:2.6.1")
-    api ("androidx.room:room-ktx:2.6.1")
-    api ("androidx.sqlite:sqlite-ktx:2.4.0")
+    val roomVersion = providers.gradleProperty("roomVersion").getOrElse(libs.versions.room.get())
+    api("androidx.room:room-runtime:$roomVersion")
+    api("androidx.room:room-ktx:$roomVersion")
+    api("androidx.sqlite:sqlite-ktx:2.5.0")
+    constraints {
+        api("androidx.sqlite:sqlite-framework:2.5.0") {
+            because("SQLite 2.4 的 onOpen 恢复路径可能忽略 allowDataLossOnRecovery 并删库，b/348458416")
+        }
+    }
     api ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
-    api ("androidx.paging:paging-runtime-ktx:3.3.2")
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    api("androidx.paging:paging-common-ktx:3.3.2")
 }
