@@ -1,0 +1,6 @@
+jdk:
+  - openjdk17
+before_install:
+  - sdkmanager "platforms;android-36" "build-tools;35.0.0"
+install:
+  - ./gradlew :room-flow:publishToMavenLocal :room-flow-debug:publishToMavenLocal :room-flow-compiler:publishToMavenLocal -PreleaseVersion="$VERSION" -ProomVersion=2.6.1 --no-daemon --max-workers=2

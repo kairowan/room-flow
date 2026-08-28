@@ -29,6 +29,13 @@ jobs:
           ROOM_VERSION: ${{ matrix.room }}
           TMPDIR: ${{ runner.temp }}
         run: bash scripts/check-typed-compilation.sh
+      - name: Verify tagged publication coordinates
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          ROOM_VERSION: ${{ matrix.room }}
+          RELEASE_VERSION: ${{ github.ref_name }}
+          TMPDIR: ${{ runner.temp }}
+        run: bash scripts/check-artifact-consumer.sh --no-daemon --max-workers=2
       - uses: actions/upload-artifact@v4
         if: always()
         with:

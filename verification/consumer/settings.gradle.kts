@@ -10,8 +10,11 @@ dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         maven {
-            url = uri(file(providers.gradleProperty("verificationRepository").get()))
-            content { includeGroup("com.kairowan.verification") }
+            url = uri(providers.gradleProperty("verificationRepository").get())
+            content {
+                includeGroup(if (providers.gradleProperty("releaseVersion").isPresent)
+                    "com.github.kairowan.room-flow" else "com.kairowan.verification")
+            }
             if (providers.gradleProperty("pomOnly").orNull == "true") {
                 metadataSources {
                     mavenPom()

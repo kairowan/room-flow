@@ -27,7 +27,7 @@ for version in "${versions[@]}"; do
             embedded|custom) pattern='RF002:' ;;
             generic) pattern='RF001:' ;;
         esac
-        rg -q "$pattern" "$log" || { tail -n 70 "$log"; exit 1; }
+        grep -Eq "$pattern" "$log" || { tail -n 70 "$log"; exit 1; }
         echo "$version/$failure: expected compilation rejection"
     done
 done

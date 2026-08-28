@@ -14,7 +14,7 @@ dependencies {
 }
 ```
 
-上面使用仓库本地模块；当前没有正式远端发布坐标。本地制品验收会分别发布核心 AAR 和编译器 JAR，并用独立工程消费。
+上面使用仓库本地模块；外部项目的 JitPack 预发布坐标见 [README 接入](../README.md#setup)。核心 AAR 与编译器 JAR 必须使用同一 tag，编译器只通过 ksp 引入；本地制品验收也会用独立工程消费。
 处理器不会进入 APK，不需要 kotlin-reflect。KSP1/KSP2 模式沿用项目的 Room 2.6.1/2.8.4 配置。
 
 在**现有实体**上增加 `RoomFlowEntity` 注解即可，不必为了接入修改表结构或数据库版本。例如项目的 User：

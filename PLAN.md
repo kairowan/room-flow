@@ -8,7 +8,16 @@
 本轮目标：Room 2.6.1 与 2.8.4 的 Android OpenHelper 模式。中间版本不等于逐版本实测。
 SQLiteDriver 模式与 Room 3 是不同接口体系，本轮明确不宣称支持，不静默混入破坏性升级。
 
-## 2026-08-28 README 功能重写与动画（当前状态）
+## 2026-08-28 0.2.0-rc.1 预发布准备（当前状态）
+
+- 用户明确要求新 tag 和便捷依赖引入；沿用 JitPack，三个模块使用 `com.github.kairowan.room-flow:<module>:0.2.0-rc.1`。仅预发布，不关闭商用/许可证/生产签名门槛。
+- `releaseVersion` 显式切换版本化发布，默认验收坐标保留；同一份 Room 2.6.1 基线制品供两个宿主 Room 版本消费，Debug 正确传递依赖同版本核心，编译器另发 JAR/sources。
+- 本地 8 组合（Room 2.6.1/2.8.4 × 核心/Debug × GMM/POM-only）消费通过；默认验收路径 Room 2.6.1 的 4 组合回归通过。最终脚本兼容 macOS Bash 3 的空参数数组；首次运行中编辑脚本导致尾部读取异常，原日志保留，最终版本已另行完整重跑。
+- JitPack 使用的三个 `publishToMavenLocal` 任务已在临时 Maven 目录通过；类型规则、模块边界、JVM API、POM/GMM 坐标、源码 JAR 和 ZIP 完整性检查通过。未向个人 `~/.m2` 写入。
+- 上次远端 CI `33150542456` 两边界的构建/制品检查完成，编译拒绝步骤因 runner 没有 rg 失败；将单处日志 ERE 匹配改为系统 grep，不跳过非法用法检查、不新增运行时依赖。新 CI 需另行验证。
+- 本地发布检查日志与 Maven ZIP：`/tmp/roomflow-tag.N2CtyJ`；预发布 tag、Release 与远端下载结果在发布后记录。不恢复测试目录、不操作设备、不改 SDK 业务实现。
+
+## 2026-08-28 README 功能重写与动画
 
 - README 按实际 SDK 组织模块接入、typed CRUD、DTO/统计/游标、原生 SQL、Flow/Paging、事务队列、离线备份迁移、维护诊断和用户扩展，链接对应源码；未虚构发布坐标或扩大兼容承诺。
 - 将较长的线程/取消/数据安全/升级约定保留到 `docs/API-CONTRACTS.md`。新增两段功能示意 GIF 及静态 PNG，明确不是真机录屏/性能证据；动画仅播放两轮，生成脚本为 `scripts/render-readme-media.py`。

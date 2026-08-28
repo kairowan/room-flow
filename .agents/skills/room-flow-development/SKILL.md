@@ -111,7 +111,7 @@ description: Maintain the room-flow Android Room extension library and its demo;
 - CI 保留 Room 2.6.1/2.8.4 的构建、制品消费、编译拒绝检查，不再配置设备测试矩阵；同时构建开启 R8 的示例 Release，确认不含调试模块、测试组件或依赖。未实际运行的远程 CI 不标记通过。
 - 每类非平凡变更仍需最小可运行检查，优先复用保留的检查入口；需要 Android 运行时验证时在宿主或独立环境安排，并明确记录未验证项，不把空测试任务或构建成功当功能回归通过。事务/失效/分页/文件安全仍须验证失败或取消路径。
 - 备份故障检查复用内部 atomicCopy 的字节复制注入点，不向公共 API 暴露测试开关。模拟 IOException/不完整文件集不能宣称通过磁盘满、kill 或断电实测。
-- 本地发布通过 scripts/check-artifact-consumer.sh，在独立 verification/consumer 工程检查 AAR、传递依赖及 POM/GMM；只允许本地暂存，不配置远程凭据。
+- 本地发布通过 scripts/check-artifact-consumer.sh，在独立 verification/consumer 工程检查 AAR、传递依赖及 POM/GMM；默认只做本地暂存。用户明确要求 tag/依赖发布时，可传 releaseVersion 并走 jitpack.yml 的三个模块发布，不配置远程凭据、不发布 app、不移动已发布 tag。RELEASE_VERSION 复用同一基线制品检查两个宿主 Room；RELEASE_REPOSITORY 仅消费远端，不重新发布。
 - 两模块 JVM 可见签名由 checkJvmApi 与 verification/api 基线检查，更新需显式 --update 并审阅；不把 JVM 描述符检查当 Kotlin metadata/inline/行为兼容性验证。
 - 原设备/覆盖接入/进程中断脚本已随测试清理删除。后续故障验证仅在专用环境执行，force-stop 仅限明确授权的隔离进程；实际进程中断仍不等于断电/磁盘满实测。
 - 测试数量与设备结果只在 PLAN 最新阶段集中记录，README 引用它，避免不同文档保留相互矛盾的摘要。

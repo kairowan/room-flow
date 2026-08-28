@@ -4,13 +4,15 @@ plugins {
     `maven-publish`
 }
 
-// 仅用于本地产物验收，不配置远端仓库、发布凭据或正式版本。
+// 默认保留隔离验收坐标；显式 releaseVersion 用于版本化发布，不包含远端凭据。
+val releaseVersion = providers.gradleProperty("releaseVersion").orNull
+
 publishing {
     publications {
         register<MavenPublication>("verification") {
-            groupId = "com.kairowan.verification"
+            groupId = if (releaseVersion == null) "com.kairowan.verification" else "com.github.kairowan.room-flow"
             artifactId = "room-flow"
-            version = "0.0.0-room${providers.gradleProperty("roomVersion").getOrElse(libs.versions.room.get())}-LOCAL"
+            version = releaseVersion ?: "0.0.0-room${providers.gradleProperty("roomVersion").getOrElse(libs.versions.room.get())}-LOCAL"
             afterEvaluate { from(components["release"]) }
         }
     }

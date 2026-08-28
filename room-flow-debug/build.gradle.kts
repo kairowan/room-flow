@@ -4,12 +4,14 @@ plugins {
     `maven-publish`
 }
 
+val releaseVersion = providers.gradleProperty("releaseVersion").orNull
+
 publishing {
     publications {
         register<MavenPublication>("verification") {
-            groupId = "com.kairowan.verification"
+            groupId = if (releaseVersion == null) "com.kairowan.verification" else "com.github.kairowan.room-flow"
             artifactId = "room-flow-debug"
-            version = "0.0.0-room${providers.gradleProperty("roomVersion").getOrElse(libs.versions.room.get())}-LOCAL"
+            version = releaseVersion ?: "0.0.0-room${providers.gradleProperty("roomVersion").getOrElse(libs.versions.room.get())}-LOCAL"
             afterEvaluate { from(components["release"]) }
         }
     }

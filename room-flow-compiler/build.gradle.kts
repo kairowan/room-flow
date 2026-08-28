@@ -4,6 +4,8 @@ plugins {
 }
 
 kotlin { jvmToolchain(17) }
+java { withSourcesJar() }
+val releaseVersion = providers.gradleProperty("releaseVersion").orNull
 
 // Build-time only. No reflection, compiler or KSP dependency enters the Android runtime AAR.
 dependencies {
@@ -14,9 +16,9 @@ publishing {
     publications {
         register<MavenPublication>("verification") {
             from(components["java"])
-            groupId = "com.kairowan.verification"
+            groupId = if (releaseVersion == null) "com.kairowan.verification" else "com.github.kairowan.room-flow"
             artifactId = "room-flow-compiler"
-            version = "0.0.0-LOCAL"
+            version = releaseVersion ?: "0.0.0-LOCAL"
         }
     }
     repositories {

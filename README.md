@@ -6,7 +6,7 @@ Android / Kotlin · Room 2 · OpenHelper · minSdk 24
 
 room-flow 是 Room 的扩展 SDK，不是新的数据库引擎。保留你的 Entity、DAO、RoomDatabase 和 Migration，按需使用查询构造、写队列、分页、维护及诊断能力；不要求替换已有数据层。
 
-> 当前为待发布验收的开发版本，没有正式远端发布坐标。构建通过不等于商用验收完成；支持范围、历史证据和未关闭门槛见 [版本与验证](#verification) 及 [发布清单](docs/RELEASE-CHECKLIST.md)。
+> 当前发布目标为 `0.2.0-rc.1` 预发布版，使用 JitPack 多模块坐标。Tag/制品发布不等于商用验收完成；远端构建状态见 [JitPack](https://jitpack.io/#kairowan/room-flow/0.2.0-rc.1)，支持范围与未关闭门槛见 [版本与验证](#verification) 及 [发布清单](docs/RELEASE-CHECKLIST.md)。
 
 [功能总览](#features) · [快速接入](#setup) · [类型安全 CRUD](#typed) · [SQL / Flow / 分页](#queries) · [事务与队列](#writes) · [备份与迁移](#safety) · [维护与诊断](#operations) · [二次封装](#extension)
 
@@ -44,7 +44,37 @@ room-flow 是 Room 的扩展 SDK，不是新的数据库引擎。保留你的 En
 | `room-flow-debug` | 否 | Debug 面板，只放 `debugImplementation` |
 | `app` | 否 | 本仓库示例，不是 SDK 依赖 |
 
-以下是**在本仓库中运行示例**的依赖方式。外部项目需引入相应本地模块，或先使用 [本地制品验收脚本](scripts/check-artifact-consumer.sh) 生成制品；不要把未发布的版本号当作可下载依赖。
+外部项目在 `settings.gradle.kts` 添加仓库，仅允许它解析本 SDK 的 group：
+
+```kotlin
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+        maven("https://jitpack.io") {
+            content { includeGroup("com.github.kairowan.room-flow") }
+        }
+    }
+}
+```
+
+在应用模块中按需添加：
+
+```kotlin
+dependencies {
+    implementation("com.github.kairowan.room-flow:room-flow:0.2.0-rc.1")
+    // 仅需要类型安全实体 CRUD 时添加，宿主需已启用匹配版本的 KSP 插件。
+    ksp("com.github.kairowan.room-flow:room-flow-compiler:0.2.0-rc.1")
+    // 仅需要 Debug 面板时添加。
+    debugImplementation("com.github.kairowan.room-flow:room-flow-debug:0.2.0-rc.1")
+}
+```
+
+三个模块使用同一个 tag 版本。**不要使用聚合坐标 `com.github.kairowan:room-flow:0.2.0-rc.1`**，它可能把 Debug 模块和构建期处理器一起引入；多模块规则见 [JitPack 文档](https://docs.jitpack.io/building/#multi-module-projects)。首次解析会触发远端构建，依赖可用性以构建状态和实际下载为准。
+
+发布制品基于 Room 2.6.1，宿主可以对齐到已验证的 2.8.4；runtime/compiler/KSP 模式须一致。升级自 0.1.0 需重新编译，检查 [API 迁移说明](docs/API-CONTRACTS.md)。详细发布与本地 Maven 包引入见 [发布说明](docs/PUBLISHING.md)。
+
+以下是**在本仓库中运行示例**的本地模块方式：
 
 ```kotlin
 // app/build.gradle.kts
@@ -521,7 +551,7 @@ bash scripts/check-typed-compilation.sh --no-daemon --max-workers=2
 
 按所有者要求，单元/设备测试目录及运行脚本已删除，**不会自动恢复**。现有脚本与 CI 保留构建、制品消费、类型/API 和编译拒绝检查，不再执行设备矩阵。历史真机/模拟器证据保留在 [PLAN.md](PLAN.md)，不等于当前可以自动重跑，也不等于正式宿主验收完成。CI 配置存在不代表远程执行通过。
 
-正式商用仍须补齐宿主全部历史迁移、真实故障/后台生命周期、依赖与 API 审核、灰度及回滚，以及所有者确认的版本、坐标、LICENSE/NOTICE 和签名。详见 [发布清单](docs/RELEASE-CHECKLIST.md)。
+当前提供预发布 tag/依赖配置，不标记稳定商用完成。正式商用仍须补齐宿主全部历史迁移、真实故障/后台生命周期、依赖与 API 审核、灰度及回滚，以及所有者确认的 LICENSE/NOTICE 和生产签名。详见 [发布清单](docs/RELEASE-CHECKLIST.md)。
 
 <details>
 <summary>Gradle 下载失败 / TLS 握手失败</summary>
